@@ -1,0 +1,52 @@
+# Data Quality Control — Six-Dimension Framework
+
+Each record passing through the pipeline is evaluated on six quality dimensions. Failed records are flagged, logged, and excluded from KPI calculations. Submitters receive automated notifications for records below threshold.
+
+Example assessment output after running the notebook:
+
+```
+Data Quality Assessment Complete
+==================================================
+   Dimension  Pass_Count  Total  Fail_Count  Pass_Rate
+Completeness       26269  26468         199      99.25
+     Validity       26193  26468         275      98.96
+   Timeliness       26468  26468           0     100.00
+  Consistency       26073  26468         395      98.51
+     Accuracy       26129  26468         339      98.72
+   Uniqueness       26468  26468           0     100.00
+
+Overall pass rate: 97.1%
+Records passing all 6 checks: 25,709 / 26,468
+```
+
+The above table summarizes the data quality check results across six dimensions: Completeness, Validity, Timeliness, Consistency, Accuracy, and Uniqueness.
+
+- For each dimension, it displays the number of records passing and failing the check, as well as the pass rate (percentage of records passing).
+- These metrics provide a quantitative overview of data quality issues in the source dataset and highlight where further data cleaning or investigation may be needed.
+- The final lines report the overall pass rate (records passing all six checks) and the absolute number of fully clean records.
+
+### Data Quality Visualization
+
+The notebook saves a composite figure (`fig_dq_dashboard.png`). The figure summarizes data quality metrics across dimensions for facility records:
+
+- **Left panel:** Bar plot showing the percentage of records passing DQ checks for each core data quality dimension (completeness, validity, timeliness, consistency, uniqueness, and overall DQ). Higher percentages indicate better data quality for that dimension.
+- **Middle panel:** Bar plot showing the raw number of records failing each DQ check, highlighting which dimensions most often contribute to data quality issues.
+- **Right panel:** Histogram illustrating the distribution of facility-level flag (failure) rates across all records. For each facility, this shows the proportion of records with at least one DQ failure. A vertical dashed line marks the mean facility flag rate.
+
+The figure helps quickly identify systemic DQ issues and outlier facilities needing review or remediation.
+
+### Data Quality Table
+
+Facility-level DQ tables flag sites above a configurable flag-rate threshold before records flow to KPI calculation. Example notebook output shape:
+
+```
+Facilities with flag rate > 5%: 1
+
+facility_id            facility_name         region  total_records
+35      NH-036  Watertown Care Center 6  North Country            624
+
+    flag_rate_pct  completeness_pct  validity_pct  timeliness_pct dq_status
+35            5.1              98.2          98.7           100.0    REVIEW
+
+✅ Layer 2 → Layer 3: 24,658 clean records passed to transformation layer
+```

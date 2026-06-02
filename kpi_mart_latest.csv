@@ -1,0 +1,51 @@
+facility_id,facility_name,region,readmission_rate_pct,readmit_status,turnover_rate_pct,turnover_status,timeliness_rate_pct,complaint_status,licensed_beds,facility_type,ownership,composite_risk_score,overall_status
+NH-001,Buffalo Care Center 1,Western NY,3.33,ON TARGET,12.6,ON TARGET,,,74,CCRC,Not-for-profit,15.3,ON TARGET
+NH-002,Utica Care Center 1,Central NY,20.0,WARNING,4.9,ON TARGET,,,162,Skilled Nursing Facility,Not-for-profit,35.0,WARNING
+NH-003,Schenectady Care Center 1,Capital Region,25.0,ALERT,14.4,ON TARGET,,,134,CCRC,Government,47.2,ALERT
+NH-004,Manhattan Care Center 1,NYC Metro,15.52,ON TARGET,6.4,ON TARGET,,,112,Skilled Nursing Facility,Government,29.4,ON TARGET
+NH-005,Islip Care Center 1,Long Island,16.0,ON TARGET,4.3,ON TARGET,,,189,Nursing Home,For-profit,28.9,ON TARGET
+NH-006,Watertown Care Center 1,North Country,13.79,ON TARGET,11.5,ON TARGET,,,117,Skilled Nursing Facility,Not-for-profit,29.6,ON TARGET
+NH-007,Niagara Falls Care Center 2,Western NY,15.38,ON TARGET,12.4,ON TARGET,,,118,Skilled Nursing Facility,Not-for-profit,32.4,ON TARGET
+NH-008,Rome Care Center 2,Central NY,22.58,ALERT,3.9,ON TARGET,,,110,Nursing Home,Government,38.1,ALERT
+NH-009,Saratoga Springs Care Center 2,Capital Region,30.0,ALERT,11.3,ON TARGET,,,190,CCRC,Not-for-profit,52.7,ALERT
+NH-010,Staten Island Care Center 2,NYC Metro,10.81,ON TARGET,5.2,ON TARGET,,,80,CCRC,Government,22.0,ON TARGET
+NH-011,Hempstead Care Center 2,Long Island,15.91,ON TARGET,17.1,ON TARGET,,,68,Skilled Nursing Facility,For-profit,35.7,ON TARGET
+NH-012,Plattsburgh Care Center 2,North Country,22.64,ALERT,5.6,ON TARGET,,,143,Skilled Nursing Facility,For-profit,39.1,ALERT
+NH-013,Lockport Care Center 3,Western NY,26.32,ALERT,13.0,ON TARGET,,,67,CCRC,Government,48.4,ALERT
+NH-014,Auburn Care Center 3,Central NY,22.5,ALERT,12.6,ON TARGET,,,109,Nursing Home,Not-for-profit,42.7,ALERT
+NH-015,Glens Falls Care Center 3,Capital Region,25.0,ALERT,9.6,ON TARGET,,,193,Nursing Home,For-profit,44.6,ALERT
+NH-016,Bronx Care Center 3,NYC Metro,30.0,ALERT,4.5,ON TARGET,,,103,Nursing Home,Not-for-profit,49.0,ALERT
+NH-017,Babylon Care Center 3,Long Island,8.82,ON TARGET,6.2,ON TARGET,,,73,Nursing Home,For-profit,19.7,ON TARGET
+NH-018,Ogdensburg Care Center 3,North Country,15.38,ON TARGET,13.4,ON TARGET,,,99,CCRC,Not-for-profit,32.9,ON TARGET
+NH-019,Batavia Care Center 4,Western NY,17.5,ON TARGET,4.5,ON TARGET,,,170,Skilled Nursing Facility,For-profit,31.2,ON TARGET
+NH-020,Cortland Care Center 4,Central NY,19.15,WARNING,7.4,ON TARGET,,,183,Nursing Home,Not-for-profit,35.1,WARNING
+NH-021,Albany Care Center 4,Capital Region,28.21,ALERT,4.4,ON TARGET,,,74,Skilled Nursing Facility,Not-for-profit,46.4,ALERT
+NH-022,Brooklyn Care Center 4,NYC Metro,36.67,ALERT,3.1,ON TARGET,,,68,Skilled Nursing Facility,Government,57.8,ALERT
+NH-023,Huntington Care Center 4,Long Island,16.0,ON TARGET,9.4,ON TARGET,,,198,Skilled Nursing Facility,Government,31.7,ON TARGET
+NH-024,Malone Care Center 4,North Country,33.33,ALERT,9.8,ON TARGET,,,92,Skilled Nursing Facility,Government,56.6,ALERT
+NH-025,Olean Care Center 5,Western NY,8.82,ON TARGET,4.7,ON TARGET,,,100,Nursing Home,Government,18.9,ON TARGET
+NH-026,Syracuse Care Center 5,Central NY,16.13,ON TARGET,13.9,ON TARGET,,,131,CCRC,Not-for-profit,34.3,ON TARGET
+NH-027,Troy Care Center 5,Capital Region,27.5,ALERT,4.2,ON TARGET,,,121,CCRC,Government,45.3,ALERT
+NH-028,Queens Care Center 5,NYC Metro,10.0,ON TARGET,6.1,ON TARGET,,,94,CCRC,For-profit,21.3,ON TARGET
+NH-029,Oyster Bay Care Center 5,Long Island,45.83,ALERT,8.3,ON TARGET,,,190,CCRC,Not-for-profit,73.7,ALERT
+NH-030,Canton Care Center 5,North Country,6.67,ON TARGET,10.1,ON TARGET,,,162,Skilled Nursing Facility,For-profit,18.7,ON TARGET
+NH-031,Buffalo Care Center 6,Western NY,35.29,ALERT,5.6,ON TARGET,,,74,Skilled Nursing Facility,Government,57.2,ALERT
+NH-032,Utica Care Center 6,Central NY,11.76,ON TARGET,11.6,ON TARGET,,,122,Nursing Home,Not-for-profit,26.8,ON TARGET
+NH-033,Schenectady Care Center 6,Capital Region,15.0,ON TARGET,4.2,ON TARGET,,,111,CCRC,Not-for-profit,27.4,ON TARGET
+NH-034,Manhattan Care Center 6,NYC Metro,8.7,ON TARGET,8.3,ON TARGET,,,88,Nursing Home,Not-for-profit,20.6,ON TARGET
+NH-035,Islip Care Center 6,Long Island,13.73,ON TARGET,5.4,ON TARGET,,,145,Skilled Nursing Facility,Government,26.3,ON TARGET
+NH-036,Watertown Care Center 6,North Country,20.0,WARNING,4.5,ON TARGET,,,104,Nursing Home,For-profit,34.7,WARNING
+NH-037,Niagara Falls Care Center 7,Western NY,17.95,ON TARGET,17.0,ON TARGET,,,134,Nursing Home,For-profit,38.5,ON TARGET
+NH-038,Rome Care Center 7,Central NY,32.08,ALERT,13.3,ON TARGET,,,151,Nursing Home,Government,56.7,ALERT
+NH-039,Saratoga Springs Care Center 7,Capital Region,24.0,ALERT,11.0,ON TARGET,,,188,CCRC,For-profit,44.0,ALERT
+NH-040,Staten Island Care Center 7,NYC Metro,26.19,ALERT,17.2,ON TARGET,,,175,Nursing Home,Not-for-profit,50.4,ALERT
+NH-041,Hempstead Care Center 7,Long Island,25.58,ALERT,11.3,ON TARGET,,,196,CCRC,Government,46.4,ALERT
+NH-042,Plattsburgh Care Center 7,North Country,35.71,ALERT,6.9,ON TARGET,,,110,Skilled Nursing Facility,Not-for-profit,58.5,ALERT
+NH-043,Lockport Care Center 8,Western NY,29.79,ALERT,8.3,ON TARGET,,,177,CCRC,Government,50.8,ALERT
+NH-044,Auburn Care Center 8,Central NY,15.38,ON TARGET,7.5,ON TARGET,,,121,Skilled Nursing Facility,Not-for-profit,29.8,ON TARGET
+NH-045,Glens Falls Care Center 8,Capital Region,21.95,WARNING,9.9,ON TARGET,,,189,Nursing Home,Government,40.4,WARNING
+NH-046,Bronx Care Center 8,NYC Metro,28.26,ALERT,8.5,ON TARGET,,,172,Skilled Nursing Facility,Not-for-profit,48.7,ALERT
+NH-047,Babylon Care Center 8,Long Island,24.0,ALERT,10.1,ON TARGET,,,189,Skilled Nursing Facility,For-profit,43.5,ALERT
+NH-048,Ogdensburg Care Center 8,North Country,26.83,ALERT,7.4,ON TARGET,,,188,Skilled Nursing Facility,Not-for-profit,46.1,ALERT
+NH-049,Batavia Care Center 9,Western NY,23.68,ALERT,10.5,ON TARGET,,,127,Skilled Nursing Facility,For-profit,43.2,ALERT
+NH-050,Cortland Care Center 9,Central NY,12.9,ON TARGET,9.2,ON TARGET,,,97,CCRC,Government,27.1,ON TARGET

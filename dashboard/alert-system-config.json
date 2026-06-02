@@ -1,0 +1,183 @@
+{
+  "title": "Alert & Escalation System",
+  "subtitle": "Active alerts across all OALTC programs • Auto-generated • Updated 06:14 AM today",
+  "footnote": "Demo routing log; tie to alerting rules and SLA tables from Section 7 in production.",
+  "summary": [
+    {
+      "label": "Active alerts",
+      "value": "3",
+      "detail": "require action ≤ 2 days",
+      "tone": "alert"
+    },
+    {
+      "label": "Active warnings",
+      "value": "9",
+      "detail": "require action ≤ 5 days",
+      "tone": "warn"
+    },
+    {
+      "label": "On target",
+      "value": "22",
+      "detail": "no action needed",
+      "tone": "ok"
+    },
+    {
+      "label": "Resolved this month",
+      "value": "8",
+      "detail": "avg 3.4 days to resolve",
+      "tone": "neutral"
+    }
+  ],
+  "logTitle": "Active Alert Log",
+  "columns": [
+    { "key": "level", "label": "Level" },
+    { "key": "facility", "label": "Facility" },
+    { "key": "kpi", "label": "KPI" },
+    { "key": "currentValue", "label": "Current value" },
+    { "key": "threshold", "label": "Threshold" },
+    { "key": "periods", "label": "Consecutive periods" },
+    { "key": "assignee", "label": "Assigned to" },
+    { "key": "due", "label": "Due" }
+  ],
+  "rows": [
+    {
+      "level": "alert",
+      "facility": "Buffalo Care Center 2",
+      "kpi": "30-Day Readmission Rate",
+      "currentValue": "23.7%",
+      "threshold": ">18%",
+      "periods": "3 consecutive",
+      "assignee": "J. Rivera (Bureau Chief)",
+      "due": "May 6, 2026"
+    },
+    {
+      "level": "alert",
+      "facility": "Yonkers Care Center 1",
+      "kpi": "Pressure Ulcer Rate",
+      "currentValue": "3.4/1000 bed-days",
+      "threshold": ">3/1000",
+      "periods": "3 consecutive",
+      "assignee": "S. Patel (Program Mgr.)",
+      "due": "May 6, 2026"
+    },
+    {
+      "level": "alert",
+      "facility": "Schenectady Care Center 1",
+      "kpi": "Staff Turnover Rate",
+      "currentValue": "41.2%",
+      "threshold": ">35%",
+      "periods": "2 consecutive",
+      "assignee": "M. Chen (Workforce Lead)",
+      "due": "May 6, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Albany Care Center 1",
+      "kpi": "30-Day Readmission Rate",
+      "currentValue": "19.2%",
+      "threshold": ">18%",
+      "periods": "1 period",
+      "assignee": "J. Rivera (Bureau Chief)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Syracuse Care Center 1",
+      "kpi": "Complaint Investigation Rate",
+      "currentValue": "82.1%",
+      "threshold": "<85%",
+      "periods": "1 period",
+      "assignee": "K. Okonkwo (Analyst)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Rochester Care Center 1",
+      "kpi": "Falls with Injury",
+      "currentValue": "2.1/1000 bd-days",
+      "threshold": ">1.4/1000",
+      "periods": "1 period",
+      "assignee": "D. Williams (Quality)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Utica Care Center 1",
+      "kpi": "30-Day Readmission Rate",
+      "currentValue": "18.4%",
+      "threshold": ">18%",
+      "periods": "1 period",
+      "assignee": "J. Rivera (Bureau Chief)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Ithaca Care Center 1",
+      "kpi": "Staff Turnover Rate",
+      "currentValue": "37.8%",
+      "threshold": ">35%",
+      "periods": "1 period",
+      "assignee": "M. Chen (Workforce Lead)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Niagara Falls Care Center 1",
+      "kpi": "Complaint Investigation Rate",
+      "currentValue": "81.5%",
+      "threshold": "<85%",
+      "periods": "1 period",
+      "assignee": "K. Okonkwo (Analyst)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Elmira Care Center 1",
+      "kpi": "Timeliness of Assessments",
+      "currentValue": "88%",
+      "threshold": "<90%",
+      "periods": "1 period",
+      "assignee": "T. Nguyen (Regional Coach)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "Binghamton Care Center 1",
+      "kpi": "Pressure Ulcer Rate",
+      "currentValue": "3.1/1000 bed-days",
+      "threshold": ">3/1000",
+      "periods": "1 period",
+      "assignee": "S. Patel (Program Mgr.)",
+      "due": "May 9, 2026"
+    },
+    {
+      "level": "warning",
+      "facility": "New Rochelle Care Center 1",
+      "kpi": "DQ Completeness Score",
+      "currentValue": "91.8%",
+      "threshold": "<92%",
+      "periods": "1 period",
+      "assignee": "L. Gomez (Data Eng.)",
+      "due": "May 9, 2026"
+    }
+  ],
+  "timeline": {
+    "title": "Alert Resolution Timeline (Past 60 Days)",
+    "subheading": "Weekly volume by resolution state at period close",
+    "yAxisLabel": "Count",
+    "yMax": 16,
+    "yTicksStep": 4,
+    "legend": [
+      { "key": "resolved", "label": "Resolved", "color": "#059669" },
+      { "key": "warning", "label": "Open — warning", "color": "#ea580c" },
+      { "key": "alert", "label": "Open — alert", "color": "#dc2626" }
+    ],
+    "weeks": [
+      { "label": "Apr 7", "resolved": 5, "warning": 6, "alert": 2 },
+      { "label": "Apr 14", "resolved": 5, "warning": 6, "alert": 2 },
+      { "label": "Apr 21", "resolved": 5, "warning": 5, "alert": 2 },
+      { "label": "Apr 28", "resolved": 4, "warning": 6, "alert": 2 },
+      { "label": "May 5", "resolved": 4, "warning": 9, "alert": 2 }
+    ]
+  }
+}

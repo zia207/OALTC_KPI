@@ -1,0 +1,32 @@
+---
+title: "Dashboard Module (@dashboard)"
+format:
+  html:
+    code-fold: false
+---
+
+## Interactive Dashboard
+
+Use the embedded dashboard below for live navigation across:
+
+- 3.1 Data Pipeline
+- 3.2 Data Quality Control
+- 3.3 KPI Calculation (SQL)
+- 4.1 Executive Scorecard
+- 4.2 Program Monitor
+- 4.3 Alert System
+
+```{=html}
+<iframe src="dashboard/index.html" style="width:100%; min-height: 1000px; border:1px solid #e5e7eb; border-radius: 8px;" title="OALTC KPI Dashboard"></iframe>
+```
+
+The iframe resolves to `docs/dashboard/index.html` after render (see `resources` in `_quarto.yml`). Use **`quarto preview`** or any static server rooted at **`docs/`** — avoid `file://` if embedded JSON fails to load.
+
+## Config Files
+
+- Pipeline / architecture status panel: `dashboard/pipeline-config.json`
+- Data Quality panel (3.2): `dashboard/dq-config.json`
+- KPI SQL + simulated extracts: `dashboard/kpi-config.json` (dropdown, `CREATE OR REPLACE VIEW` text, demo table per KPI)
+- Executive scorecard (4.1): `dashboard/exec-scorecard-config.json` — Tier 1 metric cards, 12‑month readmission trend, regional equity bars
+- Program Performance Monitor (4.2): `dashboard/program-monitor-config.json` — facility rankings, region/status filters, sort controls, and summary counts (offline fallback embedded as base64 in `dashboard/index.html`)
+- Alert & Escalation System (4.3): `dashboard/alert-system-config.json` — KPI alert log, SLA-style due dates, and weekly stacked timeline (offline base64 fallback in `dashboard/index.html`)

@@ -1,0 +1,98 @@
+{
+  "title": "Data Architecture & Pipeline Status",
+  "subtitle": "Four-layer pipeline from raw submission → BigQuery curated marts → KPI transformation → executive dashboards.",
+  "lastRun": "Last scheduled run · today 06:00 AM",
+  "lastRefreshNote": "Timestamps reflect demo data; replace with orchestration metadata in production.",
+  "summary": [
+    {
+      "id": "facilities",
+      "label": "Facilities reporting",
+      "value": "50",
+      "detail": "of 50 expected",
+      "tone": "neutral"
+    },
+    {
+      "id": "ingested",
+      "label": "Records ingested",
+      "value": "124,830",
+      "detail": "this cycle",
+      "tone": "neutral"
+    },
+    {
+      "id": "status",
+      "label": "Pipeline status",
+      "value": "All systems OK",
+      "detail": "3 minor warnings",
+      "tone": "ok"
+    },
+    {
+      "id": "bq",
+      "label": "Last BigQuery refresh",
+      "value": "06:14 AM",
+      "detail": "4 hrs 12 min ago",
+      "tone": "neutral"
+    }
+  ],
+  "layers": [
+    {
+      "id": "L1",
+      "title": "Layer 1 — Ingestion",
+      "status": "ok",
+      "summary": "50/50 facilities submitted. 124,830 records received via OALTC submission portal and ITS-managed feeds. Schema validation passed. Batch closed at 05:47 AM.",
+      "breakdownTitle": "Records by source",
+      "breakdown": [
+        { "label": "NH submissions", "value": "89,240" },
+        { "label": "Home care feeds", "value": "22,180" },
+        { "label": "ITS umbrella apps", "value": "13,410" }
+      ]
+    },
+    {
+      "id": "L2",
+      "title": "Layer 2 — Raw storage (data lake)",
+      "status": "ok",
+      "summary": "All records written to BigQuery partition `oaltc_raw.nh_discharge_events` (date=2026-05-04). Retention policy: 7 years. Audit log updated.",
+      "stats": [
+        { "label": "Storage this cycle", "value": "2.3 GB" },
+        { "label": "Cumulative raw storage", "value": "18.7 GB" }
+      ]
+    },
+    {
+      "id": "L3",
+      "title": "Layer 3 — Transformation (data mart)",
+      "status": "warn",
+      "summary": "SQL / dbt pipelines executed. KPI views refreshed for 17 active metrics.",
+      "warning": "3 facilities have null values in `staff_fte` — excluded from turnover KPI this cycle.",
+      "stats": [
+        { "label": "Views refreshed", "value": "17" },
+        { "label": "Rows written to `kpi_mart`", "value": "850" },
+        { "label": "Warnings", "value": "3" }
+      ]
+    },
+    {
+      "id": "L4",
+      "title": "Layer 4 — Presentation",
+      "status": "ok",
+      "summary": "Dashboard data connections refreshed. Looker Studio report updated. Automated weekly summary email queued for 9:00 AM to program managers.",
+      "stats": [
+        { "label": "Dashboards refreshed", "value": "3" },
+        { "label": "Email recipients", "value": "12" },
+        { "label": "Next refresh", "value": "tomorrow 06:00 AM" }
+      ]
+    }
+  ],
+  "complianceChart": {
+    "title": "Submission compliance by program type",
+    "yAxisLabel": "% facilities",
+    "legend": [
+      { "key": "onTime", "label": "Submitted on time", "color": "#2f6f73" },
+      { "key": "late", "label": "Late submission", "color": "#fbbf24" },
+      { "key": "missing", "label": "Missing", "color": "#fca5a5" }
+    ],
+    "rows": [
+      { "program": "Nursing Homes", "n": 50, "onTime": 100, "late": 0, "missing": 0 },
+      { "program": "Home Care", "n": 28, "onTime": 90, "late": 5, "missing": 5 },
+      { "program": "Adult Day", "n": 14, "onTime": 80, "late": 15, "missing": 5 },
+      { "program": "Assisted Living", "n": 22, "onTime": 95, "late": 2, "missing": 3 }
+    ]
+  }
+}

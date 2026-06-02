@@ -1,0 +1,294 @@
+facility_id,report_year,report_quarter,staff_separations,avg_staff_headcount,rn_hours_per_day,turnover_rate_pct,performance_status,kpi_name,facility_name,region
+NH-001,2025,1,18,120.0,1.55,15.0,ON TARGET,Staff Turnover Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,2,15,105.0,0.93,14.3,ON TARGET,Staff Turnover Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,3,20,128.0,1.27,15.6,ON TARGET,Staff Turnover Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,4,15,114.0,1.71,13.2,ON TARGET,Staff Turnover Rate,Buffalo Care Center 1,Western NY
+NH-001,2026,1,7,79.0,1.54,8.9,ON TARGET,Staff Turnover Rate,Buffalo Care Center 1,Western NY
+NH-001,2026,2,13,86.0,0.73,15.1,ON TARGET,Staff Turnover Rate,Buffalo Care Center 1,Western NY
+NH-002,2025,1,2,48.0,0.38,4.2,ON TARGET,Staff Turnover Rate,Utica Care Center 1,Central NY
+NH-002,2025,2,5,110.0,1.2,4.5,ON TARGET,Staff Turnover Rate,Utica Care Center 1,Central NY
+NH-002,2025,3,7,118.0,1.52,5.9,ON TARGET,Staff Turnover Rate,Utica Care Center 1,Central NY
+NH-002,2025,4,9,134.0,0.64,6.7,ON TARGET,Staff Turnover Rate,Utica Care Center 1,Central NY
+NH-002,2026,1,10,170.0,1.7,5.9,ON TARGET,Staff Turnover Rate,Utica Care Center 1,Central NY
+NH-002,2026,2,3,83.0,1.74,3.6,ON TARGET,Staff Turnover Rate,Utica Care Center 1,Central NY
+NH-003,2025,1,3,68.0,0.98,4.4,ON TARGET,Staff Turnover Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,2,1,45.0,1.49,2.2,ON TARGET,Staff Turnover Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,3,4,76.0,1.39,5.3,ON TARGET,Staff Turnover Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,4,2,53.0,1.05,3.8,ON TARGET,Staff Turnover Rate,Schenectady Care Center 1,Capital Region
+NH-003,2026,1,6,142.0,0.44,4.2,ON TARGET,Staff Turnover Rate,Schenectady Care Center 1,Capital Region
+NH-003,2026,2,3,48.0,1.23,6.2,ON TARGET,Staff Turnover Rate,Schenectady Care Center 1,Capital Region
+NH-004,2025,1,7,95.0,1.48,7.4,ON TARGET,Staff Turnover Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,2,8,130.0,1.06,6.2,ON TARGET,Staff Turnover Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,3,3,68.0,1.16,4.4,ON TARGET,Staff Turnover Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,4,14,162.0,1.04,8.6,ON TARGET,Staff Turnover Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2026,1,3,65.0,1.61,4.6,ON TARGET,Staff Turnover Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2026,2,11,136.0,0.72,8.1,ON TARGET,Staff Turnover Rate,Manhattan Care Center 1,NYC Metro
+NH-005,2025,1,17,108.0,0.85,15.7,ON TARGET,Staff Turnover Rate,Islip Care Center 1,Long Island
+NH-005,2025,2,20,124.0,0.56,16.1,ON TARGET,Staff Turnover Rate,Islip Care Center 1,Long Island
+NH-005,2025,3,9,46.0,0.98,19.6,ON TARGET,Staff Turnover Rate,Islip Care Center 1,Long Island
+NH-005,2025,4,9,49.0,1.27,18.4,ON TARGET,Staff Turnover Rate,Islip Care Center 1,Long Island
+NH-005,2026,1,22,147.0,1.06,15.0,ON TARGET,Staff Turnover Rate,Islip Care Center 1,Long Island
+NH-005,2026,2,13,78.0,0.5,16.7,ON TARGET,Staff Turnover Rate,Islip Care Center 1,Long Island
+NH-006,2025,1,7,76.0,0.91,9.2,ON TARGET,Staff Turnover Rate,Watertown Care Center 1,North Country
+NH-006,2025,2,12,101.0,1.22,11.9,ON TARGET,Staff Turnover Rate,Watertown Care Center 1,North Country
+NH-006,2025,3,8,82.0,0.51,9.8,ON TARGET,Staff Turnover Rate,Watertown Care Center 1,North Country
+NH-006,2025,4,15,135.0,1.74,11.1,ON TARGET,Staff Turnover Rate,Watertown Care Center 1,North Country
+NH-006,2026,1,24,144.0,1.69,16.7,ON TARGET,Staff Turnover Rate,Watertown Care Center 1,North Country
+NH-006,2026,2,22,160.0,0.8,13.8,ON TARGET,Staff Turnover Rate,Watertown Care Center 1,North Country
+NH-007,2025,1,8,144.0,1.71,5.6,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,2,9,177.0,0.47,5.1,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,3,7,116.0,0.67,6.0,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,4,5,77.0,0.85,6.5,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2026,1,3,51.0,0.57,5.9,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2026,2,4,76.0,1.47,5.3,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 2,Western NY
+NH-008,2025,1,8,95.0,0.48,8.4,ON TARGET,Staff Turnover Rate,Rome Care Center 2,Central NY
+NH-008,2025,2,10,72.0,0.82,13.9,ON TARGET,Staff Turnover Rate,Rome Care Center 2,Central NY
+NH-008,2025,3,11,133.0,0.76,8.3,ON TARGET,Staff Turnover Rate,Rome Care Center 2,Central NY
+NH-008,2025,4,8,91.0,0.35,8.8,ON TARGET,Staff Turnover Rate,Rome Care Center 2,Central NY
+NH-008,2026,1,8,84.0,0.38,9.5,ON TARGET,Staff Turnover Rate,Rome Care Center 2,Central NY
+NH-008,2026,2,9,98.0,0.34,9.2,ON TARGET,Staff Turnover Rate,Rome Care Center 2,Central NY
+NH-009,2025,1,22,131.0,1.3,16.8,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,2,18,90.0,1.12,20.0,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,3,17,131.0,0.89,13.0,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,4,29,169.0,1.62,17.2,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2026,1,6,58.0,0.8,10.3,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2026,2,34,178.0,0.58,19.1,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 2,Capital Region
+NH-010,2025,1,9,112.0,1.56,8.0,ON TARGET,Staff Turnover Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,2,14,164.0,0.9,8.5,ON TARGET,Staff Turnover Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,3,4,54.0,0.68,7.4,ON TARGET,Staff Turnover Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,4,5,67.0,0.54,7.5,ON TARGET,Staff Turnover Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2026,1,5,55.0,1.01,9.1,ON TARGET,Staff Turnover Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2026,2,14,144.0,1.65,9.7,ON TARGET,Staff Turnover Rate,Staten Island Care Center 2,NYC Metro
+NH-011,2025,1,3,63.0,0.64,4.8,ON TARGET,Staff Turnover Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,2,3,50.0,0.41,6.0,ON TARGET,Staff Turnover Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,3,4,81.0,0.33,4.9,ON TARGET,Staff Turnover Rate,Hempstead Care Center 2,Long Island
+NH-011,2026,1,10,143.0,0.34,7.0,ON TARGET,Staff Turnover Rate,Hempstead Care Center 2,Long Island
+NH-011,2026,2,9,178.0,1.42,5.1,ON TARGET,Staff Turnover Rate,Hempstead Care Center 2,Long Island
+NH-012,2025,1,4,84.0,0.44,4.8,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,2,3,103.0,0.84,2.9,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,3,7,140.0,1.13,5.0,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,4,5,162.0,0.87,3.1,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 2,North Country
+NH-012,2026,1,5,105.0,0.6,4.8,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 2,North Country
+NH-012,2026,2,6,150.0,1.78,4.0,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 2,North Country
+NH-013,2025,1,20,155.0,1.15,12.9,ON TARGET,Staff Turnover Rate,Lockport Care Center 3,Western NY
+NH-013,2025,2,22,157.0,1.02,14.0,ON TARGET,Staff Turnover Rate,Lockport Care Center 3,Western NY
+NH-013,2025,3,7,59.0,1.01,11.9,ON TARGET,Staff Turnover Rate,Lockport Care Center 3,Western NY
+NH-013,2025,4,12,93.0,1.5,12.9,ON TARGET,Staff Turnover Rate,Lockport Care Center 3,Western NY
+NH-013,2026,2,12,112.0,0.87,10.7,ON TARGET,Staff Turnover Rate,Lockport Care Center 3,Western NY
+NH-014,2025,1,8,163.0,0.94,4.9,ON TARGET,Staff Turnover Rate,Auburn Care Center 3,Central NY
+NH-014,2025,2,7,114.0,0.93,6.1,ON TARGET,Staff Turnover Rate,Auburn Care Center 3,Central NY
+NH-014,2025,3,2,55.0,1.11,3.6,ON TARGET,Staff Turnover Rate,Auburn Care Center 3,Central NY
+NH-014,2025,4,5,100.0,1.71,5.0,ON TARGET,Staff Turnover Rate,Auburn Care Center 3,Central NY
+NH-014,2026,1,10,137.0,0.37,7.3,ON TARGET,Staff Turnover Rate,Auburn Care Center 3,Central NY
+NH-014,2026,2,7,109.0,1.76,6.4,ON TARGET,Staff Turnover Rate,Auburn Care Center 3,Central NY
+NH-015,2025,1,9,112.0,1.24,8.0,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,2,12,145.0,0.42,8.3,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,3,11,129.0,0.69,8.5,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,4,12,154.0,1.73,7.8,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2026,1,7,118.0,1.47,5.9,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2026,2,14,137.0,1.7,10.2,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 3,Capital Region
+NH-016,2025,1,13,155.0,1.03,8.4,ON TARGET,Staff Turnover Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,2,13,171.0,1.8,7.6,ON TARGET,Staff Turnover Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,3,16,134.0,1.56,11.9,ON TARGET,Staff Turnover Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,4,3,54.0,0.36,5.6,ON TARGET,Staff Turnover Rate,Bronx Care Center 3,NYC Metro
+NH-016,2026,1,9,125.0,0.7,7.2,ON TARGET,Staff Turnover Rate,Bronx Care Center 3,NYC Metro
+NH-016,2026,2,9,135.0,1.32,6.7,ON TARGET,Staff Turnover Rate,Bronx Care Center 3,NYC Metro
+NH-017,2025,1,4,62.0,1.04,6.5,ON TARGET,Staff Turnover Rate,Babylon Care Center 3,Long Island
+NH-017,2025,2,6,80.0,1.54,7.5,ON TARGET,Staff Turnover Rate,Babylon Care Center 3,Long Island
+NH-017,2025,3,7,100.0,0.54,7.0,ON TARGET,Staff Turnover Rate,Babylon Care Center 3,Long Island
+NH-017,2025,4,12,160.0,1.15,7.5,ON TARGET,Staff Turnover Rate,Babylon Care Center 3,Long Island
+NH-017,2026,1,8,160.0,1.68,5.0,ON TARGET,Staff Turnover Rate,Babylon Care Center 3,Long Island
+NH-017,2026,2,5,95.0,1.31,5.3,ON TARGET,Staff Turnover Rate,Babylon Care Center 3,Long Island
+NH-018,2025,1,7,113.0,0.64,6.2,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,2,7,127.0,0.88,5.5,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,3,6,86.0,0.59,7.0,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,4,7,88.0,1.64,8.0,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 3,North Country
+NH-018,2026,1,3,47.0,0.38,6.4,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 3,North Country
+NH-018,2026,2,7,96.0,1.04,7.3,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 3,North Country
+NH-019,2025,1,3,68.0,0.35,4.4,ON TARGET,Staff Turnover Rate,Batavia Care Center 4,Western NY
+NH-019,2025,2,4,129.0,0.37,3.1,ON TARGET,Staff Turnover Rate,Batavia Care Center 4,Western NY
+NH-019,2025,3,9,170.0,0.83,5.3,ON TARGET,Staff Turnover Rate,Batavia Care Center 4,Western NY
+NH-019,2025,4,7,133.0,1.07,5.3,ON TARGET,Staff Turnover Rate,Batavia Care Center 4,Western NY
+NH-019,2026,1,6,120.0,1.43,5.0,ON TARGET,Staff Turnover Rate,Batavia Care Center 4,Western NY
+NH-019,2026,2,6,126.0,1.28,4.8,ON TARGET,Staff Turnover Rate,Batavia Care Center 4,Western NY
+NH-020,2025,1,11,115.0,0.77,9.6,ON TARGET,Staff Turnover Rate,Cortland Care Center 4,Central NY
+NH-020,2025,3,5,41.0,0.57,12.2,ON TARGET,Staff Turnover Rate,Cortland Care Center 4,Central NY
+NH-020,2025,4,7,66.0,0.36,10.6,ON TARGET,Staff Turnover Rate,Cortland Care Center 4,Central NY
+NH-020,2026,1,13,86.0,0.61,15.1,ON TARGET,Staff Turnover Rate,Cortland Care Center 4,Central NY
+NH-020,2026,2,13,95.0,1.71,13.7,ON TARGET,Staff Turnover Rate,Cortland Care Center 4,Central NY
+NH-021,2025,1,5,56.0,0.33,8.9,ON TARGET,Staff Turnover Rate,Albany Care Center 4,Capital Region
+NH-021,2025,2,9,131.0,1.21,6.9,ON TARGET,Staff Turnover Rate,Albany Care Center 4,Capital Region
+NH-021,2025,3,10,124.0,1.19,8.1,ON TARGET,Staff Turnover Rate,Albany Care Center 4,Capital Region
+NH-021,2025,4,14,147.0,0.68,9.5,ON TARGET,Staff Turnover Rate,Albany Care Center 4,Capital Region
+NH-021,2026,1,4,42.0,0.7,9.5,ON TARGET,Staff Turnover Rate,Albany Care Center 4,Capital Region
+NH-021,2026,2,11,133.0,0.89,8.3,ON TARGET,Staff Turnover Rate,Albany Care Center 4,Capital Region
+NH-022,2025,1,6,76.0,0.91,7.9,ON TARGET,Staff Turnover Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,2,15,145.0,1.59,10.3,ON TARGET,Staff Turnover Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,3,6,70.0,1.39,8.6,ON TARGET,Staff Turnover Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,4,14,164.0,0.98,8.5,ON TARGET,Staff Turnover Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2026,1,18,168.0,1.48,10.7,ON TARGET,Staff Turnover Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2026,2,14,157.0,0.48,8.9,ON TARGET,Staff Turnover Rate,Brooklyn Care Center 4,NYC Metro
+NH-023,2025,1,4,88.0,1.19,4.5,ON TARGET,Staff Turnover Rate,Huntington Care Center 4,Long Island
+NH-023,2025,2,8,166.0,1.29,4.8,ON TARGET,Staff Turnover Rate,Huntington Care Center 4,Long Island
+NH-023,2025,3,7,133.0,1.61,5.3,ON TARGET,Staff Turnover Rate,Huntington Care Center 4,Long Island
+NH-023,2025,4,9,175.0,1.27,5.1,ON TARGET,Staff Turnover Rate,Huntington Care Center 4,Long Island
+NH-023,2026,1,7,148.0,1.03,4.7,ON TARGET,Staff Turnover Rate,Huntington Care Center 4,Long Island
+NH-023,2026,2,3,78.0,1.58,3.8,ON TARGET,Staff Turnover Rate,Huntington Care Center 4,Long Island
+NH-024,2025,1,22,158.0,0.47,13.9,ON TARGET,Staff Turnover Rate,Malone Care Center 4,North Country
+NH-024,2025,2,24,149.0,0.6,16.1,ON TARGET,Staff Turnover Rate,Malone Care Center 4,North Country
+NH-024,2025,3,16,104.0,0.4,15.4,ON TARGET,Staff Turnover Rate,Malone Care Center 4,North Country
+NH-024,2025,4,7,54.0,0.31,13.0,ON TARGET,Staff Turnover Rate,Malone Care Center 4,North Country
+NH-024,2026,1,13,94.0,1.29,13.8,ON TARGET,Staff Turnover Rate,Malone Care Center 4,North Country
+NH-024,2026,2,23,173.0,0.49,13.3,ON TARGET,Staff Turnover Rate,Malone Care Center 4,North Country
+NH-025,2025,1,16,162.0,1.12,9.9,ON TARGET,Staff Turnover Rate,Olean Care Center 5,Western NY
+NH-025,2025,2,15,175.0,0.66,8.6,ON TARGET,Staff Turnover Rate,Olean Care Center 5,Western NY
+NH-025,2025,3,11,153.0,1.61,7.2,ON TARGET,Staff Turnover Rate,Olean Care Center 5,Western NY
+NH-025,2025,4,10,121.0,0.4,8.3,ON TARGET,Staff Turnover Rate,Olean Care Center 5,Western NY
+NH-025,2026,1,12,103.0,1.1,11.7,ON TARGET,Staff Turnover Rate,Olean Care Center 5,Western NY
+NH-025,2026,2,12,121.0,1.57,9.9,ON TARGET,Staff Turnover Rate,Olean Care Center 5,Western NY
+NH-026,2025,1,14,146.0,1.79,9.6,ON TARGET,Staff Turnover Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,2,13,148.0,1.33,8.8,ON TARGET,Staff Turnover Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,3,15,128.0,0.58,11.7,ON TARGET,Staff Turnover Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,4,16,119.0,1.61,13.4,ON TARGET,Staff Turnover Rate,Syracuse Care Center 5,Central NY
+NH-026,2026,1,19,156.0,1.34,12.2,ON TARGET,Staff Turnover Rate,Syracuse Care Center 5,Central NY
+NH-026,2026,2,7,60.0,0.69,11.7,ON TARGET,Staff Turnover Rate,Syracuse Care Center 5,Central NY
+NH-027,2025,1,9,78.0,1.17,11.5,ON TARGET,Staff Turnover Rate,Troy Care Center 5,Capital Region
+NH-027,2025,2,12,130.0,0.65,9.2,ON TARGET,Staff Turnover Rate,Troy Care Center 5,Capital Region
+NH-027,2025,3,11,118.0,1.17,9.3,ON TARGET,Staff Turnover Rate,Troy Care Center 5,Capital Region
+NH-027,2025,4,20,179.0,0.88,11.2,ON TARGET,Staff Turnover Rate,Troy Care Center 5,Capital Region
+NH-027,2026,1,12,164.0,1.46,7.3,ON TARGET,Staff Turnover Rate,Troy Care Center 5,Capital Region
+NH-027,2026,2,19,161.0,0.43,11.8,ON TARGET,Staff Turnover Rate,Troy Care Center 5,Capital Region
+NH-028,2025,2,8,138.0,0.49,5.8,ON TARGET,Staff Turnover Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,3,6,77.0,0.86,7.8,ON TARGET,Staff Turnover Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,4,5,79.0,0.72,6.3,ON TARGET,Staff Turnover Rate,Queens Care Center 5,NYC Metro
+NH-028,2026,1,3,62.0,1.28,4.8,ON TARGET,Staff Turnover Rate,Queens Care Center 5,NYC Metro
+NH-028,2026,2,5,113.0,0.78,4.4,ON TARGET,Staff Turnover Rate,Queens Care Center 5,NYC Metro
+NH-029,2025,1,12,173.0,0.7,6.9,ON TARGET,Staff Turnover Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,2,8,115.0,1.31,7.0,ON TARGET,Staff Turnover Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,3,3,62.0,1.46,4.8,ON TARGET,Staff Turnover Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,4,5,69.0,1.03,7.2,ON TARGET,Staff Turnover Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2026,1,2,68.0,0.93,2.9,ON TARGET,Staff Turnover Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2026,2,5,88.0,0.68,5.7,ON TARGET,Staff Turnover Rate,Oyster Bay Care Center 5,Long Island
+NH-030,2025,1,8,80.0,0.98,10.0,ON TARGET,Staff Turnover Rate,Canton Care Center 5,North Country
+NH-030,2025,2,10,157.0,1.63,6.4,ON TARGET,Staff Turnover Rate,Canton Care Center 5,North Country
+NH-030,2025,3,9,112.0,1.46,8.0,ON TARGET,Staff Turnover Rate,Canton Care Center 5,North Country
+NH-030,2025,4,6,56.0,1.21,10.7,ON TARGET,Staff Turnover Rate,Canton Care Center 5,North Country
+NH-030,2026,1,12,122.0,1.02,9.8,ON TARGET,Staff Turnover Rate,Canton Care Center 5,North Country
+NH-030,2026,2,16,139.0,0.77,11.5,ON TARGET,Staff Turnover Rate,Canton Care Center 5,North Country
+NH-031,2025,1,10,111.0,0.67,9.0,ON TARGET,Staff Turnover Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,2,14,147.0,1.46,9.5,ON TARGET,Staff Turnover Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,3,16,134.0,1.77,11.9,ON TARGET,Staff Turnover Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,4,13,102.0,1.5,12.7,ON TARGET,Staff Turnover Rate,Buffalo Care Center 6,Western NY
+NH-031,2026,1,20,162.0,0.35,12.3,ON TARGET,Staff Turnover Rate,Buffalo Care Center 6,Western NY
+NH-031,2026,2,12,151.0,1.24,7.9,ON TARGET,Staff Turnover Rate,Buffalo Care Center 6,Western NY
+NH-032,2025,1,3,41.0,0.88,7.3,ON TARGET,Staff Turnover Rate,Utica Care Center 6,Central NY
+NH-032,2025,2,13,165.0,1.31,7.9,ON TARGET,Staff Turnover Rate,Utica Care Center 6,Central NY
+NH-032,2025,3,10,151.0,1.51,6.6,ON TARGET,Staff Turnover Rate,Utica Care Center 6,Central NY
+NH-032,2025,4,11,171.0,1.53,6.4,ON TARGET,Staff Turnover Rate,Utica Care Center 6,Central NY
+NH-032,2026,1,15,162.0,1.79,9.3,ON TARGET,Staff Turnover Rate,Utica Care Center 6,Central NY
+NH-032,2026,2,13,166.0,1.53,7.8,ON TARGET,Staff Turnover Rate,Utica Care Center 6,Central NY
+NH-033,2025,1,8,126.0,0.33,6.3,ON TARGET,Staff Turnover Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,2,8,149.0,0.69,5.4,ON TARGET,Staff Turnover Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,3,3,56.0,1.24,5.4,ON TARGET,Staff Turnover Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,4,7,106.0,1.33,6.6,ON TARGET,Staff Turnover Rate,Schenectady Care Center 6,Capital Region
+NH-033,2026,1,2,68.0,1.03,2.9,ON TARGET,Staff Turnover Rate,Schenectady Care Center 6,Capital Region
+NH-033,2026,2,4,85.0,0.64,4.7,ON TARGET,Staff Turnover Rate,Schenectady Care Center 6,Capital Region
+NH-034,2025,1,15,114.0,1.49,13.2,ON TARGET,Staff Turnover Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,2,20,160.0,1.47,12.5,ON TARGET,Staff Turnover Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,3,18,119.0,0.81,15.1,ON TARGET,Staff Turnover Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,4,13,122.0,0.57,10.7,ON TARGET,Staff Turnover Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2026,1,8,58.0,0.58,13.8,ON TARGET,Staff Turnover Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2026,2,9,70.0,1.64,12.9,ON TARGET,Staff Turnover Rate,Manhattan Care Center 6,NYC Metro
+NH-035,2025,1,8,95.0,1.66,8.4,ON TARGET,Staff Turnover Rate,Islip Care Center 6,Long Island
+NH-035,2025,2,11,143.0,1.04,7.7,ON TARGET,Staff Turnover Rate,Islip Care Center 6,Long Island
+NH-035,2025,3,5,40.0,1.21,12.5,ON TARGET,Staff Turnover Rate,Islip Care Center 6,Long Island
+NH-035,2025,4,11,115.0,1.06,9.6,ON TARGET,Staff Turnover Rate,Islip Care Center 6,Long Island
+NH-035,2026,1,17,150.0,1.72,11.3,ON TARGET,Staff Turnover Rate,Islip Care Center 6,Long Island
+NH-035,2026,2,16,143.0,0.47,11.2,ON TARGET,Staff Turnover Rate,Islip Care Center 6,Long Island
+NH-036,2025,1,7,111.0,1.49,6.3,ON TARGET,Staff Turnover Rate,Watertown Care Center 6,North Country
+NH-036,2025,2,7,124.0,0.85,5.6,ON TARGET,Staff Turnover Rate,Watertown Care Center 6,North Country
+NH-036,2025,3,5,71.0,1.69,7.0,ON TARGET,Staff Turnover Rate,Watertown Care Center 6,North Country
+NH-036,2025,4,3,43.0,1.63,7.0,ON TARGET,Staff Turnover Rate,Watertown Care Center 6,North Country
+NH-036,2026,1,4,98.0,0.36,4.1,ON TARGET,Staff Turnover Rate,Watertown Care Center 6,North Country
+NH-036,2026,2,10,167.0,0.85,6.0,ON TARGET,Staff Turnover Rate,Watertown Care Center 6,North Country
+NH-037,2025,1,6,142.0,0.69,4.2,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,2,2,43.0,1.53,4.7,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,3,9,171.0,1.23,5.3,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,4,3,61.0,0.68,4.9,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2026,1,4,85.0,0.71,4.7,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2026,2,2,63.0,0.7,3.2,ON TARGET,Staff Turnover Rate,Niagara Falls Care Center 7,Western NY
+NH-038,2025,1,9,89.0,0.74,10.1,ON TARGET,Staff Turnover Rate,Rome Care Center 7,Central NY
+NH-038,2025,2,5,48.0,0.73,10.4,ON TARGET,Staff Turnover Rate,Rome Care Center 7,Central NY
+NH-038,2025,3,15,94.0,1.46,16.0,ON TARGET,Staff Turnover Rate,Rome Care Center 7,Central NY
+NH-038,2025,4,11,72.0,1.48,15.3,ON TARGET,Staff Turnover Rate,Rome Care Center 7,Central NY
+NH-038,2026,1,16,154.0,1.38,10.4,ON TARGET,Staff Turnover Rate,Rome Care Center 7,Central NY
+NH-038,2026,2,19,171.0,0.77,11.1,ON TARGET,Staff Turnover Rate,Rome Care Center 7,Central NY
+NH-039,2025,1,13,77.0,1.0,16.9,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,2,24,128.0,1.27,18.8,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,3,13,100.0,1.3,13.0,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,4,21,112.0,0.59,18.8,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2026,1,6,50.0,1.13,12.0,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2026,2,14,109.0,0.6,12.8,ON TARGET,Staff Turnover Rate,Saratoga Springs Care Center 7,Capital Region
+NH-040,2025,1,2,42.0,1.76,4.8,ON TARGET,Staff Turnover Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,2,16,178.0,1.1,9.0,ON TARGET,Staff Turnover Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,3,9,136.0,1.52,6.6,ON TARGET,Staff Turnover Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,4,4,46.0,0.5,8.7,ON TARGET,Staff Turnover Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2026,2,6,107.0,1.68,5.6,ON TARGET,Staff Turnover Rate,Staten Island Care Center 7,NYC Metro
+NH-041,2025,1,9,100.0,1.66,9.0,ON TARGET,Staff Turnover Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,2,8,120.0,0.89,6.7,ON TARGET,Staff Turnover Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,3,9,115.0,0.31,7.8,ON TARGET,Staff Turnover Rate,Hempstead Care Center 7,Long Island
+NH-041,2026,1,11,174.0,0.71,6.3,ON TARGET,Staff Turnover Rate,Hempstead Care Center 7,Long Island
+NH-041,2026,2,5,62.0,0.63,8.1,ON TARGET,Staff Turnover Rate,Hempstead Care Center 7,Long Island
+NH-042,2025,1,16,161.0,0.55,9.9,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,2,13,107.0,0.76,12.1,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,3,6,71.0,1.64,8.5,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,4,9,122.0,1.21,7.4,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 7,North Country
+NH-042,2026,1,17,159.0,0.87,10.7,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 7,North Country
+NH-042,2026,2,12,101.0,0.84,11.9,ON TARGET,Staff Turnover Rate,Plattsburgh Care Center 7,North Country
+NH-043,2025,1,5,112.0,1.11,4.5,ON TARGET,Staff Turnover Rate,Lockport Care Center 8,Western NY
+NH-043,2025,2,5,151.0,0.56,3.3,ON TARGET,Staff Turnover Rate,Lockport Care Center 8,Western NY
+NH-043,2025,3,7,146.0,1.25,4.8,ON TARGET,Staff Turnover Rate,Lockport Care Center 8,Western NY
+NH-043,2025,4,2,74.0,1.05,2.7,ON TARGET,Staff Turnover Rate,Lockport Care Center 8,Western NY
+NH-043,2026,1,5,115.0,0.8,4.3,ON TARGET,Staff Turnover Rate,Lockport Care Center 8,Western NY
+NH-043,2026,2,7,144.0,1.24,4.9,ON TARGET,Staff Turnover Rate,Lockport Care Center 8,Western NY
+NH-044,2025,1,7,55.0,0.6,12.7,ON TARGET,Staff Turnover Rate,Auburn Care Center 8,Central NY
+NH-044,2025,2,9,49.0,1.13,18.4,ON TARGET,Staff Turnover Rate,Auburn Care Center 8,Central NY
+NH-044,2025,3,14,74.0,1.06,18.9,ON TARGET,Staff Turnover Rate,Auburn Care Center 8,Central NY
+NH-044,2025,4,10,57.0,0.44,17.5,ON TARGET,Staff Turnover Rate,Auburn Care Center 8,Central NY
+NH-044,2026,1,22,164.0,1.42,13.4,ON TARGET,Staff Turnover Rate,Auburn Care Center 8,Central NY
+NH-044,2026,2,20,138.0,1.15,14.5,ON TARGET,Staff Turnover Rate,Auburn Care Center 8,Central NY
+NH-045,2025,1,33,177.0,0.85,18.6,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,2,14,88.0,1.33,15.9,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,3,32,179.0,1.01,17.9,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,4,20,138.0,1.51,14.5,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2026,1,20,157.0,1.03,12.7,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2026,2,19,164.0,1.19,11.6,ON TARGET,Staff Turnover Rate,Glens Falls Care Center 8,Capital Region
+NH-046,2025,1,6,117.0,1.24,5.1,ON TARGET,Staff Turnover Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,2,9,145.0,1.3,6.2,ON TARGET,Staff Turnover Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,3,2,50.0,0.63,4.0,ON TARGET,Staff Turnover Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,4,5,120.0,1.13,4.2,ON TARGET,Staff Turnover Rate,Bronx Care Center 8,NYC Metro
+NH-046,2026,2,2,49.0,0.37,4.1,ON TARGET,Staff Turnover Rate,Bronx Care Center 8,NYC Metro
+NH-047,2025,1,4,122.0,1.58,3.3,ON TARGET,Staff Turnover Rate,Babylon Care Center 8,Long Island
+NH-047,2025,2,6,131.0,1.71,4.6,ON TARGET,Staff Turnover Rate,Babylon Care Center 8,Long Island
+NH-047,2025,3,6,177.0,1.44,3.4,ON TARGET,Staff Turnover Rate,Babylon Care Center 8,Long Island
+NH-047,2025,4,2,50.0,0.93,4.0,ON TARGET,Staff Turnover Rate,Babylon Care Center 8,Long Island
+NH-047,2026,1,3,67.0,1.53,4.5,ON TARGET,Staff Turnover Rate,Babylon Care Center 8,Long Island
+NH-047,2026,2,7,130.0,0.93,5.4,ON TARGET,Staff Turnover Rate,Babylon Care Center 8,Long Island
+NH-048,2025,1,5,90.0,0.83,5.6,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,2,7,133.0,1.35,5.3,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,3,3,71.0,0.56,4.2,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,4,8,179.0,0.52,4.5,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 8,North Country
+NH-048,2026,1,11,173.0,1.25,6.4,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 8,North Country
+NH-048,2026,2,5,107.0,0.92,4.7,ON TARGET,Staff Turnover Rate,Ogdensburg Care Center 8,North Country
+NH-049,2025,1,6,163.0,0.89,3.7,ON TARGET,Staff Turnover Rate,Batavia Care Center 9,Western NY
+NH-049,2025,2,3,83.0,0.58,3.6,ON TARGET,Staff Turnover Rate,Batavia Care Center 9,Western NY
+NH-049,2025,3,5,162.0,1.57,3.1,ON TARGET,Staff Turnover Rate,Batavia Care Center 9,Western NY
+NH-049,2025,4,6,154.0,1.4,3.9,ON TARGET,Staff Turnover Rate,Batavia Care Center 9,Western NY
+NH-049,2026,1,5,114.0,0.8,4.4,ON TARGET,Staff Turnover Rate,Batavia Care Center 9,Western NY
+NH-049,2026,2,2,85.0,0.74,2.4,ON TARGET,Staff Turnover Rate,Batavia Care Center 9,Western NY
+NH-050,2025,1,25,171.0,0.91,14.6,ON TARGET,Staff Turnover Rate,Cortland Care Center 9,Central NY
+NH-050,2025,2,24,160.0,1.4,15.0,ON TARGET,Staff Turnover Rate,Cortland Care Center 9,Central NY
+NH-050,2025,3,24,153.0,0.48,15.7,ON TARGET,Staff Turnover Rate,Cortland Care Center 9,Central NY
+NH-050,2025,4,21,144.0,0.65,14.6,ON TARGET,Staff Turnover Rate,Cortland Care Center 9,Central NY
+NH-050,2026,1,21,140.0,0.4,15.0,ON TARGET,Staff Turnover Rate,Cortland Care Center 9,Central NY
+NH-050,2026,2,8,55.0,1.31,14.5,ON TARGET,Staff Turnover Rate,Cortland Care Center 9,Central NY

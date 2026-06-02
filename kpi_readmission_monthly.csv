@@ -1,0 +1,651 @@
+facility_id,report_year,report_month,numerator,denominator,readmission_rate_pct,performance_status,kpi_name,facility_name,region
+NH-001,2025,4,5,30,16.67,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,5,9,30,30.0,ALERT,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,6,6,27,22.22,ALERT,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,7,7,28,25.0,ALERT,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,8,5,30,16.67,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,9,7,29,24.14,ALERT,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,10,7,29,24.14,ALERT,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,11,5,29,17.24,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2025,12,7,30,23.33,ALERT,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2026,1,4,29,13.79,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2026,2,4,28,14.29,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2026,3,4,30,13.33,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-001,2026,4,1,30,3.33,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 1,Western NY
+NH-002,2025,4,10,40,25.0,ALERT,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,5,6,40,15.0,ON TARGET,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,6,8,41,19.51,WARNING,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,7,8,39,20.51,WARNING,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,8,5,42,11.9,ON TARGET,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,9,6,39,15.38,ON TARGET,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,10,4,42,9.52,ON TARGET,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,11,4,41,9.76,ON TARGET,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2025,12,4,40,10.0,ON TARGET,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2026,1,8,42,19.05,WARNING,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2026,2,8,39,20.51,WARNING,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2026,3,8,42,19.05,WARNING,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-002,2026,4,8,40,20.0,WARNING,30-Day Readmission Rate,Utica Care Center 1,Central NY
+NH-003,2025,4,4,23,17.39,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,5,3,21,14.29,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,6,5,23,21.74,WARNING,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,7,3,23,13.04,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,8,2,23,8.7,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,9,2,23,8.7,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,10,3,24,12.5,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,11,2,23,8.7,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2025,12,7,24,29.17,ALERT,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2026,1,6,23,26.09,ALERT,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2026,2,2,24,8.33,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2026,3,10,24,41.67,ALERT,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-003,2026,4,6,24,25.0,ALERT,30-Day Readmission Rate,Schenectady Care Center 1,Capital Region
+NH-004,2025,4,10,57,17.54,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,5,5,57,8.77,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,6,11,54,20.37,WARNING,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,7,11,53,20.75,WARNING,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,8,10,57,17.54,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,9,7,56,12.5,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,10,8,57,14.04,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,11,11,57,19.3,WARNING,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2025,12,9,56,16.07,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2026,1,14,57,24.56,ALERT,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2026,2,11,56,19.64,WARNING,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2026,3,6,57,10.53,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-004,2026,4,9,58,15.52,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 1,NYC Metro
+NH-005,2025,4,4,25,16.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,5,3,25,12.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,6,1,26,3.85,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,7,1,26,3.85,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,8,4,24,16.67,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,9,4,25,16.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,10,4,25,16.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,11,1,24,4.17,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2025,12,3,25,12.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2026,1,1,25,4.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2026,2,3,25,12.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2026,3,1,26,3.85,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-005,2026,4,4,25,16.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 1,Long Island
+NH-006,2025,4,4,28,14.29,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,5,5,28,17.86,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,6,2,27,7.41,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,7,7,28,25.0,ALERT,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,8,5,26,19.23,WARNING,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,9,7,29,24.14,ALERT,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,10,4,28,14.29,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,11,3,29,10.34,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2025,12,2,28,7.14,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2026,1,5,28,17.86,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2026,2,4,29,13.79,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2026,3,5,29,17.24,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-006,2026,4,4,29,13.79,ON TARGET,30-Day Readmission Rate,Watertown Care Center 1,North Country
+NH-007,2025,4,10,52,19.23,WARNING,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,5,12,50,24.0,ALERT,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,6,12,50,24.0,ALERT,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,7,13,53,24.53,ALERT,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,8,6,52,11.54,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,9,4,52,7.69,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,10,16,53,30.19,ALERT,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,11,10,52,19.23,WARNING,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2025,12,8,48,16.67,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2026,1,15,52,28.85,ALERT,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2026,2,10,49,20.41,WARNING,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2026,3,9,51,17.65,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-007,2026,4,8,52,15.38,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 2,Western NY
+NH-008,2025,4,15,31,48.39,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,5,6,29,20.69,WARNING,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,6,7,31,22.58,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,7,9,30,30.0,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,8,8,32,25.0,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,9,5,32,15.62,ON TARGET,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,10,11,31,35.48,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,11,9,30,30.0,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2025,12,9,31,29.03,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2026,1,10,32,31.25,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2026,2,10,32,31.25,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2026,3,4,31,12.9,ON TARGET,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-008,2026,4,7,31,22.58,ALERT,30-Day Readmission Rate,Rome Care Center 2,Central NY
+NH-009,2025,4,10,38,26.32,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,5,9,40,22.5,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,6,6,38,15.79,ON TARGET,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,7,9,39,23.08,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,8,9,39,23.08,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,9,6,39,15.38,ON TARGET,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,10,7,40,17.5,ON TARGET,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,11,11,40,27.5,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2025,12,8,40,20.0,WARNING,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2026,1,4,36,11.11,ON TARGET,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2026,2,10,39,25.64,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2026,3,12,38,31.58,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-009,2026,4,12,40,30.0,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 2,Capital Region
+NH-010,2025,4,9,38,23.68,ALERT,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,5,9,37,24.32,ALERT,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,6,7,38,18.42,WARNING,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,7,8,36,22.22,ALERT,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,8,6,37,16.22,ON TARGET,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,9,11,37,29.73,ALERT,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,10,9,36,25.0,ALERT,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,11,8,37,21.62,WARNING,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2025,12,14,37,37.84,ALERT,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2026,1,7,36,19.44,WARNING,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2026,2,5,37,13.51,ON TARGET,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2026,3,15,37,40.54,ALERT,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-010,2026,4,4,37,10.81,ON TARGET,30-Day Readmission Rate,Staten Island Care Center 2,NYC Metro
+NH-011,2025,4,7,44,15.91,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,5,7,45,15.56,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,6,8,44,18.18,WARNING,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,7,8,44,18.18,WARNING,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,8,4,45,8.89,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,9,3,44,6.82,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,10,8,46,17.39,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,11,11,43,25.58,ALERT,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2025,12,10,46,21.74,WARNING,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2026,1,7,46,15.22,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2026,2,6,44,13.64,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2026,3,6,44,13.64,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-011,2026,4,7,44,15.91,ON TARGET,30-Day Readmission Rate,Hempstead Care Center 2,Long Island
+NH-012,2025,4,12,50,24.0,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,5,8,53,15.09,ON TARGET,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,6,7,54,12.96,ON TARGET,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,7,11,51,21.57,WARNING,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,8,11,53,20.75,WARNING,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,9,17,50,34.0,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,10,18,51,35.29,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,11,13,53,24.53,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2025,12,14,53,26.42,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2026,1,13,51,25.49,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2026,2,16,51,31.37,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2026,3,13,53,24.53,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-012,2026,4,12,53,22.64,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 2,North Country
+NH-013,2025,4,7,53,13.21,ON TARGET,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,5,15,58,25.86,ALERT,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,6,13,58,22.41,ALERT,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,7,11,55,20.0,WARNING,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,8,12,57,21.05,WARNING,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,9,11,56,19.64,WARNING,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,10,7,56,12.5,ON TARGET,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,11,4,55,7.27,ON TARGET,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2025,12,10,56,17.86,ON TARGET,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2026,1,12,57,21.05,WARNING,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2026,2,17,57,29.82,ALERT,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2026,3,14,56,25.0,ALERT,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-013,2026,4,15,57,26.32,ALERT,30-Day Readmission Rate,Lockport Care Center 3,Western NY
+NH-014,2025,4,10,41,24.39,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,5,18,41,43.9,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,6,13,40,32.5,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,7,10,40,25.0,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,8,5,40,12.5,ON TARGET,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,9,10,40,25.0,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,10,9,41,21.95,WARNING,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,11,11,40,27.5,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2025,12,9,41,21.95,WARNING,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2026,1,13,40,32.5,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2026,2,8,38,21.05,WARNING,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2026,3,7,40,17.5,ON TARGET,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-014,2026,4,9,40,22.5,ALERT,30-Day Readmission Rate,Auburn Care Center 3,Central NY
+NH-015,2025,4,8,46,17.39,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,5,8,47,17.02,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,6,5,48,10.42,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,7,8,47,17.02,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,8,10,45,22.22,ALERT,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,9,10,48,20.83,WARNING,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,10,4,48,8.33,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,11,9,47,19.15,WARNING,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2025,12,8,45,17.78,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2026,1,6,46,13.04,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2026,2,7,47,14.89,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2026,3,9,47,19.15,WARNING,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-015,2026,4,12,48,25.0,ALERT,30-Day Readmission Rate,Glens Falls Care Center 3,Capital Region
+NH-016,2025,4,12,31,38.71,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,5,8,31,25.81,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,6,15,31,48.39,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,7,11,31,35.48,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,8,7,30,23.33,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,9,6,31,19.35,WARNING,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,10,8,31,25.81,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,11,6,31,19.35,WARNING,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2025,12,8,30,26.67,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2026,1,9,29,31.03,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2026,2,10,31,32.26,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2026,3,7,30,23.33,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-016,2026,4,9,30,30.0,ALERT,30-Day Readmission Rate,Bronx Care Center 3,NYC Metro
+NH-017,2025,4,7,33,21.21,WARNING,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,5,5,34,14.71,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,6,3,34,8.82,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,7,4,33,12.12,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,8,5,33,15.15,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,9,4,32,12.5,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,10,5,33,15.15,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,11,8,34,23.53,ALERT,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2025,12,5,34,14.71,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2026,1,4,33,12.12,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2026,2,7,34,20.59,WARNING,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2026,3,8,34,23.53,ALERT,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-017,2026,4,3,34,8.82,ON TARGET,30-Day Readmission Rate,Babylon Care Center 3,Long Island
+NH-018,2025,4,12,52,23.08,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,5,13,53,24.53,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,6,13,50,26.0,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,7,15,52,28.85,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,8,12,51,23.53,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,9,13,51,25.49,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,10,9,53,16.98,ON TARGET,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,11,13,51,25.49,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2025,12,13,51,25.49,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2026,1,12,52,23.08,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2026,2,14,53,26.42,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2026,3,15,51,29.41,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-018,2026,4,8,52,15.38,ON TARGET,30-Day Readmission Rate,Ogdensburg Care Center 3,North Country
+NH-019,2025,4,8,41,19.51,WARNING,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,5,11,41,26.83,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,6,7,40,17.5,ON TARGET,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,7,8,40,20.0,WARNING,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,8,9,40,22.5,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,9,8,36,22.22,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,10,8,40,20.0,WARNING,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,11,9,39,23.08,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2025,12,10,38,26.32,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2026,1,11,41,26.83,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2026,2,10,39,25.64,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2026,3,12,40,30.0,ALERT,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-019,2026,4,7,40,17.5,ON TARGET,30-Day Readmission Rate,Batavia Care Center 4,Western NY
+NH-020,2025,4,15,46,32.61,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,5,16,46,34.78,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,6,13,45,28.89,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,7,15,45,33.33,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,8,11,45,24.44,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,9,14,47,29.79,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,10,15,47,31.91,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,11,13,45,28.89,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2025,12,8,47,17.02,ON TARGET,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2026,1,7,45,15.56,ON TARGET,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2026,2,13,45,28.89,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2026,3,15,45,33.33,ALERT,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-020,2026,4,9,47,19.15,WARNING,30-Day Readmission Rate,Cortland Care Center 4,Central NY
+NH-021,2025,4,7,39,17.95,ON TARGET,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,5,8,39,20.51,WARNING,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,6,9,38,23.68,ALERT,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,7,7,39,17.95,ON TARGET,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,8,4,40,10.0,ON TARGET,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,9,1,39,2.56,ON TARGET,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,10,9,39,23.08,ALERT,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,11,8,37,21.62,WARNING,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2025,12,10,39,25.64,ALERT,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2026,1,7,37,18.92,WARNING,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2026,2,7,38,18.42,WARNING,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2026,3,8,38,21.05,WARNING,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-021,2026,4,11,39,28.21,ALERT,30-Day Readmission Rate,Albany Care Center 4,Capital Region
+NH-022,2025,4,7,28,25.0,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,5,7,31,22.58,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,6,14,31,45.16,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,7,8,29,27.59,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,8,7,30,23.33,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,9,7,31,22.58,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,10,2,30,6.67,ON TARGET,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,11,8,30,26.67,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2025,12,9,31,29.03,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2026,1,8,30,26.67,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2026,2,6,30,20.0,WARNING,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2026,3,3,30,10.0,ON TARGET,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-022,2026,4,11,30,36.67,ALERT,30-Day Readmission Rate,Brooklyn Care Center 4,NYC Metro
+NH-023,2025,4,5,25,20.0,WARNING,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,5,4,25,16.0,ON TARGET,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,6,6,25,24.0,ALERT,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,7,1,25,4.0,ON TARGET,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,8,8,24,33.33,ALERT,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,9,7,25,28.0,ALERT,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,10,3,24,12.5,ON TARGET,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,11,3,23,13.04,ON TARGET,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2025,12,4,25,16.0,ON TARGET,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2026,1,5,25,20.0,WARNING,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2026,2,6,25,24.0,ALERT,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2026,3,4,25,16.0,ON TARGET,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-023,2026,4,4,25,16.0,ON TARGET,30-Day Readmission Rate,Huntington Care Center 4,Long Island
+NH-024,2025,4,7,39,17.95,ON TARGET,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,5,9,37,24.32,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,6,14,38,36.84,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,7,12,38,31.58,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,8,9,38,23.68,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,9,7,38,18.42,WARNING,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,10,13,38,34.21,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,11,14,39,35.9,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2025,12,14,38,36.84,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2026,1,11,39,28.21,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2026,2,9,35,25.71,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2026,3,6,38,15.79,ON TARGET,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-024,2026,4,13,39,33.33,ALERT,30-Day Readmission Rate,Malone Care Center 4,North Country
+NH-025,2025,4,4,35,11.43,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,5,3,35,8.57,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,6,5,33,15.15,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,7,6,33,18.18,WARNING,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,8,3,34,8.82,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,9,2,34,5.88,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,10,2,34,5.88,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,11,6,35,17.14,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2025,12,7,34,20.59,WARNING,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2026,1,3,33,9.09,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2026,2,5,34,14.71,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2026,3,5,34,14.71,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-025,2026,4,3,34,8.82,ON TARGET,30-Day Readmission Rate,Olean Care Center 5,Western NY
+NH-026,2025,4,2,31,6.45,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,5,6,31,19.35,WARNING,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,6,4,31,12.9,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,7,6,32,18.75,WARNING,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,8,1,29,3.45,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,9,2,31,6.45,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,10,3,31,9.68,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,11,2,30,6.67,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2025,12,4,32,12.5,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2026,1,6,31,19.35,WARNING,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2026,2,6,30,20.0,WARNING,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2026,3,4,32,12.5,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-026,2026,4,5,31,16.13,ON TARGET,30-Day Readmission Rate,Syracuse Care Center 5,Central NY
+NH-027,2025,4,10,39,25.64,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,5,7,39,17.95,ON TARGET,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,6,13,42,30.95,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,7,8,40,20.0,WARNING,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,8,9,40,22.5,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,9,5,39,12.82,ON TARGET,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,10,8,41,19.51,WARNING,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,11,14,41,34.15,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2025,12,10,41,24.39,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2026,1,10,41,24.39,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2026,2,11,41,26.83,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2026,3,11,40,27.5,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-027,2026,4,11,40,27.5,ALERT,30-Day Readmission Rate,Troy Care Center 5,Capital Region
+NH-028,2025,4,2,19,10.53,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,5,3,20,15.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,6,2,20,10.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,7,6,18,33.33,ALERT,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,8,5,20,25.0,ALERT,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,9,1,20,5.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,10,1,20,5.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,11,1,20,5.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2025,12,3,20,15.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2026,1,2,18,11.11,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2026,2,1,20,5.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2026,3,1,20,5.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-028,2026,4,2,20,10.0,ON TARGET,30-Day Readmission Rate,Queens Care Center 5,NYC Metro
+NH-029,2025,4,6,21,28.57,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,5,5,23,21.74,WARNING,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,6,8,23,34.78,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,7,7,23,30.43,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,8,6,24,25.0,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,9,5,24,20.83,WARNING,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,10,7,24,29.17,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,11,8,24,33.33,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2025,12,6,24,25.0,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2026,1,5,24,20.83,WARNING,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2026,2,10,24,41.67,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2026,3,11,24,45.83,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-029,2026,4,11,24,45.83,ALERT,30-Day Readmission Rate,Oyster Bay Care Center 5,Long Island
+NH-030,2025,4,4,45,8.89,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,5,6,44,13.64,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,6,7,43,16.28,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,7,6,44,13.64,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,8,2,43,4.65,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,9,7,43,16.28,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,10,7,44,15.91,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,11,6,45,13.33,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2025,12,7,43,16.28,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2026,1,5,43,11.63,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2026,2,11,45,24.44,ALERT,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2026,3,6,44,13.64,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-030,2026,4,3,45,6.67,ON TARGET,30-Day Readmission Rate,Canton Care Center 5,North Country
+NH-031,2025,4,10,36,27.78,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,5,8,34,23.53,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,6,8,35,22.86,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,7,9,36,25.0,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,8,5,35,14.29,ON TARGET,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,9,8,35,22.86,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,10,11,34,32.35,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,11,10,35,28.57,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2025,12,9,36,25.0,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2026,1,10,34,29.41,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2026,2,7,34,20.59,WARNING,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2026,3,14,34,41.18,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-031,2026,4,12,34,35.29,ALERT,30-Day Readmission Rate,Buffalo Care Center 6,Western NY
+NH-032,2025,4,0,16,0.0,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,5,1,17,5.88,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,6,3,17,17.65,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,7,3,17,17.65,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,8,0,16,0.0,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,9,2,17,11.76,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,10,5,16,31.25,ALERT,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,11,0,16,0.0,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2025,12,3,17,17.65,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2026,1,1,14,7.14,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2026,2,2,16,12.5,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2026,3,0,17,0.0,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-032,2026,4,2,17,11.76,ON TARGET,30-Day Readmission Rate,Utica Care Center 6,Central NY
+NH-033,2025,4,5,40,12.5,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,5,3,41,7.32,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,6,2,40,5.0,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,7,4,40,10.0,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,8,7,40,17.5,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,9,2,39,5.13,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,10,2,41,4.88,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,11,5,40,12.5,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2025,12,6,40,15.0,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2026,1,3,41,7.32,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2026,2,9,41,21.95,WARNING,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2026,3,7,41,17.07,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-033,2026,4,6,40,15.0,ON TARGET,30-Day Readmission Rate,Schenectady Care Center 6,Capital Region
+NH-034,2025,4,6,46,13.04,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,5,5,45,11.11,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,6,7,46,15.22,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,7,6,46,13.04,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,8,7,46,15.22,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,9,8,46,17.39,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,10,8,44,18.18,WARNING,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,11,15,46,32.61,ALERT,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2025,12,6,44,13.64,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2026,1,9,45,20.0,WARNING,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2026,2,6,45,13.33,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2026,3,5,45,11.11,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-034,2026,4,4,46,8.7,ON TARGET,30-Day Readmission Rate,Manhattan Care Center 6,NYC Metro
+NH-035,2025,4,5,52,9.62,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,5,8,53,15.09,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,6,4,52,7.69,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,7,5,53,9.43,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,8,4,51,7.84,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,9,6,53,11.32,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,10,3,52,5.77,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,11,4,52,7.69,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2025,12,6,50,12.0,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2026,1,6,51,11.76,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2026,2,3,52,5.77,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2026,3,6,51,11.76,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-035,2026,4,7,51,13.73,ON TARGET,30-Day Readmission Rate,Islip Care Center 6,Long Island
+NH-036,2025,4,7,46,15.22,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,5,8,47,17.02,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,6,10,47,21.28,WARNING,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,7,6,46,13.04,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,8,7,46,15.22,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,9,7,45,15.56,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,10,7,46,15.22,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,11,4,45,8.89,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2025,12,3,42,7.14,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2026,1,11,46,23.91,ALERT,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2026,2,10,46,21.74,WARNING,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2026,3,7,45,15.56,ON TARGET,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-036,2026,4,9,45,20.0,WARNING,30-Day Readmission Rate,Watertown Care Center 6,North Country
+NH-037,2025,4,7,38,18.42,WARNING,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,5,7,39,17.95,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,6,6,39,15.38,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,7,4,39,10.26,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,8,8,38,21.05,WARNING,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,9,5,38,13.16,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,10,7,37,18.92,WARNING,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,11,5,36,13.89,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2025,12,6,38,15.79,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2026,1,6,38,15.79,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2026,2,5,39,12.82,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2026,3,5,39,12.82,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-037,2026,4,7,39,17.95,ON TARGET,30-Day Readmission Rate,Niagara Falls Care Center 7,Western NY
+NH-038,2025,4,15,56,26.79,ALERT,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,5,11,56,19.64,WARNING,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,6,11,55,20.0,WARNING,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,7,17,56,30.36,ALERT,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,8,10,53,18.87,WARNING,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,9,8,54,14.81,ON TARGET,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,10,8,54,14.81,ON TARGET,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,11,10,54,18.52,WARNING,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2025,12,7,55,12.73,ON TARGET,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2026,1,15,57,26.32,ALERT,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2026,2,14,57,24.56,ALERT,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2026,3,13,54,24.07,ALERT,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-038,2026,4,17,53,32.08,ALERT,30-Day Readmission Rate,Rome Care Center 7,Central NY
+NH-039,2025,4,6,24,25.0,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,5,6,26,23.08,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,6,9,26,34.62,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,7,9,26,34.62,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,8,7,26,26.92,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,9,4,25,16.0,ON TARGET,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,10,8,24,33.33,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,11,10,25,40.0,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2025,12,2,25,8.0,ON TARGET,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2026,1,6,26,23.08,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2026,2,9,24,37.5,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2026,3,11,25,44.0,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-039,2026,4,6,25,24.0,ALERT,30-Day Readmission Rate,Saratoga Springs Care Center 7,Capital Region
+NH-040,2025,4,14,41,34.15,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,5,11,42,26.19,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,6,12,41,29.27,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,7,6,41,14.63,ON TARGET,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,8,21,43,48.84,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,9,12,42,28.57,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,10,15,43,34.88,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,11,6,43,13.95,ON TARGET,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2025,12,8,42,19.05,WARNING,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2026,1,8,42,19.05,WARNING,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2026,2,14,42,33.33,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2026,3,12,42,28.57,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-040,2026,4,11,42,26.19,ALERT,30-Day Readmission Rate,Staten Island Care Center 7,NYC Metro
+NH-041,2025,4,14,42,33.33,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,5,13,42,30.95,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,6,15,43,34.88,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,7,11,41,26.83,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,8,10,43,23.26,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,9,14,42,33.33,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,10,14,42,33.33,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,11,15,41,36.59,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2025,12,12,42,28.57,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2026,1,14,43,32.56,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2026,2,16,43,37.21,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2026,3,12,43,27.91,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-041,2026,4,11,43,25.58,ALERT,30-Day Readmission Rate,Hempstead Care Center 7,Long Island
+NH-042,2025,4,6,16,37.5,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,5,1,16,6.25,ON TARGET,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,6,3,16,18.75,WARNING,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,7,4,15,26.67,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,8,4,15,26.67,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,9,2,16,12.5,ON TARGET,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,10,2,16,12.5,ON TARGET,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,11,4,16,25.0,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2025,12,4,15,26.67,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2026,1,5,16,31.25,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2026,2,8,15,53.33,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2026,3,6,14,42.86,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-042,2026,4,5,14,35.71,ALERT,30-Day Readmission Rate,Plattsburgh Care Center 7,North Country
+NH-043,2025,4,9,47,19.15,WARNING,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,5,14,47,29.79,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,6,13,48,27.08,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,7,17,49,34.69,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,8,16,45,35.56,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,9,14,48,29.17,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,10,9,46,19.57,WARNING,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,11,7,47,14.89,ON TARGET,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2025,12,11,46,23.91,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2026,1,10,49,20.41,WARNING,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2026,2,9,47,19.15,WARNING,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2026,3,15,48,31.25,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-043,2026,4,14,47,29.79,ALERT,30-Day Readmission Rate,Lockport Care Center 8,Western NY
+NH-044,2025,4,3,27,11.11,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,5,4,27,14.81,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,6,5,26,19.23,WARNING,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,7,3,26,11.54,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,8,3,27,11.11,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,9,3,26,11.54,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,10,2,27,7.41,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,11,4,25,16.0,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2025,12,4,26,15.38,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2026,1,5,26,19.23,WARNING,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2026,2,6,25,24.0,ALERT,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2026,3,4,27,14.81,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-044,2026,4,4,26,15.38,ON TARGET,30-Day Readmission Rate,Auburn Care Center 8,Central NY
+NH-045,2025,4,15,41,36.59,ALERT,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,5,11,41,26.83,ALERT,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,6,14,40,35.0,ALERT,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,7,12,41,29.27,ALERT,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,8,4,41,9.76,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,9,12,39,30.77,ALERT,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,10,8,42,19.05,WARNING,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,11,8,41,19.51,WARNING,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2025,12,8,42,19.05,WARNING,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2026,1,7,42,16.67,ON TARGET,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2026,2,11,41,26.83,ALERT,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2026,3,13,39,33.33,ALERT,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-045,2026,4,9,41,21.95,WARNING,30-Day Readmission Rate,Glens Falls Care Center 8,Capital Region
+NH-046,2025,4,15,45,33.33,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,5,16,47,34.04,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,6,10,44,22.73,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,7,8,46,17.39,ON TARGET,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,8,11,45,24.44,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,9,15,46,32.61,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,10,14,45,31.11,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,11,13,47,27.66,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2025,12,12,46,26.09,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2026,1,14,43,32.56,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2026,2,8,46,17.39,ON TARGET,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2026,3,10,46,21.74,WARNING,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-046,2026,4,13,46,28.26,ALERT,30-Day Readmission Rate,Bronx Care Center 8,NYC Metro
+NH-047,2025,4,8,51,15.69,ON TARGET,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,5,16,48,33.33,ALERT,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,6,7,49,14.29,ON TARGET,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,7,11,51,21.57,WARNING,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,8,5,50,10.0,ON TARGET,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,9,5,48,10.42,ON TARGET,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,10,14,48,29.17,ALERT,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,11,10,50,20.0,WARNING,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2025,12,10,50,20.0,WARNING,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2026,1,14,50,28.0,ALERT,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2026,2,8,51,15.69,ON TARGET,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2026,3,13,49,26.53,ALERT,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-047,2026,4,12,50,24.0,ALERT,30-Day Readmission Rate,Babylon Care Center 8,Long Island
+NH-048,2025,4,7,43,16.28,ON TARGET,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,5,11,43,25.58,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,6,12,42,28.57,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,7,9,42,21.43,WARNING,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,8,7,42,16.67,ON TARGET,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,9,17,41,41.46,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,10,6,42,14.29,ON TARGET,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,11,11,41,26.83,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2025,12,8,40,20.0,WARNING,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2026,1,11,41,26.83,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2026,2,7,41,17.07,ON TARGET,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2026,3,14,41,34.15,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-048,2026,4,11,41,26.83,ALERT,30-Day Readmission Rate,Ogdensburg Care Center 8,North Country
+NH-049,2025,4,7,38,18.42,WARNING,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,5,4,39,10.26,ON TARGET,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,6,2,39,5.13,ON TARGET,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,7,6,39,15.38,ON TARGET,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,8,6,39,15.38,ON TARGET,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,9,11,36,30.56,ALERT,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,10,1,38,2.63,ON TARGET,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,11,8,39,20.51,WARNING,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2025,12,4,38,10.53,ON TARGET,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2026,1,6,38,15.79,ON TARGET,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2026,2,9,39,23.08,ALERT,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2026,3,7,38,18.42,WARNING,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-049,2026,4,9,38,23.68,ALERT,30-Day Readmission Rate,Batavia Care Center 9,Western NY
+NH-050,2025,4,4,30,13.33,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,5,4,31,12.9,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,6,5,31,16.13,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,7,2,30,6.67,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,8,5,30,16.67,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,9,3,29,10.34,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,10,4,31,12.9,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,11,2,31,6.45,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2025,12,6,31,19.35,WARNING,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2026,1,5,30,16.67,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2026,2,8,31,25.81,ALERT,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2026,3,2,28,7.14,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY
+NH-050,2026,4,4,31,12.9,ON TARGET,30-Day Readmission Rate,Cortland Care Center 9,Central NY

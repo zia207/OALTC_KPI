@@ -1,0 +1,85 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - dashboard/**
+  render:
+    - index.qmd
+    - 01-framework-governance.qmd
+    - 02-requirements-gathering.qmd
+    - 02-kpi-definition-worksheet.qmd
+    - 03-01-data-infrastructure-pipeline.qmd
+    - 03-02-data-quality-control.qmd
+    - 03-03-kpi-calculation.qmd
+    - 04-01-executive-scorecard.qmd
+    - 04-02-program-monitor.qmd
+    - 04-03-alert-system.qmd
+    - 05-dashboard.qmd
+
+website:
+  title: "OALTC KPI Framework"
+  page-navigation: true
+
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; CC-By Zia Ahmed, 2026"
+
+  navbar:
+    background: primary
+    search: true
+    left:
+      - icon: house
+        href: https://sites.google.com/view/r-data-sci-env/home
+    right:
+      - icon: github
+        href: https://github.com/zia207
+      - icon: linkedin
+        href: https://www.linkedin.com/in/zia-ahmed207
+      - icon: mailbox
+        href: mailto:zia207@gmail.com
+
+  sidebar:
+    pinned: true
+    border: true
+    align: center
+    search: true
+    style: "docked"
+    contents:
+      - section: "**OALTC KPI Framework**"
+        contents:
+          - href: index.qmd
+            text: Introduction
+          - href: 01-framework-governance.qmd
+            text: Comprehensive KPI Tracking & Reporting Framework
+
+      - section: "**Requirements Gathering**"
+        contents:
+          - href: 02-requirements-gathering.qmd
+            text: Requirements Gathering Template
+          - href: 02-kpi-definition-worksheet.qmd
+            text: KPI Definition Worksheet & Log
+
+      - section: "**OALTC KPI Tracking Framework (A Demo)**"
+        contents:
+          - href: 03-01-data-infrastructure-pipeline.qmd
+            text: 3.1 Data Infrastructure & Pipeline
+          - href: 03-02-data-quality-control.qmd
+            text: 3.2 Data Quality Control
+          - href: 03-03-kpi-calculation.qmd
+            text: 3.3 KPI Calculation Pipeline
+          - href: 04-01-executive-scorecard.qmd
+            text: 4.1 Executive Strategic Scorecard
+          - href: 04-02-program-monitor.qmd
+            text: 4.2 Program Performance Monitor
+          - href: 04-03-alert-system.qmd
+            text: 4.3 Alert & Escalation System
+
+      - section: "**Interactive Dashboard (A Demo)**"
+        contents:
+          - href: 05-dashboard.qmd
+            text: Dashboard Module (@dashboard)
+
+format:
+  html:
+    toc: true
+    theme: cosmo

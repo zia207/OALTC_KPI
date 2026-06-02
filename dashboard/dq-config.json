@@ -1,0 +1,99 @@
+{
+  "title": "Data Quality Control",
+  "subtitle": "Current reporting cycle — validation after ingestion, before promotion to KPI marts. Demo figures align with pipeline volume (124,830 records).",
+  "summary": [
+    {
+      "label": "Overall quality score",
+      "value": "94.2%",
+      "detail": "▲ 1.3% vs last month",
+      "tone": "ok"
+    },
+    {
+      "label": "Records passing all checks",
+      "value": "117,372",
+      "detail": "of 124,830",
+      "tone": "neutral"
+    },
+    {
+      "label": "Records flagged",
+      "value": "5,891",
+      "detail": "under review",
+      "tone": "warn"
+    },
+    {
+      "label": "Records rejected",
+      "value": "1,567",
+      "detail": "notified to submitter",
+      "tone": "bad"
+    }
+  ],
+  "dimensionScores": {
+    "title": "Quality dimension scores",
+    "barOkColor": "#2f6f73",
+    "barWarnColor": "#d97706",
+    "items": [
+      { "dimension": "Completeness", "score": 97.4 },
+      { "dimension": "Validity", "score": 95.1 },
+      { "dimension": "Timeliness", "score": 92, "highlight": true },
+      { "dimension": "Consistency", "score": 96.8 },
+      { "dimension": "Accuracy", "score": 94.3 },
+      { "dimension": "Uniqueness", "score": 98.9 }
+    ]
+  },
+  "fieldFailures": {
+    "title": "Validation failure breakdown by field",
+    "axisMax": 600,
+    "tickStep": 200,
+    "barColor": "#1e3a5f",
+    "items": [
+      { "field": "resident_id", "count": 520 },
+      { "field": "report_date", "count": 410 },
+      { "field": "outcome_code", "count": 300 },
+      { "field": "admission_date", "count": 240 },
+      { "field": "facility_id", "count": 90 },
+      { "field": "discharge_reason", "count": 70 },
+      { "field": "staff_fte", "count": 40 }
+    ]
+  },
+  "facilities": {
+    "title": "Facilities with quality flags this cycle",
+    "rows": [
+      {
+        "facility": "Buffalo Care Center 1",
+        "region": "Central NY",
+        "records": 1388,
+        "flagged": 29,
+        "flagRate": 6.5,
+        "issue": "Format error in admit_date",
+        "status": "Under review"
+      },
+      {
+        "facility": "Rochester East ALP",
+        "region": "Finger Lakes",
+        "records": 2104,
+        "flagged": 84,
+        "flagRate": 4.0,
+        "issue": "Duplicate resident_id",
+        "status": "Under review"
+      },
+      {
+        "facility": "Elmira Home Care Hub",
+        "region": "Southern Tier",
+        "records": 956,
+        "flagged": 62,
+        "flagRate": 6.5,
+        "issue": "Null outcome_code",
+        "status": "Under review"
+      },
+      {
+        "facility": "Syracuse SNF North",
+        "region": "Central NY",
+        "records": 1820,
+        "flagged": 73,
+        "flagRate": 4.0,
+        "issue": "Format error in admit_date",
+        "status": "Under review"
+      }
+    ]
+  }
+}

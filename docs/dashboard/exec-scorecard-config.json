@@ -1,0 +1,77 @@
+{
+  "title": "Executive Strategic Scorecard",
+  "subtitle": "Tier 1 KPIs · Statewide · Q1 2026",
+  "footnote": "Demo figures aligned to framework Tier-1 narratives; swap for live aggregates from KPI marts.",
+  "metrics": [
+    {
+      "id": "quality_of_care",
+      "label": "Quality of Care",
+      "value": "16.1%",
+      "valueTone": "warn",
+      "target": "≤15%",
+      "trendLabel": "-2.4% vs last Q",
+      "status": "warning"
+    },
+    {
+      "id": "regulatory_compliance",
+      "label": "Regulatory Compliance",
+      "value": "2.3",
+      "valueTone": "warn",
+      "target": "≤2.0",
+      "trendLabel": "-0.4 vs last Q",
+      "status": "warning"
+    },
+    {
+      "id": "operational_efficiency",
+      "label": "Operational Efficiency",
+      "value": "97.0%",
+      "valueTone": "warn",
+      "target": "≥98%",
+      "trendLabel": "+1.2% vs last Q",
+      "status": "warning"
+    },
+    {
+      "id": "workforce_stability",
+      "label": "Workforce Stability",
+      "value": "32.4%",
+      "valueTone": "ok",
+      "target": "≤35%",
+      "trendLabel": "-3.1% vs last Q",
+      "status": "on_target"
+    },
+    {
+      "id": "health_equity",
+      "label": "Health Equity",
+      "value": "0.17",
+      "valueTone": "bad",
+      "target": "≤0.12",
+      "trendLabel": "-0.02 vs last Q",
+      "status": "alert"
+    }
+  ],
+  "readmissionTrend": {
+    "heading": "Statewide KPI trend — 12-month rolling",
+    "subheading": "Quality of Care · Readmission rate (%) — statewide",
+    "yAxisLabel": "Readmission rate (%)",
+    "targetPct": 15,
+    "yMin": 13,
+    "yMax": 21,
+    "months": ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"],
+    "values": [18.5, 18.25, 18.0, 17.65, 17.35, 17.05, 16.85, 16.72, 16.55, 16.42, 16.28, 16.1],
+    "lineColor": "#2f6f73",
+    "targetLineColor": "#9ca3af"
+  },
+  "equityByRegion": {
+    "heading": "Health equity — Outcome disparity index by region",
+    "yMax": 0.35,
+    "yTicks": [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35],
+    "bars": [
+      { "region": "Western NY", "value": 0.18, "tier": "warn" },
+      { "region": "Central NY", "value": 0.12, "tier": "ok" },
+      { "region": "Capital Region", "value": 0.09, "tier": "ok" },
+      { "region": "NYC Metro", "value": 0.22, "tier": "alert" },
+      { "region": "Long Island", "value": 0.15, "tier": "warn" },
+      { "region": "North Country", "value": 0.24, "tier": "alert" }
+    ]
+  }
+}

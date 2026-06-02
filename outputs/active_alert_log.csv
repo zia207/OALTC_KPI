@@ -1,0 +1,25 @@
+alert_level,facility_id,facility_name,region,kpi_name,current_value,threshold,assigned_to,due_date,action_required
+ALERT,NH-015,Glens Falls Care Center 3,Capital Region,30-Day Readmission Rate,22.2%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-045,Glens Falls Care Center 8,Capital Region,30-Day Readmission Rate,23.4%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-027,Troy Care Center 5,Capital Region,30-Day Readmission Rate,22.7%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-044,Auburn Care Center 8,Central NY,30-Day Readmission Rate,36.2%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-032,Utica Care Center 6,Central NY,30-Day Readmission Rate,22.6%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-011,Hempstead Care Center 2,Long Island,30-Day Readmission Rate,33.3%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-041,Hempstead Care Center 7,Long Island,30-Day Readmission Rate,24.4%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-046,Bronx Care Center 8,NYC Metro,30-Day Readmission Rate,24.0%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-022,Brooklyn Care Center 4,NYC Metro,30-Day Readmission Rate,25.4%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-028,Queens Care Center 5,NYC Metro,30-Day Readmission Rate,32.0%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-040,Staten Island Care Center 7,NYC Metro,30-Day Readmission Rate,26.3%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-030,Canton Care Center 5,North Country,30-Day Readmission Rate,24.1%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-019,Batavia Care Center 4,Western NY,30-Day Readmission Rate,28.6%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+ALERT,NH-013,Lockport Care Center 3,Western NY,30-Day Readmission Rate,26.1%,> 22%,Bureau Chief / Program Director,"May 08, 2026",Root cause analysis + corrective action plan
+WARNING,NH-039,Saratoga Springs Care Center 7,Capital Region,30-Day Readmission Rate,19.0%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-033,Schenectady Care Center 6,Capital Region,30-Day Readmission Rate,18.4%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-014,Auburn Care Center 3,Central NY,30-Day Readmission Rate,21.7%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-008,Rome Care Center 2,Central NY,30-Day Readmission Rate,21.7%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-005,Islip Care Center 1,Long Island,30-Day Readmission Rate,18.2%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-034,Manhattan Care Center 6,NYC Metro,30-Day Readmission Rate,18.6%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-042,Plattsburgh Care Center 7,North Country,30-Day Readmission Rate,19.2%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-006,Watertown Care Center 1,North Country,30-Day Readmission Rate,21.1%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-043,Lockport Care Center 8,Western NY,30-Day Readmission Rate,18.2%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings
+WARNING,NH-037,Niagara Falls Care Center 7,Western NY,30-Day Readmission Rate,20.0%,> 18%,Program Manager,"May 11, 2026",Investigate and document findings

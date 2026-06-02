@@ -1,0 +1,139 @@
+# KPI Calculation Pipeline (SQL-equivalent in pandas)
+
+Each function below mirrors a **BigQuery SQL view** from the framework. The same logic, column names, threshold rules, and performance status labels are used. In production, these would be `CREATE OR REPLACE VIEW` statements executed in BigQuery.
+
+**Prerequisite:** **`df_clean`** comes from Section **3.2** (facility DQ report cell). If you only skipped that cell, the first KPI code cell recomputes `df_clean` from **`df_raw_assessed`** automatically.
+
+### KPI 1: 30-Day Hospital Readmission Rate
+
+This section calculates the first Key Performance Indicator (KPI): the 30-day hospital readmission rate for each facility by month.
+
+- It replicates the logic of the BigQuery SQL view `oaltc_kpi.readmission_rate_monthly`, but executes it using pandas.
+- For each facility and month, it counts how many discharged residents were readmitted within 30 days (`readmitted_30d`).
+- The rate is then calculated as the percentage of readmissions out of total discharges for that period.
+- Facilities are categorized based on their rates:
+  - "ALERT" if the rate is above 22%,
+  - "WARNING" if between 18–22%,
+  - "ON TARGET" if 18% or below.
+- The resulting table is used for performance management and reporting.
+
+Example aggregation counts (`performance_status`):
+
+```
+KPI: 30-Day Readmission Rate — 650 facility-month records
+performance_status
+ON TARGET    321
+ALERT        201
+WARNING      128
+```
+
+### KPI 2: Staff Turnover Rate (quarterly)
+
+This section introduces the second key performance indicator (KPI) used in the OALTC framework: the Staff Turnover Rate, calculated on a quarterly basis. The Staff Turnover Rate measures the frequency at which staff members (such as nurses and support staff) leave their positions within a nursing home or care facility during a given quarter. This metric is important for monitoring workforce stability, as high turnover rates can negatively impact the continuity and quality of care.
+
+In the notebook, data from workforce submissions is aggregated per facility and quarter to calculate both the total number of staff separations and the average number of staff present. The turnover rate is then computed as the percentage of separations relative to the average headcount.
+
+Facilities are categorized based on their turnover rates:
+
+- "ALERT" if the turnover rate is above 50%
+- "WARNING" if it is between 38% and 50%
+- "ON TARGET" if it is 38% or below
+
+This KPI helps identify facilities with potential staffing instability and informs workforce management strategies.
+
+Example:
+
+```
+KPI: Staff Turnover Rate — 293 facility-quarter records
+performance_status
+ON TARGET    293
+```
+
+### KPI 3: Pressure Ulcer Incidence Rate
+
+This section introduces the third key performance indicator (KPI) in the OALTC framework: Pressure Ulcer Incidence Rate. This metric tracks the rate of new pressure ulcers among residents, typically expressed per 1,000 resident days, to gauge the quality of care and preventive practices in facilities. A high incidence rate may indicate gaps in care processes, while lower rates reflect effective prevention and monitoring efforts. The notebook calculates this KPI on a quarterly basis for each facility.
+
+Example:
+
+```
+KPI: Pressure Ulcer Rate — 250 facility-quarter records
+performance_status
+ON TARGET    158
+ALERT         92
+```
+
+### KPI 4: Timely Complaint Investigation Rate
+
+This section introduces the fourth key performance indicator (KPI) in the OALTC framework: Timely Complaint Investigation Rate. This metric measures the percentage of complaints that are investigated and resolved within a specified number of days (e.g., 10 days), serving as an indicator of regulatory compliance and responsiveness to resident concerns. Higher rates reflect prompt resolution and regulatory alignment, while lower rates may highlight areas needing process improvements or additional oversight. The notebook calculates this KPI on a monthly basis for each facility.
+
+Example:
+
+```
+KPI: Complaint Timeliness — 412 facility-month records
+performance_status
+ON TARGET    268
+ALERT        129
+WARNING       15
+```
+
+### KPI 5: Health Equity: Outcome Disparity Index
+
+This section introduces the fifth key performance indicator (KPI) in the OALTC framework: the Outcome Disparity Index. The Disparity Index measures health equity by quantifying the gap in 30-day hospital readmission rates between racial and ethnic groups within each region and time period. A lower index indicates more equitable outcomes, while a higher index signals greater disparity. This metric helps identify regions and time periods where disparities in health outcomes exist, enabling targeted interventions to address inequities.
+
+The notebook computes the index by comparing readmission rates among different groups and defines performance thresholds to flag areas of significant disparity.
+
+Example:
+
+```
+KPI: Equity Disparity Index — 78 region-period records
+Regional disparity (most recent month):
+
+region           disparity_index  performance_status
+Western NY               2.049              ALERT
+NYC Metro                0.916              ALERT
+Long Island              0.706              ALERT
+Capital Region           0.516              ALERT
+North Country            0.349              ALERT
+Central NY               0.258              ALERT
+```
+
+## Layer 3: Assemble the KPI Data Mart
+
+Run **Section 3.3a–3.3e** first so `kpi_readmit`, `kpi_turnover`, **`kpi_complaints_kpi`**, and related frames exist. If you open this cell before **3.3d (Complaint Timeliness)**, the mart still builds but complaint timeliness columns are left empty until you re-run with 3.3d.
+
+In this step, the code builds a consolidated "KPI Data Mart," which brings together key performance indicator values for each facility into a single, analytics-ready dataframe.
+
+This mart aggregates the latest available snapshots for:
+
+- Readmission rates
+- Staff turnover rates
+- Complaint investigation timeliness
+- Facility characteristics (e.g., bed count, ownership)
+
+It also computes a unified "composite risk score" (0–100) for each facility based on those KPIs, and assigns an overall performance status (ALERT, WARNING, ON TARGET). This summary data mart is designed to drive dashboards and decision support.
+
+If complaint KPIs were not run in the kernel, the notebook warns and leaves timeliness fields as NaN until 3.3d is executed:
+
+```
+⚠️ No complaints KPI dataframe in the kernel (run Section 3.3d first). Using an empty complaint slice; timeliness fields in the mart will be NaN.
+✅ KPI Data Mart assembled: 50 facilities
+
+Status distribution:
+overall_status
+ON TARGET    26
+ALERT        14
+WARNING      10
+```
+
+The table above displays a preview of the executive-level "KPI Data Mart", which summarizes Tier 1 KPI performance for each facility for the most recent available period.
+
+Key columns include:
+
+- `facility_id`, `facility_name`, `region`: Facility identifiers and regional grouping.
+- `readmission_rate_pct`, `turnover_rate_pct`, `timeliness_rate_pct`: Each facility's latest 30-day readmission, workforce turnover, and complaint timeliness rates.
+- `readmit_status`, `turnover_status`, `complaint_status`: Highlight which metrics triggered ALERT or WARNING statuses, based on defined thresholds.
+- `licensed_beds`, `facility_type`, `ownership`: Facility characteristics.
+- `composite_risk_score`: Combined, weighted KPI risk score (higher = more concern).
+- `overall_status`: Summary flag, set to ALERT if any single KPI is in alert, otherwise WARNING or ON TARGET.
+
+This mart enables rapid triage and prioritization by spotlighting facilities at greatest risk based on latest quality, workforce, and regulatory indicators.

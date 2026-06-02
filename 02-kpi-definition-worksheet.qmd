@@ -1,0 +1,41 @@
+# KPI Definition Worksheet & Requirements Log
+
+For each KPI candidate, capture:
+
+- KPI name and category
+- business question answered
+- numerator and denominator logic
+- filters and exclusions
+- refresh frequency
+- source systems/tables
+- owner and steward
+- target/warning/alert thresholds
+
+</div>
+
+<div id="implementation-readiness" class="section level2">
+
+## Implementation Readiness
+
+Use data availability and build complexity to classify priority:
+
+- **P1:** high value, feasible now
+- **P2:** important but dependent on cleanup/integration
+- **P3:** backlog/exploratory
+
+</div>
+
+<div id="requirement-to-build-traceability" class="section level2">
+
+## Requirement-to-Build Traceability
+
+Maintain traceability from stakeholder interview notes to:
+
+1.  KPI registry entry
+2.  BigQuery view/table specification
+3.  dashboard tile/report element
+4.  acceptance test
+
+</div>
+
+</div>

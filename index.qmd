@@ -1,0 +1,95 @@
+---
+title: "OALTC KPI Framework Website"
+---
+
+::: {.callout-warning}
+## DEMONSTRATION PURPOSE ONLY
+
+All data, center locations, KPI values, financial figures, and alert conditions displayed in this framework are **entirely simulated** and do not represent any real long-term care facility, government agency, or operational program. This site is intended solely as a **technical demonstration** of an OALTC KPI monitoring and reporting framework.
+:::
+
+Key Performance Indicators (KPIs) are measurable signals that show
+whether OALTC programs are meeting goals in quality, operations,
+compliance, workforce stability, and equity. A well-defined KPI
+framework turns raw data into clear evidence for action by connecting
+each metric to a business objective, ownership model, threshold, and
+review cadence.
+
+KPI tracking is important because it enables early risk detection,
+faster corrective action, and more transparent reporting across teams.
+By using standardized definitions and a consistent pipeline, OALTC can
+compare performance over time, prioritize interventions, and support
+leadership decisions with trusted, timely data.
+
+Use the sidebar to navigate the full framework, requirement-gathering
+structure, Section 3-4 demo outputs, and the interactive dashboard.
+
+</div>
+
+<div id="website-structure" class="section level2">
+
+## Website Structure
+
+<div id="comprehensive-kpi-tracking-reporting-framework"
+class="section level3">
+
+### 1) Comprehensive KPI Tracking & Reporting Framework
+
+This section presents the core governance and strategy model for KPI
+operations in OALTC:
+
+- KPI tiers (strategic, operational, analytical)
+- ownership roles (data owner, steward, reviewer)
+- KPI taxonomy and standard definitions
+- reporting cadence and escalation principles
+
+</div>
+
+<div id="requirement-gathering" class="section level3">
+
+### 2) Requirements Gathering
+
+This section operationalizes stakeholder discovery and documentation:
+
+- interview question framework
+- KPI definition worksheet model
+- requirement log structure with priority and acceptance criteria
+- traceability from business need to analytic build
+
+</div>
+
+<div id="sections-3-4-demo-outputs" class="section level3">
+
+### 3) Sections 3 & 4 Demo Outputs
+
+This section summarizes implementation outputs from the demo notebook
+workflow:
+
+- **3.1** data infrastructure and ingestion pipeline status
+- **3.2** data quality control and validation outcomes
+- **3.3** KPI calculation outputs and mart assembly
+- **4.1** executive strategic scorecard outputs
+- **4.2** program performance monitor outputs
+- **4.3** alert and escalation outputs
+
+</div>
+
+<div id="interactive-dashboard" class="section level3">
+
+### 4) Interactive Dashboard
+
+This section provides the live dashboard module for navigation across
+all KPI views:
+
+- data pipeline health
+- data quality dashboard
+- KPI SQL view and output
+- executive scorecard
+- program monitor
+- alert system
+
+</div>
+
+</div>
+
+</div>

@@ -1,0 +1,398 @@
+# Comprehensive KPI Tracking & Reporting Framework"
+
+*Prepared by: Zia U. Ahmed, Ph.D. • May 2026*
+
+
+This document presents a comprehensive, end-to-end framework for
+defining, tracking, and reporting Key Performance Indicators (KPIs) for
+OALTC-licensed programs. The framework is structured around five
+interconnected components: (1) strategic alignment and KPI governance,
+(2) KPI taxonomy and definition standards, (3) data infrastructure and
+pipeline architecture using Google BigQuery, (4) dashboard and reporting
+design, and (5) continuous improvement and stakeholder engagement.
+Together, these components equip the Bureau of Data Analytics and
+Automation to deliver timely, accurate, and actionable performance
+intelligence to OALTC program leaders, senior DOH leadership, and
+external stakeholders.
+
+The framework is designed to be scalable across all OALTC program types
+— including nursing homes, assisted living programs, adult day services,
+home care agencies, and continuing care retirement communities — and is
+aligned with OALTC’s core strategic priorities of quality of care,
+regulatory compliance, operational efficiency, workforce stability, and
+health equity.
+
+## Section 1: Strategic Alignment & KPI Governance
+
+### 1.1 OALTC Strategic Priorities
+
+All KPIs in this framework are anchored to OALTC’s five core strategic
+priorities. Every metric must trace directly to at least one of these
+pillars:
+
+|  |  |  |  |
+|----|----|----|----|
+| **\#** | **Strategic Pillar** | **Description** | **Primary Audience** |
+| **1** | **Quality of Care** | Resident/client outcomes, safety events, care standard adherence across licensed facilities | Program Directors, DOH Leadership |
+| **2** | **Regulatory Compliance** | Inspection outcomes, deficiency rates, complaint resolution timeliness, enforcement actions | Surveyors, Legal, Leadership |
+| **3** | **Operational Efficiency** | Data submission compliance, processing times, workflow automation, cost-per-case metrics | Bureau Chiefs, IT, Finance |
+| **4** | **Workforce Stability** | Staff turnover rates, vacancy rates, training completion across regulated providers | Program Managers, Workforce Unit |
+| **5** | **Health Equity** | Disparity metrics by race, ethnicity, geography, payer type; access and outcome gaps across population groups | Health Equity Team, DOH Commissioner |
+
+### 1.2 KPI Governance Structure
+
+Robust KPI governance ensures accountability, consistency, and
+continuous relevance of all metrics. The following three-tier governance
+model is recommended:
+
+- Tier 1 — Strategic KPIs: Reviewed by DOH senior leadership and OALTC
+  Director on a quarterly basis. These are high-level outcome indicators
+  tied directly to OALTC’s mission and reported in public-facing
+  documents.
+
+- Tier 2 — Operational KPIs: Reviewed by Bureau Chiefs and Program
+  Managers monthly. These track day-to-day program performance and early
+  warning signals.
+
+- Tier 3 — Analytical KPIs: Reviewed by the Data Analytics team weekly.
+  These are granular metrics used to monitor data quality, pipeline
+  health, and emerging trends before they escalate.
+
+- Each KPI is assigned a designated Data Owner (the program office
+  responsible for the metric), a Data Steward (the analytics team member
+  responsible for the data feed), and a Business Reviewer (the
+  stakeholder who interprets and acts on the metric).
+
+- A KPI Registry — maintained in a version-controlled document linked to
+  the BigQuery metadata catalog — serves as the single source of truth
+  for all active metrics, their definitions, data sources, owners, and
+  update schedules.
+
+## Section 2: KPI Taxonomy & Definition Standards
+
+### 2.1 KPI Categories
+
+KPIs are organized into four functional categories that span the full
+program performance lifecycle:
+
+- Outcome KPIs: Measure the end results of care and services (e.g.,
+  hospitalization rates, resident satisfaction scores, deficiency
+  citation counts).
+
+- Process KPIs: Measure whether program activities are being executed as
+  intended (e.g., timely completion of care assessments, inspection
+  cycle adherence).
+
+- Capacity KPIs: Measure resources and infrastructure (e.g., licensed
+  bed occupancy, staff-to-resident ratios, data system uptime).
+
+- Equity KPIs: Measure disparity and access gaps across demographic and
+  geographic subgroups (e.g., outcome differentials by race/ethnicity or
+  rural vs. urban location).
+
+### 2.2 Master KPI Definition Template
+
+Every KPI must be formally defined using the following standardized
+template before it enters the tracking system. Consistency in definition
+prevents misinterpretation and ensures comparability over time.
+
+|  |  |
+|----|----|
+| **Field** | **Description / Example** |
+| **KPI Name** | Hospital Readmission Rate within 30 Days |
+| **Strategic Pillar** | Quality of Care |
+| **KPI Category** | Outcome KPI |
+| **Definition** | Percentage of nursing home residents discharged to a hospital who are readmitted within 30 days of initial discharge |
+| **Numerator** | Count of residents readmitted to a hospital within 30 days of discharge from a nursing home |
+| **Denominator** | Total count of nursing home discharges in the measurement period |
+| **Formula** | (Numerator / Denominator) × 100 |
+| **Unit of Measure** | Percentage (%) |
+| **Data Source** | Medicaid claims data, MDS (Minimum Data Set), OALTC facility records in BigQuery |
+| **Update Frequency** | Monthly |
+| **Reporting Granularity** | Statewide, Regional, County, Facility-level |
+| **Baseline Value** | Established from 3-year historical average (e.g., 18.2%) |
+| **Target / Benchmark** | Reduce to ≤ 15% by FY2027; aligned with CMS national benchmark |
+| **Warning Threshold** | Rate exceeds 20% for two consecutive months |
+| **Data Owner** | Nursing Home Program Office |
+| **Data Steward** | Bureau of Data Analytics and Automation |
+| **Business Reviewer** | OALTC Director of Quality Improvement |
+| **Limitations / Notes** | Exclude planned readmissions; flag facilities with \< 30 discharges as low-volume |
+
+### 2.3 Core KPI Inventory by Program Area
+
+The table below presents a representative set of KPIs across OALTC’s
+primary program areas. This inventory serves as the starting point for
+the KPI Registry and will be expanded through stakeholder engagement.
+
+|  |  |  |  |  |  |
+|----|----|----|----|----|----|
+| **Program Area** | **KPI Name** | **Category** | **Frequency** | **Pillar** | **Level** |
+| Nursing Homes | **30-Day Hospital Readmission Rate** | Outcome | Monthly | Quality | Facility |
+| Nursing Homes | **Pressure Ulcer Incidence Rate** | Outcome | Quarterly | Quality | Facility |
+| Nursing Homes | **Deficiency Citations per Survey** | Process | Per Survey | Compliance | Facility |
+| Nursing Homes | **Timely Complaint Investigation Rate** | Process | Monthly | Compliance | Regional |
+| Nursing Homes | **Registered Nurse Hours per Resident Day** | Capacity | Monthly | Workforce | Facility |
+| Nursing Homes | **Staff Turnover Rate** | Capacity | Quarterly | Workforce | Facility |
+| Home Care | **Plan of Care Compliance Rate** | Process | Monthly | Quality | Agency |
+| Home Care | **Unplanned Hospitalization Rate** | Outcome | Monthly | Quality | Agency |
+| Home Care | **Data Submission Timeliness (%)** | Process | Monthly | Operations | Agency |
+| Adult Day Services | **Average Daily Attendance Rate** | Capacity | Monthly | Operations | Program |
+| Adult Day Services | **Care Plan Update Compliance (%)** | Process | Quarterly | Compliance | Program |
+| Assisted Living | **Unplanned Transfer to Hospital Rate** | Outcome | Monthly | Quality | Facility |
+| Assisted Living | **Resident Rights Violations per Survey** | Outcome | Per Survey | Compliance | Facility |
+| All Programs | **Outcome Disparity Index by Race/Ethnicity** | Equity | Quarterly | Health Equity | Statewide |
+| All Programs | **Rural vs. Urban Access Gap Score** | Equity | Semi-Annual | Health Equity | Regional |
+| Data Operations | **Data Feed Uptime (%)** | Capacity | Weekly | Operations | System |
+| Data Operations | **Records Failing Validation (%)** | Process | Daily | Operations | System |
+
+## Section 3: Data Infrastructure & Pipeline Architecture
+
+### 3.1 Data Architecture Overview
+
+The KPI tracking system is built on Google BigQuery as the central data
+warehouse. The architecture follows a four-layer pipeline model:
+Ingestion → Storage → Transformation → Presentation.
+
+- Layer 1 — Ingestion: Raw data flows into BigQuery from OALTC-licensed
+  program submissions, ITS-managed applications, Medicaid claims, MDS
+  feeds, and survey system exports. Each data feed is assigned a schema,
+  ingestion schedule, and validation ruleset.
+
+- Layer 2 — Raw Storage (Data Lake): Unprocessed source data is stored
+  in partitioned BigQuery tables by program, date, and source system.
+  All raw records are retained for auditability and reprocessing.
+
+- Layer 3 — Transformation (Data Mart): SQL-based ETL pipelines
+  transform raw data into clean, analysis-ready tables. KPI
+  calculations, denominator logic, and exclusion rules are encoded here
+  using version-controlled SQL scripts or dbt models.
+
+- Layer 4 — Presentation: Transformed KPI tables power dashboards
+  (Looker Studio or Tableau), automated reports, and self-service query
+  interfaces for OALTC program staff.
+
+### 3.2 Data Quality Control Standards
+
+Data quality is enforced at each pipeline stage using the following
+six-dimension framework:
+
+|  |  |  |  |
+|----|----|----|----|
+| **Dimension** | **Definition** | **Validation Rule (Example)** | **Action if Failed** |
+| **Completeness** | All required fields are populated | Null rate \< 2% for facility_id, report_date, and outcome fields | Flag record; alert Data Steward; exclude from KPI calc until resolved |
+| **Validity** | Values fall within defined ranges and formats | Readmission rate between 0–100%; date format = YYYY-MM-DD | Reject record; log error; notify submitter |
+| **Timeliness** | Data arrives within the expected submission window | Monthly feeds ingested by the 10th of the following month | Trigger escalation alert; mark period as provisional |
+| **Consistency** | Values are consistent across linked tables and time periods | Facility bed count in submissions matches licensed capacity in registry | Flag discrepancy; hold for reconciliation |
+| **Accuracy** | Values reflect real-world program activity | Outlier detection: z-score \> 3 triggers manual review | Queue for analyst review; annotate in dashboard |
+| **Uniqueness** | No duplicate records in the analysis dataset | Composite key (facility_id + resident_id + event_date) must be unique | De-duplicate; log count of removed records |
+
+### 3.3 KPI Calculation Pipeline (SQL Pattern)
+
+Each KPI is computed via a standardized SQL view in BigQuery. Below is
+the generalized template:
+
+### 3.4 Example: 30-Day Hospital Readmission Rate (Monthly, Facility-Level)
+
+> CREATE OR REPLACE VIEW oaltc_kpi.readmission_rate_monthly AS
+>
+> SELECT
+>
+> facility_id,
+>
+> facility_name,
+>
+> report_year,
+>
+> report_month,
+>
+> COUNT(CASE WHEN readmitted_30d = TRUE THEN 1 END) AS numerator,
+>
+> COUNT(\*) AS denominator,
+>
+> ROUND(SAFE_DIVIDE(COUNT(CASE WHEN readmitted_30d = TRUE THEN 1 END),
+>
+> COUNT(\*)) \* 100, 2) AS readmission_rate_pct,
+>
+> CASE
+>
+> WHEN SAFE_DIVIDE(…) \* 100 \> 20 THEN ‘ALERT’
+>
+> WHEN SAFE_DIVIDE(…) \* 100 \> 15 THEN ‘WARNING’
+>
+> ELSE ‘ON TARGET’
+>
+> END AS performance_status
+>
+> FROM oaltc_raw.nh_discharge_events
+>
+> WHERE data_quality_flag = ‘PASS’
+>
+> AND discharge_date \>= DATE_SUB(CURRENT_DATE(), INTERVAL 13 MONTH)
+>
+> GROUP BY 1, 2, 3, 4;
+
+## Section 4: Dashboard & Reporting Design
+
+### 4.1 Dashboard Hierarchy
+
+Three tiers of dashboards serve different audiences and decision-making
+needs:
+
+|  |  |  |  |  |
+|----|----|----|----|----|
+| **Tier** | **Dashboard Name** | **Primary Audience** | **KPIs Displayed** | **Refresh Cycle** |
+| **Executive** | **OALTC Strategic Scorecard** | DOH Commissioner, OALTC Director | Tier 1 outcome & equity KPIs; trend lines; statewide maps | Monthly |
+| **Program** | **Program Performance Monitor** | Bureau Chiefs, Program Managers | Tier 2 operational KPIs; facility rankings; alert flags; drill-downs | Weekly |
+| **Operational** | **Data Operations Dashboard** | Analytics Team, IT, Data Stewards | Tier 3 data quality KPIs; pipeline status; submission compliance; error logs | Daily |
+
+### 4.2 Standard Reporting Cadence
+
+The following reporting schedule ensures stakeholders receive the right
+information at the right time:
+
+- Daily: Automated data quality alerts sent to Data Stewards for any
+  pipeline failures, validation errors, or submission gaps. No manual
+  action unless thresholds are breached.
+
+- Weekly: Program Performance Monitor refreshed and shared with Bureau
+  Chiefs. Includes a summary of KPIs in ALERT or WARNING status and any
+  emerging trends.
+
+- Monthly: Full KPI report package distributed to OALTC Program
+  Directors. Includes trend analysis, month-over-month comparisons,
+  facility-level rankings, and commentary on outliers.
+
+- Quarterly: Strategic Scorecard presented to DOH senior leadership.
+  Includes progress toward annual targets, equity gap analysis, and
+  narrative summary for each strategic pillar.
+
+- Annual: Year-end performance review document. Includes baseline
+  resets, target revisions, lessons learned, and proposed additions or
+  retirements to the KPI Registry.
+
+### 4.3 Alert & Escalation Protocol
+
+A tiered alert system ensures that performance signals translate into
+timely action:
+
+|  |  |  |  |  |
+|----|----|----|----|----|
+| **Alert Level** | **Trigger Condition** | **Notification** | **Required Action** | **Timeline** |
+| **⚠️ WARNING** | KPI exceeds 10% above target for one reporting period | Automated email to Program Manager and Data Steward | Analyst investigates root cause; documents findings in KPI log | Within 5 business days |
+| **🔴 ALERT** | KPI exceeds warning threshold for two consecutive periods OR single-period breach is severe | Automated alert to Bureau Chief and Program Director; included in weekly summary | Bureau Chief reviews; corrective action plan initiated; escalated to OALTC Director if unresolved | Within 2 business days |
+| **✅ ON TARGET** | KPI within or better than target range | Reflected in dashboard; highlighted in monthly report | No action required; document and share as best practice if sustained ≥ 3 months | Monthly review |
+
+## Section 5: Advanced Analytics & Predictive Intelligence
+
+### 5.1 Moving Beyond Descriptive KPIs
+
+While standard KPI tracking captures what has happened, the Bureau of
+Data Analytics and Automation can deliver significantly greater value by
+layering predictive and explanatory analytics on top of the core KPI
+framework. This transforms the system from a rearview mirror into an
+early-warning and decision-support tool.
+
+### 5.2 Predictive Modeling
+
+- Ensemble machine learning models (Random Forest, XGBoost) can be
+  trained on historical KPI trends to predict which facilities are at
+  elevated risk of deteriorating performance in the next 30–90 days —
+  enabling proactive intervention before a deficiency occurs.
+
+- Time-series forecasting (ARIMA, Prophet, LSTM) can project KPI
+  trajectories under different intervention scenarios, supporting
+  resource allocation planning.
+
+- Risk stratification models can flag facilities for prioritized
+  oversight based on a composite risk score combining multiple KPIs,
+  complaint history, and staffing data.
+
+### 5.3 Explainable AI (XAI) for Root Cause Analysis
+
+- SHAP (SHapley Additive exPlanations) values can identify which factors
+  — staffing levels, ownership type, payer mix, geographic context — are
+  the primary drivers of KPI variation across facilities.
+
+- Geographically Weighted models can reveal whether the relationship
+  between staffing and outcomes differs by region, enabling targeted
+  policy responses rather than one-size-fits-all interventions.
+
+### 5.4 Health Equity Analytics
+
+- Stratified KPI analysis by race, ethnicity, payer type, and geography
+  quantifies disparity gaps and tracks progress toward equity goals over
+  time.
+
+- Spatial clustering analysis (Moran’s I, LISA) can identify geographic
+  hotspots of poor performance, directing inspection and support
+  resources to underserved areas.
+
+## Section 6: Stakeholder Engagement & Continuous Improvement
+
+### 6.1 KPI Development Process
+
+New KPIs are developed through a structured five-step process to ensure
+relevance, feasibility, and buy-in:
+
+|  |  |  |  |
+|----|----|----|----|
+| **Step** | **Activity** | **Description** | **Responsible Party** |
+| **1** | **Use Case Discovery** | Structured interviews and workshops with program offices to identify analytical needs and performance questions they cannot currently answer | Data Analyst 3 + Program Managers |
+| **2** | **Data Feasibility Assessment** | Evaluate whether required data exists in BigQuery, the expected data quality, and any gaps that require new data feeds or collection instruments | Data Steward + IT |
+| **3** | **KPI Definition & Review** | Draft formal KPI definition using the standard template; review with program office for accuracy and business relevance | Data Analyst 3 + Data Owner |
+| **4** | **Pilot & Baseline** | Calculate the KPI for at least 12 months of historical data to establish baseline; review with stakeholders before setting targets | Data Analyst 3 |
+| **5** | **Register & Deploy** | Add approved KPI to the KPI Registry, build the BigQuery view, connect to dashboard, and train program staff on interpretation | Data Steward + Data Analyst 3 |
+
+### 6.2 Annual KPI Review Cycle
+
+The KPI portfolio is reviewed annually to ensure ongoing relevance:
+
+- Retire KPIs that are no longer aligned with strategic priorities or
+  where the underlying program has changed.
+
+- Revise targets based on actual performance trends, new benchmarks from
+  CMS or peer states, and updated strategic goals.
+
+- Add new KPIs identified through the use-case discovery process or
+  driven by new data feeds coming online.
+
+- Assess data quality trends for each KPI and invest in data improvement
+  efforts for metrics showing persistent quality issues.
+
+### 6.3 Capacity Building & Self-Service Analytics
+
+A key goal is to build data literacy within OALTC program offices so
+that staff can independently explore KPI data without relying solely on
+the analytics team for every question:
+
+- Develop user guides and short training modules for each dashboard,
+  tailored to the non-technical program officer.
+
+- Create a curated library of pre-built BigQuery queries that program
+  staff can run directly for common ad-hoc questions.
+
+- Host quarterly ‘Data Office Hours’ sessions where program staff can
+  bring analytical questions and learn best practices for interpreting
+  KPI trends.
+
+## Section 7: Implementation Roadmap
+
+The framework is implemented in four phases over 12 months:
+
+|  |  |  |  |
+|----|----|----|----|
+| **Phase** | **Timeline** | **Key Activities** | **Deliverables** |
+| **Phase 1 Foundation** | Months 1–3 | Stakeholder interviews; data inventory; KPI Registry v1.0 (15–20 priority KPIs); BigQuery data quality audit; establish governance structure | KPI Registry; Governance Charter; Data Quality Baseline Report |
+| **Phase 2 Core Build** | Months 4–6 | Build BigQuery transformation pipelines for Priority KPIs; deploy Operational Dashboard and Program Performance Monitor; set baselines and initial targets | Two live dashboards; 20 active KPI SQL views; Target-Setting Report |
+| **Phase 3 Expansion** | Months 7–9 | Add equity KPI layer; build Executive Scorecard; deploy predictive risk model for facility oversight prioritization; launch staff training program | Executive Scorecard; Equity KPI Module; Risk Stratification Model |
+| **Phase 4 Maturity** | Months 10–12 | Annual KPI review; refine alert thresholds based on operational experience; expand self-service analytics; document full framework for handover and sustainability | Updated KPI Registry; Year-1 Performance Report; Sustainability Plan |
+
+This framework provides OALTC with a scalable, evidence-based foundation
+for performance management. By combining rigorous KPI governance, a
+robust BigQuery data architecture, tiered dashboards, and predictive
+analytics, the Bureau of Data Analytics and Automation can move from
+reactive reporting to proactive program stewardship — ultimately
+improving outcomes for New York’s aging and long-term care population.
+
+*Prepared by: Zia U. Ahmed, Ph.D. \| Research Associate Professor,
+University at Buffalo \| May 2026*

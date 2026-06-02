@@ -1,0 +1,102 @@
+{
+  "pageHeading": "KPI Calculation Pipeline (BigQuery SQL)",
+  "lede": "Select a KPI to inspect the canonical BigQuery view definition and a simulated top-facility extract. Replace `oaltc_raw.*` / mart references with your environment.",
+  "kpis": [
+    {
+      "id": "readmission",
+      "selectLabel": "30-Day Hospital Readmission Rate",
+      "title": "KPI 1: 30-Day Hospital Readmission Rate",
+      "viewName": "oaltc_kpi.readmission_rate_monthly",
+      "description": "Granularity: facility × month. Thresholds: ALERT >22%, WARNING >18% and ≤22%, ON TARGET ≤18%.",
+      "sql": "-- KPI: 30-Day Hospital Readmission Rate\n-- Granularity: Facility × Month\n-- Owner: Nursing Home Program Office\n\nCREATE OR REPLACE VIEW oaltc_kpi.readmission_rate_monthly AS\nSELECT\n    facility_id,\n    facility_name,\n    region,\n    report_year,\n    report_month,\n    COUNTIF(readmitted_30d) AS numerator,\n    COUNT(*) AS denominator,\n    ROUND(SAFE_DIVIDE(\n        COUNTIF(readmitted_30d),\n        COUNT(*)) * 100, 2) AS readmission_rate_pct,\n    CASE\n        WHEN ROUND(SAFE_DIVIDE(COUNTIF(readmitted_30d), COUNT(*)) * 100, 2) > 22 THEN 'ALERT'\n        WHEN ROUND(SAFE_DIVIDE(COUNTIF(readmitted_30d), COUNT(*)) * 100, 2) > 18 THEN 'WARNING'\n        ELSE 'ON TARGET'\n    END AS performance_status\nFROM oaltc_raw.nh_discharge_events\nWHERE data_quality_flag = 'PASS'\n  AND discharge_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 13 MONTH)\nGROUP BY 1, 2, 3, 4, 5;",
+      "resultsTitle": "Live query output — Top 10 facilities (simulated)",
+      "demoNote": "Percentages and statuses follow the CASE logic in the view (notional demo rows).",
+      "table": {
+        "columns": [
+          { "key": "facility_id", "label": "facility_id" },
+          { "key": "facility_name", "label": "facility_name" },
+          { "key": "region", "label": "region" },
+          { "key": "readmission_rate_pct", "label": "readmission_rate_pct" },
+          { "key": "denominator", "label": "denominator" },
+          { "key": "performance_status", "label": "performance_status", "badge": true }
+        ],
+        "rows": [
+          { "facility_id": "NH-001", "facility_name": "Albany Care Center 1", "region": "Western NY", "readmission_rate_pct": "12.00", "denominator": 91, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-002", "facility_name": "Buffalo Care Center 1", "region": "Central NY", "readmission_rate_pct": "19.40", "denominator": 129, "performance_status": "WARNING" },
+          { "facility_id": "NH-003", "facility_name": "Rochester Care Center 1", "region": "Capital Region", "readmission_rate_pct": "14.30", "denominator": 191, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-004", "facility_name": "Syracuse Care Center 1", "region": "NYC Metro", "readmission_rate_pct": "21.50", "denominator": 138, "performance_status": "WARNING" },
+          { "facility_id": "NH-005", "facility_name": "Yonkers Care Center 1", "region": "Long Island", "readmission_rate_pct": "23.10", "denominator": 179, "performance_status": "ALERT" },
+          { "facility_id": "NH-006", "facility_name": "Utica Care Center 1", "region": "North Country", "readmission_rate_pct": "15.50", "denominator": 82, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-007", "facility_name": "Ithaca Care Center 1", "region": "Southern Tier", "readmission_rate_pct": "18.10", "denominator": 154, "performance_status": "WARNING" },
+          { "facility_id": "NH-008", "facility_name": "Binghamton Care Center 1", "region": "Southern Tier", "readmission_rate_pct": "11.20", "denominator": 267, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-009", "facility_name": "Schenectady Care Center 1", "region": "Capital Region", "readmission_rate_pct": "26.80", "denominator": 112, "performance_status": "ALERT" },
+          { "facility_id": "NH-010", "facility_name": "Plattsburgh Care Center 1", "region": "North Country", "readmission_rate_pct": "17.95", "denominator": 143, "performance_status": "ON TARGET" }
+        ]
+      }
+    },
+    {
+      "id": "turnover",
+      "selectLabel": "Staff Turnover Rate (Quarterly)",
+      "title": "KPI 2: Staff Turnover Rate (quarterly)",
+      "viewName": "oaltc_kpi.staff_turnover_quarterly",
+      "description": "Granularity: facility × quarter. Illustrative thresholds: ALERT >35%, WARNING >25% and ≤35%, ON TARGET ≤25%.",
+      "sql": "-- KPI: Staff Turnover Rate (quarterly)\n-- Granularity: Facility × Quarter\n-- Owner: Workforce Analytics\n\nCREATE OR REPLACE VIEW oaltc_kpi.staff_turnover_quarterly AS\nWITH headcount AS (\n  SELECT\n      facility_id,\n      facility_name,\n      region,\n      fiscal_year,\n      fiscal_quarter,\n      COUNT(DISTINCT staff_id) AS active_staff\n  FROM oaltc_curated.dim_staff_daily\n  WHERE snapshot_date BETWEEN quarter_start_date AND quarter_end_date\n    AND data_quality_flag = 'PASS'\n  GROUP BY 1, 2, 3, 4, 5\n),\nexits AS (\n  SELECT\n      facility_id,\n      fiscal_year,\n      fiscal_quarter,\n      COUNT(*) AS exits\n  FROM oaltc_curated.fact_staff_terminations\n  WHERE termination_kind IN ('VOLUNTARY', 'INVOLUNTARY')\n  GROUP BY 1, 2, 3\n)\nSELECT\n    h.facility_id,\n    h.facility_name,\n    h.region,\n    h.fiscal_year,\n    h.fiscal_quarter,\n    e.exits AS numerator,\n    h.active_staff AS denominator,\n    ROUND(SAFE_DIVIDE(e.exits, h.active_staff) * 100, 2) AS turnover_pct,\n    CASE\n        WHEN ROUND(SAFE_DIVIDE(e.exits, h.active_staff) * 100, 2) > 35 THEN 'ALERT'\n        WHEN ROUND(SAFE_DIVIDE(e.exits, h.active_staff) * 100, 2) > 25 THEN 'WARNING'\n        ELSE 'ON TARGET'\n    END AS performance_status\nFROM headcount h\nLEFT JOIN exits e\n  ON h.facility_id = e.facility_id\n AND h.fiscal_year = e.fiscal_year\n AND h.fiscal_quarter = e.fiscal_quarter;",
+      "resultsTitle": "Live query output — Top 10 facilities (simulated)",
+      "demoNote": "Turnover uses exits ÷ active staff for the quarter (demo numerators/denominators).",
+      "table": {
+        "columns": [
+          { "key": "facility_id", "label": "facility_id" },
+          { "key": "facility_name", "label": "facility_name" },
+          { "key": "region", "label": "region" },
+          { "key": "turnover_pct", "label": "turnover_pct" },
+          { "key": "denominator", "label": "denominator" },
+          { "key": "performance_status", "label": "performance_status", "badge": true }
+        ],
+        "rows": [
+          { "facility_id": "NH-002", "facility_name": "Buffalo Care Center 1", "region": "Central NY", "turnover_pct": "22.10", "denominator": 420, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-005", "facility_name": "Yonkers Care Center 1", "region": "Long Island", "turnover_pct": "38.50", "denominator": 610, "performance_status": "ALERT" },
+          { "facility_id": "NH-011", "facility_name": "Troy Care Center 1", "region": "Capital Region", "turnover_pct": "18.40", "denominator": 355, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-004", "facility_name": "Syracuse Care Center 1", "region": "NYC Metro", "turnover_pct": "29.80", "denominator": 502, "performance_status": "WARNING" },
+          { "facility_id": "NH-012", "facility_name": "New Rochelle Care Center 1", "region": "Long Island", "turnover_pct": "41.20", "denominator": 388, "performance_status": "ALERT" },
+          { "facility_id": "NH-003", "facility_name": "Rochester Care Center 1", "region": "Capital Region", "turnover_pct": "24.60", "denominator": 441, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-013", "facility_name": "Kingston Care Center 1", "region": "Hudson Valley", "turnover_pct": "33.10", "denominator": 298, "performance_status": "WARNING" },
+          { "facility_id": "NH-001", "facility_name": "Albany Care Center 1", "region": "Western NY", "turnover_pct": "19.90", "denominator": 371, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-014", "facility_name": "Watertown Care Center 1", "region": "North Country", "turnover_pct": "36.70", "denominator": 265, "performance_status": "ALERT" },
+          { "facility_id": "NH-007", "facility_name": "Ithaca Care Center 1", "region": "Southern Tier", "turnover_pct": "15.20", "denominator": 224, "performance_status": "ON TARGET" }
+        ]
+      }
+    },
+    {
+      "id": "falls",
+      "selectLabel": "Falls with Injury (per 1,000 bed-days)",
+      "title": "KPI 3: Falls with Injury (per 1,000 bed-days)",
+      "viewName": "oaltc_kpi.falls_injury_monthly",
+      "description": "Granularity: facility × month. Illustrative thresholds (per 1,000 bed-days): ALERT >2.2, WARNING >1.4 and ≤2.2, ON TARGET ≤1.4.",
+      "sql": "-- KPI: Falls with Injury (per 1,000 bed-days)\n-- Granularity: Facility × Month\n-- Owner: Quality & Safety\n\nCREATE OR REPLACE VIEW oaltc_kpi.falls_injury_monthly AS\nSELECT\n    f.facility_id,\n    f.facility_name,\n    f.region,\n    f.report_year,\n    f.report_month,\n    COUNTIF(f.injury_ind) AS falls_with_injury,\n    SUM(c.bed_days) AS bed_days,\n    ROUND(SAFE_DIVIDE(\n        COUNTIF(f.injury_ind),\n        NULLIF(SUM(c.bed_days), 0)) * 1000, 2) AS rate_per_1000_bd,\n    CASE\n        WHEN ROUND(SAFE_DIVIDE(COUNTIF(f.injury_ind), NULLIF(SUM(c.bed_days), 0)) * 1000, 2) > 2.2 THEN 'ALERT'\n        WHEN ROUND(SAFE_DIVIDE(COUNTIF(f.injury_ind), NULLIF(SUM(c.bed_days), 0)) * 1000, 2) > 1.4 THEN 'WARNING'\n        ELSE 'ON TARGET'\n    END AS performance_status\nFROM oaltc_curated.fact_falls f\nJOIN oaltc_curated.fact_census_monthly c\n  ON f.facility_id = c.facility_id\n AND f.report_year = c.report_year\n AND f.report_month = c.report_month\nWHERE f.data_quality_flag = 'PASS'\nGROUP BY 1, 2, 3, 4, 5;",
+      "resultsTitle": "Live query output — Top 10 facilities (simulated)",
+      "demoNote": "Rate = injury falls × 1,000 ÷ bed-days (aligned to Section 3.3 pandas narrative).",
+      "table": {
+        "columns": [
+          { "key": "facility_id", "label": "facility_id" },
+          { "key": "facility_name", "label": "facility_name" },
+          { "key": "region", "label": "region" },
+          { "key": "rate_per_1000_bd", "label": "rate_per_1000_bd" },
+          { "key": "bed_days", "label": "bed_days" },
+          { "key": "performance_status", "label": "performance_status", "badge": true }
+        ],
+        "rows": [
+          { "facility_id": "NH-004", "facility_name": "Syracuse Care Center 1", "region": "NYC Metro", "rate_per_1000_bd": "1.25", "bed_days": 18420, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-002", "facility_name": "Buffalo Care Center 1", "region": "Central NY", "rate_per_1000_bd": "2.55", "bed_days": 16200, "performance_status": "ALERT" },
+          { "facility_id": "NH-008", "facility_name": "Binghamton Care Center 1", "region": "Southern Tier", "rate_per_1000_bd": "0.98", "bed_days": 22100, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-015", "facility_name": "Poughkeepsie Care Center 1", "region": "Hudson Valley", "rate_per_1000_bd": "1.95", "bed_days": 14880, "performance_status": "WARNING" },
+          { "facility_id": "NH-006", "facility_name": "Utica Care Center 1", "region": "North Country", "rate_per_1000_bd": "1.10", "bed_days": 9050, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-009", "facility_name": "Schenectady Care Center 1", "region": "Capital Region", "rate_per_1000_bd": "2.80", "bed_days": 13340, "performance_status": "ALERT" },
+          { "facility_id": "NH-003", "facility_name": "Rochester Care Center 1", "region": "Capital Region", "rate_per_1000_bd": "1.52", "bed_days": 25400, "performance_status": "WARNING" },
+          { "facility_id": "NH-005", "facility_name": "Yonkers Care Center 1", "region": "Long Island", "rate_per_1000_bd": "0.88", "bed_days": 30100, "performance_status": "ON TARGET" },
+          { "facility_id": "NH-016", "facility_name": "Elmira Care Center 1", "region": "Southern Tier", "rate_per_1000_bd": "2.30", "bed_days": 8700, "performance_status": "ALERT" },
+          { "facility_id": "NH-001", "facility_name": "Albany Care Center 1", "region": "Western NY", "rate_per_1000_bd": "1.38", "bed_days": 19250, "performance_status": "ON TARGET" }
+        ]
+      }
+    }
+  ]
+}

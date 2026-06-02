@@ -1,0 +1,183 @@
+# OALTC KPI Tracking Framework- Data Infrastructure, Pipeline, Data Quality Control & Dashboard Reporting
+
+*Prepared by: Zia U. Ahmed, Ph.D. · May 2026*
+
+This notebook implements the KPI framework described in Sections 3 (Data Infrastructure & Pipeline Architecture)
+and 4 (Dashboard & Reporting Design) loading staged BigQuery tables (dimension + raw data lake layers) via the **`google-cloud-bigquery`** client.
+
+### Notebook structure
+
+| Section | Content |
+|---------|---------|
+| **0** | Setup & dependencies |
+| **3.1** | BigQuery data lake — facility dimension & raw fact tables |
+| **3.2** | Data quality control — six-dimension framework |
+| **3.3** | KPI calculation pipeline (SQL-equivalent in pandas) |
+| **4.1** | Executive Strategic Scorecard |
+| **4.2** | Program Performance Monitor (facility rankings) |
+| **4.3** | Alert & Escalation System |
+
+## Section 0: Setup & Dependencies
+
+**Output**
+
+```text
+✅ Setup complete. All libraries loaded.
+   Pandas  2.3.3  |  NumPy 2.2.6  |  Plotly 6.6.0
+```
+
+## Section 3.1: BigQuery data lake (`google-cloud-bigquery`)
+
+Three code cells load **`df_facilities`**, **`df_raw`** (discharge events), **`df_workforce`**, and **`df_complaints`** using the **[BigQuery Python client](https://cloud.google.com/python/docs/reference/bigquery/latest)**.
+
+### Pipeline context (four layers)
+
+1. **Ingestion** — facility submissions are already landed in the raw GCP dataset (here: `oaltc_raw`).
+2. **Raw storage** — reads from fact-style tables (`nh_discharge_events`, `workforce_quarterly`, `complaint_investigations` by default).
+3. **Transformation** — Section **3.2–3.3** apply QC rules and KPI logic in pandas (mirroring production SQL/views).
+4. **Presentation** — Sections **4.x** consume the derived KPI mart and charts.
+
+---
+
+### Prerequisites
+
+| Requirement | Notes |
+|-------------|--------|
+| Python packages | `pip install -r requirements.txt` in this repo (includes `google-cloud-bigquery`, `pyarrow`, `db-dtypes`). |
+| **BigQuery API** enabled | [Enable BigQuery API](https://console.cloud.google.com/apis/library/bigquery.googleapis.com?project=oaltc-kpi-project-7748) for GCP project **`oaltc-kpi-project-7748`**. |
+| **Credentials** | The kernel must see **ADC** or a **service account JSON** via env (see below). Logging into the web console alone does **not** authenticate Jupyter. |
+
+| **Use BigQuery (not mock)** | 1) Run `bigquery/bootstrap_oaltc_lake.sql`. 2) `python scripts/hydrate_oaltc_lake_sample.py` (uses ADC / service account JSON; truncates then loads notebook-style sample data). 3) **Unset** `OALTC_USE_LOCAL_MOCK` (or set it to `0`). 4) **Restart** the Jupyter kernel and re-run Section 3.1. Optional: `export OALTC_BQ_NO_FALLBACK=1` so a missing table errors instead of falling back to mock. |
+
+
+---
+
+### Authenticating `bigquery.Client()` 
+
+| Method | When to use | Steps |
+|--------|--------------|-------|
+| **Application Default Credentials** | Interactive development on your machine | In a terminal (same Linux user / account that launches Jupyter): `gcloud auth application-default login`, then `gcloud config set project oaltc-kpi-project-7748`. Optional: `export GOOGLE_CLOUD_PROJECT=oaltc-kpi-project-7748`. Full guide: [Set up ADC](https://cloud.google.com/docs/authentication/external/set-up-adc). |
+| **Service account key** | CI, shared servers, locked-down laptops | Create a JSON key in IAM, grant BigQuery roles on the project/datasets, then `export GOOGLE_APPLICATION_CREDENTIALS=/absolute/path/key.json` and set `GOOGLE_CLOUD_PROJECT` (or `OALTC_BQ_PROJECT`). **Do not commit the key.** |
+
+After changing env vars or running `gcloud auth`, **restart the Jupyter kernel** so the client picks them up.
+
+**Useful console links (GCP project `oaltc-kpi-project-7748`):**
+
+- [Google Cloud console](https://console.cloud.google.com/welcome/new?project=oaltc-kpi-project-7748)
+- [BigQuery workspace](https://console.cloud.google.com/bigquery?project=oaltc-kpi-project-7748)
+- [APIs & Services](https://console.cloud.google.com/apis/dashboard?project=oaltc-kpi-project-7748)
+
+---
+
+### Environment variables (all optional)
+
+| Variable | Purpose |
+|----------|---------|
+| `GOOGLE_CLOUD_PROJECT` / `OALTC_BQ_PROJECT` | Explicit GCP project id (recommended if ADC does not imply a default project). |
+| `GOOGLE_APPLICATION_CREDENTIALS` | Path to service account JSON (alternative to ADC). |
+| `OALTC_BQ_DATASET_DIM` | Dimension dataset id (default `oaltc_dim`). |
+| `OALTC_BQ_DATASET_RAW` | Raw / lake dataset id (default `oaltc_raw`). |
+| `OALTC_BQ_TABLE_FACILITY` | Table for facility master (default `nh_facility_master`). |
+| `OALTC_BQ_TABLE_DISCHARGE` | Discharge facts (default `nh_discharge_events`). |
+| `OALTC_BQ_TABLE_WORKFORCE` | Workforce facts (default `workforce_quarterly`). |
+| `OALTC_BQ_TABLE_COMPLAINTS` | Complaints (default `complaint_investigations`). |
+| `OALTC_BQ_DISCHARGE_WHERE` | Extra SQL predicate for discharge query **without** the `WHERE` keyword, e.g. `report_year >= 2025`. |
+| `OALTC_BQ_ROW_LIMIT` | Integer row cap appended to workload/complaints queries (**and** discharge when non-empty)—use only for quick tests (can skew KPI joins). |
+| `OALTC_BQ_NO_FALLBACK` | `1` — do **not** fall back to local mock when the facility query fails with HTTP 404 (missing dataset/table). |
+| `OALTC_USE_LOCAL_MOCK` | `1` / `true` — **force** in-process synthetic data (skips BigQuery even if configured). |
+| `OALTC_BQ_STRICT` | `1` — if the BigQuery client cannot be imported, **raise** instead of auto mock-fallback (see below). |
+
+If `google.cloud.bigquery` **fails to import** and **`OALTC_BQ_STRICT` is unset**, the notebook switches to the same **local mock** generator as above so cells still run offline.
+
+**Seeing `404 … Dataset … oaltc_dim was not found`?** Provision the lake with **`bigquery/bootstrap_oaltc_lake.sql`**, then load data. For the same sample volumes the notebook mock uses—but stored in BigQuery—run **`python scripts/hydrate_oaltc_lake_sample.py`**. Until tables exist, if **`OALTC_USE_LOCAL_MOCK` is unset** the notebook will catch the missing table, set **`USE_LOCAL_MOCK`**, and continue offline with synthetic frames.
+
+### Facility Master
+
+This section loads the facility master list, which contains metadata for each nursing home
+such as name, location, region, facility type, ownership, and other identifying columns.
+The facility master serves as the dimension (reference) table for joining all other datasets
+in the OALTC KPI analysis. It can be loaded from BigQuery (preferred for production and analysis),
+or generated as a synthetic (mock) DataFrame for offline development and testing.
+
+**Output**
+
+```text
+⚠️ BigQuery facility query returned 404 (dataset or table missing).
+   Expected roughly: `oaltc_dim.nh_facility_master`
+   Create the dataset/table in GCP or set OALTC_USE_LOCAL_MOCK=1; use OALTC_BQ_NO_FALLBACK=1 to force failure.
+   Bootstrap empty datasets/tables: bigquery/bootstrap_oaltc_lake.sql
+   Underlying message: 404 Not found: Dataset oaltc-kpi-project-7748:oaltc_dim was not found in location US; reason: notFound, message: Not found: Dataset oaltc-kpi-project-7748:oaltc_dim was not found in location US
+
+Location: US
+Job ID: 2ba943bd-4571-41bd-9a40-52bdce150437
+
+Facility master rows: 50 across 6 regions
+
+  facility_id                facility_name          region  \
+0      NH-001        Buffalo Care Center 1      Western NY   
+1      NH-002          Utica Care Center 1      Central NY   
+2      NH-003    Schenectady Care Center 1  Capital Region   
+3      NH-004      Manhattan Care Center 1       NYC Metro   
+4      NH-005          Islip Care Center 1     Long Island   
+5      NH-006      Watertown Care Center 1   North Country   
+6      NH-007  Niagara Falls Care Center 2      Western NY   
+7      NH-008           Rome Care Center 2      Central NY   
+
+              facility_type       ownership  licensed_beds         county  \
+0  Skilled Nursing Facility  Not-for-profit            158        Buffalo   
+1                      CCRC  Not-for-profit            122          Utica   
+2                      CCRC      For-profit            178    Schenectady   
+3                      CCRC  Not-for-profit            100      Manhattan   
+4              Nursing Home      Government            173          Islip   
+5  Skilled Nursing Facility      For-profit            112      Watertown   
+6  Skilled Nursing Facility      For-profit            167  Niagara Falls   
+7  Skilled Nursing Facility      For-profit             96           Rome   
+
+  zip_code  
+0    11886  
+1    15092  
+2    11340  
+3    14845  
+4    12142  
+5    14688  
+6    19083  
+7    13217
+```
+
+### Raw Discharge Events
+
+This section initiates the processing of raw discharge event data for each facility. 
+It prepares the dataset used in subsequent analyses—either loading it from BigQuery or, if a mock environment is used, generating simulated event records.
+
+The discharge events dataset contains details such as admission and discharge dates, patient outcomes, monthly reporting structure, and data quality flags.
+
+This information is foundational for computing quality metrics and tracking readmission and adverse events across the region.
+
+**Output**
+
+```text
+Simulating discharge events (local mock)...
+✅ Raw data lake: 26,468 discharge event records
+   Date range  : 2025-04  →  2026-04
+   Facilities  : 50
+   PASS records: 25,162  |  FAIL records: 1,306
+```
+
+### Workforce & complaints
+
+- This section focuses on the processing and analysis of workforce and complaints data for long-term care facilities.
+- Workforce data includes staff headcounts, turnover rates, RN hours, and vacancy rates across recent quarters, providing insight into staffing stability and sufficiency.
+- Complaints data summarizes the frequency, types, and resolution timeliness of complaints filed against facilities.
+- The analysis in this section uses either a local mock data generator or queries live data from BigQuery, depending on the execution environment.
+
+**Output**
+
+```text
+Simulating workforce (local mock)...
+✅ Workforce data lake: 300 quarterly records
+Simulating complaints (local mock)...
+✅ Complaint investigations: 693 records
+
+Layer 1 (Raw Data Lake) — all tables ready.
+```
+

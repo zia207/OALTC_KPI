@@ -1,0 +1,51 @@
+facility_id,total_records,passed_records,completeness_pct,validity_pct,timeliness_pct,consistency_pct,uniqueness_pct,overall_pass_pct,flag_rate_pct,dq_status,facility_name,region
+NH-001,390,379,99.5,99.0,100.0,99.2,100.0,97.2,2.8,PASS,Buffalo Care Center 1,Western NY
+NH-002,546,527,99.5,98.7,100.0,98.7,100.0,96.5,3.5,PASS,Utica Care Center 1,Central NY
+NH-003,312,302,99.4,99.4,100.0,98.7,100.0,96.8,3.2,PASS,Schenectady Care Center 1,Capital Region
+NH-004,754,732,99.1,99.2,100.0,98.4,100.0,97.1,2.9,PASS,Manhattan Care Center 1,NYC Metro
+NH-005,338,326,99.4,98.5,100.0,98.2,100.0,96.4,3.6,PASS,Islip Care Center 1,Long Island
+NH-006,377,366,100.0,98.9,100.0,98.7,100.0,97.1,2.9,PASS,Watertown Care Center 1,North Country
+NH-007,689,666,99.0,98.8,100.0,98.0,100.0,96.7,3.3,PASS,Niagara Falls Care Center 2,Western NY
+NH-008,416,403,99.5,99.3,100.0,98.1,100.0,96.9,3.1,PASS,Rome Care Center 2,Central NY
+NH-009,520,506,99.2,99.4,100.0,98.8,100.0,97.3,2.7,PASS,Saratoga Springs Care Center 2,Capital Region
+NH-010,494,480,99.2,98.8,100.0,98.6,100.0,97.2,2.8,PASS,Staten Island Care Center 2,NYC Metro
+NH-011,598,579,98.8,99.2,100.0,98.2,100.0,96.8,3.2,PASS,Hempstead Care Center 2,Long Island
+NH-012,702,676,99.3,98.3,100.0,98.6,100.0,96.3,3.7,PASS,Plattsburgh Care Center 2,North Country
+NH-013,754,731,99.1,98.3,100.0,98.9,100.0,96.9,3.1,PASS,Lockport Care Center 3,Western NY
+NH-014,533,522,99.2,99.4,100.0,99.1,100.0,97.9,2.1,PASS,Auburn Care Center 3,Central NY
+NH-015,624,609,99.2,99.4,100.0,99.0,100.0,97.6,2.4,PASS,Glens Falls Care Center 3,Capital Region
+NH-016,403,397,99.8,99.5,100.0,99.3,100.0,98.5,1.5,PASS,Bronx Care Center 3,NYC Metro
+NH-017,442,435,99.3,99.8,100.0,98.9,100.0,98.4,1.6,PASS,Babylon Care Center 3,Long Island
+NH-018,702,672,98.1,98.6,100.0,98.4,100.0,95.7,4.3,PASS,Ogdensburg Care Center 3,North Country
+NH-019,533,515,99.6,99.2,100.0,98.3,100.0,96.6,3.4,PASS,Batavia Care Center 4,Western NY
+NH-020,611,595,99.3,99.3,100.0,98.7,100.0,97.4,2.6,PASS,Cortland Care Center 4,Central NY
+NH-021,520,501,98.8,98.5,100.0,97.9,100.0,96.3,3.7,PASS,Albany Care Center 4,Capital Region
+NH-022,403,391,99.3,98.8,100.0,99.0,100.0,97.0,3.0,PASS,Brooklyn Care Center 4,NYC Metro
+NH-023,325,321,99.7,99.7,100.0,99.1,100.0,98.8,1.2,PASS,Huntington Care Center 4,Long Island
+NH-024,507,494,99.8,98.8,100.0,98.8,100.0,97.4,2.6,PASS,Malone Care Center 4,North Country
+NH-025,455,442,98.7,98.9,100.0,98.7,100.0,97.1,2.9,PASS,Olean Care Center 5,Western NY
+NH-026,416,402,99.3,98.8,100.0,98.8,100.0,96.6,3.4,PASS,Syracuse Care Center 5,Central NY
+NH-027,546,524,99.3,98.9,100.0,97.4,100.0,96.0,4.0,PASS,Troy Care Center 5,Capital Region
+NH-028,260,255,100.0,98.8,100.0,99.6,100.0,98.1,1.9,PASS,Queens Care Center 5,NYC Metro
+NH-029,312,306,99.7,99.7,100.0,99.4,100.0,98.1,1.9,PASS,Oyster Bay Care Center 5,Long Island
+NH-030,585,571,99.7,99.1,100.0,98.3,100.0,97.6,2.4,PASS,Canton Care Center 5,North Country
+NH-031,468,452,99.1,98.5,100.0,98.9,100.0,96.6,3.4,PASS,Buffalo Care Center 6,Western NY
+NH-032,221,213,99.1,99.1,100.0,97.7,100.0,96.4,3.6,PASS,Utica Care Center 6,Central NY
+NH-033,533,524,99.4,99.2,100.0,99.2,100.0,98.3,1.7,PASS,Schenectady Care Center 6,Capital Region
+NH-034,598,590,99.8,99.5,100.0,99.0,100.0,98.7,1.3,PASS,Manhattan Care Center 6,NYC Metro
+NH-035,689,673,99.6,99.0,100.0,98.7,100.0,97.7,2.3,PASS,Islip Care Center 6,Long Island
+NH-036,624,592,98.2,98.7,100.0,96.5,100.0,94.9,5.1,REVIEW,Watertown Care Center 6,North Country
+NH-037,507,497,99.2,99.4,100.0,99.0,100.0,98.0,2.0,PASS,Niagara Falls Care Center 7,Western NY
+NH-038,741,714,99.1,99.2,100.0,97.4,100.0,96.4,3.6,PASS,Rome Care Center 7,Central NY
+NH-039,338,327,98.8,98.2,100.0,98.8,100.0,96.7,3.3,PASS,Saratoga Springs Care Center 7,Capital Region
+NH-040,559,546,99.5,99.8,100.0,98.7,100.0,97.7,2.3,PASS,Staten Island Care Center 7,NYC Metro
+NH-041,559,550,99.6,99.1,100.0,99.5,100.0,98.4,1.6,PASS,Hempstead Care Center 7,Long Island
+NH-042,208,200,99.0,98.6,100.0,97.6,100.0,96.2,3.8,PASS,Plattsburgh Care Center 7,North Country
+NH-043,637,614,98.7,98.9,100.0,98.3,100.0,96.4,3.6,PASS,Lockport Care Center 8,Western NY
+NH-044,351,341,99.1,98.3,100.0,99.4,100.0,97.2,2.8,PASS,Auburn Care Center 8,Central NY
+NH-045,546,531,99.8,98.9,100.0,98.4,100.0,97.3,2.7,PASS,Glens Falls Care Center 8,Capital Region
+NH-046,611,592,99.7,99.0,100.0,98.0,100.0,96.9,3.1,PASS,Bronx Care Center 8,NYC Metro
+NH-047,663,645,98.8,99.2,100.0,98.8,100.0,97.3,2.7,PASS,Babylon Care Center 8,Long Island
+NH-048,559,540,98.6,98.6,100.0,99.1,100.0,96.6,3.4,PASS,Ogdensburg Care Center 8,North Country
+NH-049,507,498,99.6,99.4,100.0,99.2,100.0,98.2,1.8,PASS,Batavia Care Center 9,Western NY
+NH-050,403,394,99.8,99.5,100.0,98.5,100.0,97.8,2.2,PASS,Cortland Care Center 9,Central NY

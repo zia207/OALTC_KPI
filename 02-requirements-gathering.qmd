@@ -1,0 +1,760 @@
+# Requirements Gathering 
+
+Within the OALTC Data Analyst 3 role, requirements gathering involves visiting program offices to identify questions staff currently cannot answer about their programs. These needs are then translated into concrete data and analytical specifications.
+
+## Why Requirements Gathering Is Important
+
+Without a thorough requirements gathering process, there is a significant risk of developing solutions that do not address stakeholder needs. A common failure occurs when, for example, an analyst spends weeks building a dashboard tracking facility inspection completion rates, only to later discover that the program manager actually required data on complaint resolution times, not inspection rates, and already had access to the inspection data elsewhere.
+
+Requirements gathering addresses this problem by ensuring alignment between stakeholder needs, available data, and feasible solutions.
+
+## The Five Core Questions Requirements Gathering Must Address
+
+Every requirements gathering process, whether formal or informal, is aimed at answering the following:
+
+1. What decision is the analysis intended to support?
+The relevant question is not simply about data, but about the action that the data will inform. For example, a program may need to decide which facilities should be prioritized for unannounced inspections in the upcoming quarter.
+
+2. What does success look like?
+This refers to how success will be measured. For example, the goal may be to flag the top 10% of highest-risk facilities two months before a deficiency citation occurs.
+
+3. What data is already available?
+This involves taking inventory of current systems, spreadsheets, reports, and any existing data sources. It is necessary to clarify who owns each data source and how frequently they are updated.
+
+4. What is missing or broken?
+This step identifies gaps, such as missing fields, inconsistent definitions, or data that exists only on paper.
+
+5. Who needs to see the output, and in what form?
+Different stakeholders have different needs: a Commissioner may prefer a one-page summary; a program manager might need a filterable table; a surveyor could require a facility-level flag. The same underlying data may require multiple presentations.
+
+## How Requirements Gathering Operates in OALTC
+
+In the OALTC setting, requirements gathering follows these stages:
+
+### Stage 1 — Stakeholder Interviews (Weeks 1–3)
+
+The analyst meets with program offices, such as Nursing Home, Home Care, Adult Day Services, and Assisted Living, to ask structured questions, for example:
+- Describe the current reporting process: outputs, audiences, and frequency
+- Identify which questions consistently arise in leadership meetings that present data cannot answer
+- Explore what information would ideally appear on a dashboard
+- Determine which decisions are delayed due to unavailable data
+- Discover what data is routinely collected but seldom used
+
+All responses are documented. No commitments are made at this stage; the focus remains on active listening.
+
+### Stage 2 — Data Inventory (Weeks 2–4)
+
+Simultaneously, the available data across BigQuery, ITS-managed applications, and other sources (spreadsheets, Access databases, manual logs) is audited. The process includes mapping existing tables, fields, data completeness, and update frequency, identifying which needs can be met with current data, and flagging requirements for new data feeds.
+
+### Stage 3 — Use Case Prioritization (Week 4–5)
+
+Not every stakeholder request can be implemented right away. Program leadership works with analysts to rank use cases based on impact (importance to decision-making) and feasibility (difficulty given data availability). High-impact and high-feasibility items receive top priority. An example prioritization:
+
+| Use Case                                   | Impact | Feasibility      | Priority     |
+|--------------------------------------------|--------|------------------|-------------|
+| Flag high-risk facilities for inspection   | High   | High             | Build first |
+| Predict staffing shortages 90 days out     | High   | Low (data gaps)  | Phase 2     |
+| Track complaint resolution by complaint type| Medium | High             | Build first |
+| Benchmark NY facilities vs. national CMS data| Medium | Medium          | Phase 2     |
+
+### Stage 4 — Requirements Documentation
+
+Every approved use case is documented to cover:
+- Business requirement: what the stakeholder needs, stated plainly
+- Functional requirement: what the system is required to do (e.g., calculation of 30-day readmission rates at the facility level, and at what frequency)
+- Data requirement: specific tables, fields, filters, and business rules
+- Output requirement: definition of the audience, format, frequency, and level of detail required
+- Acceptance criteria: conditions under which the stakeholder will verify the solution is correct
+
+### Stage 5 — Sign-Off
+
+The requirements document is reviewed and signed by the program office before any development begins. This provides mutual assurance about scope and deliverables.
+
+## Common Pitfalls in Requirements Gathering
+
+`Stakeholders may describe what they want, not what they actually need`. For instance, requesting "all the data in one place" may mask a need for a concise weekly summary. Analysts should probe by asking, "What would you do differently if you had that?"
+
+`Requirements creep` is another risk. New ideas can emerge in every conversation, causing scope to expand unless new ideas are managed in a backlog for later assessment.
+
+`Assumptions based` on prior domain knowledge can be dangerous, as each program office may operate with different workflows and definitions. Analysts are advised never to assume but always to ask and document.
+
+`Technical jargon can exclude stakeholders.` For example, instead of asking about ETL requirements, it is better to ask, "How does the data get from the facility to your desk today, and where does it break?"
+
+Leveraging Relevant Background
+
+
+
+## Interview Template
+
+
+<table class="table">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p><strong>Purpose of This Template</strong></p>
+<p>This template is designed to guide structured discovery conversations with OALTC program offices in order to identify analytical needs, define KPIs, assess data feasibility, and establish reporting requirements. It serves both as a practical tool during stakeholder interviews and as a formal requirements documentation artifact that is intended to inform the KPI Registry and development backlog.</p>
+<p><em>One template should be completed per program office per engagement cycle. All five sections must be completed. Stakeholder sign-off must be obtained before development begins.</em></p></td>
+</tr>
+</tbody>
+</table>
+
+|  |  |  |  |
+|----|----|----|----|
+| **Interview format** | **Duration** | **Participants** | **Output** |
+| Semi-structured / guided | 60–90 minutes | Program manager plus 1–2 subject-matter experts | Completed template and signed requirements log |
+
+<div id="section-a-session-setup-context" class="section level3">
+
+### Section A: Session Setup & Context
+
+*This section should be completed before the interview. Details must be confirmed with the program office 48 hours in advance.*
+
+|                            |     |
+|----------------------------|-----|
+| **Date of interview:**     |     |
+| **Program office:**        |     |
+| **Primary stakeholder:**   |     |
+| **Additional attendees:**  |     |
+| **Interviewer (analyst):** |     |
+| **Note-taker:**            |     |
+| **OALTC program type:**    |     |
+
+**A1. Program Type**
+
+Indicate all that are applicable to the session:
+
+|  |  |  |
+|----|----|----|
+| **OALTC Program** | **Applicable?** | **Scope / Notes** |
+| Nursing Homes / Skilled Nursing Facilities | *☐ Applies to this session* |  |
+| Home Care Agencies (CHHA, LHCSA) | *☐ Applies to this session* |  |
+| Adult Day Health Care Programs | *☐ Applies to this session* |  |
+| Assisted Living Programs / EALR | *☐ Applies to this session* |  |
+| Continuing Care Retirement Communities | *☐ Applies to this session* |  |
+| Other (specify below): |  |  |
+
+**A2. Pre-Interview Preparation Checklist**
+
+This checklist should be completed prior to meeting with the stakeholder:
+
+- Review existing program reports and any current dashboards or spreadsheets used by the office
+- Check BigQuery for tables related to this program (oaltc_raw schema)
+- Confirm data submission requirements for this program type (CMS, MDS, OASAS, etc.)
+- Review any open deficiencies or audit findings related to this program’s data quality
+- Send agenda and guiding questions to the stakeholder 48 hours in advance
+- Prepare a blank Requirements Log (Section E) to document agreed items
+
+</div>
+
+<div id="section-b-strategic-context-questions" class="section level3">
+
+### Section B: Strategic Context Questions
+
+*These questions are intended to establish why analytics are needed — the business motivation, not the technical specification. The interviewer should listen for decisions, not data requests. Technical notes should not be taken at this stage; the focus is on understanding the program’s goals and pain points.*
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q1</strong></td>
+<td><strong><em>[Organizational Goals]</em> What are the top 2–3 program priorities for this fiscal year, and how is progress toward them currently being measured?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>What does a successful quarter look like for the program? By what means is it determined that one has occurred?</em></p></li>
+</ul>
+<ul>
+<li><p><em>Are there specific metrics that DOH leadership or CMS is currently holding this office accountable for?</em></p></li>
+<li><p><em>Have any priorities shifted recently due to policy changes or budget pressures?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q2</strong></td>
+<td><strong><em>[Decision Pain Points]</em> Which decisions are regularly delayed due to waiting for data or the inability to find the right information?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Can a specific recent example be described in which better or faster data would have changed what was done?</em></p></li>
+<li><p><em>Who else in the organization is dependent on this office for data before taking action?</em></p></li>
+<li><p><em>Are there reports currently produced that are not read — or questions asked that cannot be answered?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q3</strong></td>
+<td><strong><em>[Current Reporting Reality]</em> Please describe the current reporting process. How are key performance reports produced today, step by step?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Where does the data originate? Who collects it, and what is the process for transferring it to the program office?</em></p></li>
+<li><p><em>How much of the team’s time is devoted to assembling reports versus actually using them?</em></p></li>
+<li><p><em>Which aspect of the current process is most unreliable or frustrating?</em></p></li>
+<li><p><em>If one aspect of data collection or reporting could be changed, what would have the greatest positive impact?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q4</strong></td>
+<td><strong><em>[Stakeholder Ecosystem]</em> Who else, both within and outside DOH, makes use of the data or reports produced by this program?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Are there audiences with very different needs for the same data (e.g., a regulator versus a facility administrator)?</em></p></li>
+<li><p><em>Does any external entity (CMS, OIG, Legislature) request specific reports or data extracts on a regular basis?</em></p></li>
+<li><p><em>Who is the most demanding or hardest-to-satisfy data consumer that interacts with this program?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<div id="section-c-kpi-definition-questions" class="section level3">
+
+### Section C: KPI Definition Questions
+
+*These questions are intended to move from strategic intent to measurable indicators. For each KPI candidate identified, a KPI Definition Worksheet (Section D) should be completed. The goal is to identify 5–10 candidate KPIs per program office.*
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q5</strong></td>
+<td><strong><em>[KPI Discovery]</em> If a dashboard were available showing program performance, what are the 5 numbers that would be considered first?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>What is the rationale for selecting those five indicators? What decisions or actions would each inform?</em></p></li>
+<li><p><em>Which of those numbers are currently tracked reliably, and which represent current gaps?</em></p></li>
+<li><p><em>If one of these numbers changed significantly — either up or down — what actions would be taken as a result?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q6</strong></td>
+<td><strong><em>[Target-Setting]</em> For each metric mentioned, is there a definition of what constitutes ‘good’? Is there a target, benchmark, or prior-year value used for comparison?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Does CMS or another regulatory authority publish benchmarks that are expected to be met?</em></p></li>
+<li><p><em>Are there peer states or counties with which performance comparison is desired?</em></p></li>
+<li><p><em>Would targets be better established statewide, by region, by facility type, or by ownership type?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q7</strong></td>
+<td><strong><em>[Stratification & Equity]</em> For any of these metrics, is there a population group, geographic area, or facility characteristic where performance is suspected to differ significantly, and for which separate breakdowns would be useful?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Are any outcomes currently tracked by race, ethnicity, payer type, or geography?</em></p></li>
+<li><p><em>Do rural versus urban differences in reach or outcomes present concerns for leadership?</em></p></li>
+<li><p><em>Are there facility characteristics — such as size, ownership type, or staffing model — believed to drive performance differences?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q8</strong></td>
+<td><strong><em>[Alert Thresholds]</em> With respect to the most important KPIs, at what point would a change in metric value cause action to be taken? What circumstances would trigger an escalation?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Is there a threshold value that would trigger an unannounced inspection, a corrective action plan, or a call to a facility administrator?</em></p></li>
+<li><p><em>Should alerts be based on a single poor month, or only after a sustained trend?</em></p></li>
+<li><p><em>Who should be notified when an alert is triggered — a single individual, or multiple levels in the chain of command?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<div id="section-d-data-feasibility-assessment-questions"
+class="section level3">
+
+### Section D: Data Feasibility Assessment Questions
+
+*These questions are designed to identify what data exists, where it resides, and what is missing. Detailed technical notes should be taken, including system names, table names, field names, data owners, and submission schedules.*
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q9</strong></td>
+<td><strong><em>[Existing Data Sources]</em> For each identified KPI, what data is required and where does it currently reside — including system, database, or file?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Is the data in an ITS-managed application, a spreadsheet, the state data warehouse, or a CMS feed?</em></p></li>
+<li><p><em>Who is responsible for managing that system? Who should be contacted for access or a data extract?</em></p></li>
+<li><p><em>Is a data dictionary or codebook available for this system?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q10</strong></td>
+<td><strong><em>[Data Quality & Completeness]</em> What level of confidence exists in the accuracy and completeness of the data used for these metrics? Are there known quality issues?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Are there facilities that chronically submit data late, submit incomplete records, or submit information in inconsistent formats?</em></p></li>
+<li><p><em>Are there fields that are frequently missing, coded incorrectly, or defined differently across facilities?</em></p></li>
+<li><p><em>Has an audit or data quality review of this program’s data ever been conducted? What were the findings?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q11</strong></td>
+<td><strong><em>[Timeliness & Cadence]</em> How frequently is the underlying data updated, and how quickly after an event occurs does it appear in the system?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Is there a lag between an event’s occurrence at a facility and its appearance in the data?</em></p></li>
+<li><p><em>Are data submissions triggered by events (per discharge, per complaint) or submitted in batches (monthly, quarterly)?</em></p></li>
+<li><p><em>What is the latest possible time for receiving a data update and still producing a timely report?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q12</strong></td>
+<td><strong><em>[Data Gaps & New Collection Needs]</em> Are there metrics to be tracked for which structured, digital data does not yet exist?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Is any important information captured only on paper, in free-text notes, or in email?</em></p></li>
+<li><p><em>Are there data elements that are desired from facilities but are not currently required?</em></p></li>
+<li><p><em>Are there external datasets — Census, CMS, AHRQ, claims data — that would enrich KPIs if they could be linked?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<div id="section-e-output-reporting-requirements-questions"
+class="section level3">
+
+### Section E: Output & Reporting Requirements Questions
+
+*These questions are intended to define how analytical outputs should be delivered — including format, frequency, audience, and level of interactivity.*
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q13</strong></td>
+<td><strong><em>[Audience & Format]</em> Who will use the outputs that are created, and what format is most suitable for each audience?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Is a high-level summary, such as a one-pager or a few headline numbers, needed for the Commissioner or Deputy Commissioner?</em></p></li>
+<li><p><em>Is it necessary for program managers to drill down to individual facilities or specific time periods?</em></p></li>
+<li><p><em>Do surveyors or field staff require output that is mobile-accessible or printable?</em></p></li>
+<li><p><em>Is there a preference for a live dashboard, a scheduled PDF report, or an exportable data file for self-analysis?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q14</strong></td>
+<td><strong><em>[Refresh Frequency]</em> How frequently must the output be updated, and by what date or interval?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>Is a monthly report adequate, or is weekly or daily visibility into certain metrics required?</em></p></li>
+<li><p><em>Is there a specific date in the month when the report must be available (for example, before a leadership meeting)?</em></p></li>
+<li><p><em>For alerts, is immediate notification required when a threshold is breached, or is a daily/weekly digest preferred?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Q15</strong></td>
+<td><strong><em>[Self-Service vs. Analyst-Produced]</em> Is it preferred to have self-service exploration capabilities — such as filtering, sorting, and drilling down — or is a fixed, curated report delivered on a set schedule preferable?</strong></td>
+</tr>
+<tr class="even">
+<td>↳</td>
+<td><p><strong>Follow-up probes:</strong></p>
+<ul>
+<li><p><em>How comfortable is the team with interactive tools, such as dashboards or data tables?</em></p></li>
+<li><p><em>Is the ability to export data to Excel for further analysis important?</em></p></li>
+<li><p><em>Are there anticipated ad-hoc questions that would not be answered by a standard report?</em></p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+<div id="section-f-kpi-definition-worksheet" class="section level3">
+
+### Section F: KPI Definition Worksheet
+
+*One worksheet should be completed for each KPI candidate identified during the interview. This becomes the formal entry in the KPI Registry upon stakeholder sign-off.*
+
+**KPI Candidate \#1**
+
+|  |  |
+|----|----|
+| **KPI name:** |  |
+| **Strategic pillar:** |  |
+| **KPI category:** |  |
+| **Category:** | ☐ Outcome ☐ Process ☐ Capacity ☐ Equity |
+| **Definition:** |  |
+| **Numerator:** |  |
+| **Denominator:** |  |
+| **Formula:** |  |
+| **Unit of measure:** |  |
+| **Data source / system:** |  |
+| **Update frequency:** |  |
+| **Update freq.:** | ☐ Daily ☐ Weekly ☐ Monthly ☐ Quarterly ☐ Per event |
+| **Reporting granularity:** |  |
+| **Baseline value:** |  |
+| **Target / benchmark:** |  |
+| **Warning threshold:** |  |
+| **Alert threshold:** |  |
+| **Data owner:** |  |
+| **Limitations / exclusions:** |  |
+
+|  |  |  |
+|----|----|----|
+| **Data availability** | **Build complexity** | **Recommended priority** |
+| ☐ Ready ☐ Partial ☐ Gap | ☐ Low ☐ Medium ☐ High | ☐ Phase 1 ☐ Phase 2 ☐ Backlog |
+
+**KPI Candidate \#2**
+
+|  |  |
+|----|----|
+| **KPI name:** |  |
+| **Strategic pillar:** |  |
+| **KPI category:** |  |
+| **Category:** | ☐ Outcome ☐ Process ☐ Capacity ☐ Equity |
+| **Definition:** |  |
+| **Numerator:** |  |
+| **Denominator:** |  |
+| **Formula:** |  |
+| **Unit of measure:** |  |
+| **Data source / system:** |  |
+| **Update frequency:** |  |
+| **Update freq.:** | ☐ Daily ☐ Weekly ☐ Monthly ☐ Quarterly ☐ Per event |
+| **Reporting granularity:** |  |
+| **Baseline value:** |  |
+| **Target / benchmark:** |  |
+| **Warning threshold:** |  |
+| **Alert threshold:** |  |
+| **Data owner:** |  |
+| **Limitations / exclusions:** |  |
+
+|  |  |  |
+|----|----|----|
+| **Data availability** | **Build complexity** | **Recommended priority** |
+| ☐ Ready ☐ Partial ☐ Gap | ☐ Low ☐ Medium ☐ High | ☐ Phase 1 ☐ Phase 2 ☐ Backlog |
+
+**KPI Candidate \#3**
+
+|  |  |
+|----|----|
+| **KPI name:** |  |
+| **Strategic pillar:** |  |
+| **KPI category:** |  |
+| **Category:** | ☐ Outcome ☐ Process ☐ Capacity ☐ Equity |
+| **Definition:** |  |
+| **Numerator:** |  |
+| **Denominator:** |  |
+| **Formula:** |  |
+| **Unit of measure:** |  |
+| **Data source / system:** |  |
+| **Update frequency:** |  |
+| **Update freq.:** | ☐ Daily ☐ Weekly ☐ Monthly ☐ Quarterly ☐ Per event |
+| **Reporting granularity:** |  |
+| **Baseline value:** |  |
+| **Target / benchmark:** |  |
+| **Warning threshold:** |  |
+| **Alert threshold:** |  |
+| **Data owner:** |  |
+| **Limitations / exclusions:** |  |
+
+|  |  |  |
+|----|----|----|
+| **Data availability** | **Build complexity** | **Recommended priority** |
+| ☐ Ready ☐ Partial ☐ Gap | ☐ Low ☐ Medium ☐ High | ☐ Phase 1 ☐ Phase 2 ☐ Backlog |
+
+</div>
+
+<div id="section-g-agreed-requirements-log" class="section level3">
+
+### Section G: Agreed Requirements Log
+
+*All agreed requirements from the session should be summarized here. This table serves as the formal record of scope. Stakeholder signature must be obtained before any development begins.*
+
+|  |  |  |  |  |  |
+|----|----|----|----|----|----|
+| **REQ ID** | **Requirement (plain language)** | **Data source / table** | **Type** | **Acceptance criteria** | **Priority** |
+| **REQ-001** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+| **REQ-002** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+| **REQ-003** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+| **REQ-004** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+| **REQ-005** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+| **REQ-006** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+| **REQ-007** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+| **REQ-008** |  |  | ☐ Business ☐ Data ☐ Output |  | ☐ P1 ☐ P2 ☐ P3 |
+
+</div>
+
+<div id="section-h-stakeholder-sign-off" class="section level3">
+
+### Section H: Stakeholder Sign-Off
+
+*Both parties are to sign below to confirm that the requirements captured in this document accurately reflect the agreed scope. No development will commence until sign-off is complete.*
+
+<table class="table">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Program Office (Stakeholder)</strong></td>
+<td><strong>Bureau of Data Analytics (Analyst)</strong></td>
+</tr>
+<tr class="even">
+<td><p><strong>Name:</strong></p>
+<p><strong>Title:</strong></p>
+<p><strong>Program office:</strong></p>
+<p><strong>Date:</strong></p>
+<p><strong>Signature:</strong></p></td>
+<td><p><strong>Name:</strong></p>
+<p><strong>Title:</strong></p>
+<p><strong>Bureau:</strong></p>
+<p><strong>Date:</strong></p>
+<p><strong>Signature:</strong></p></td>
+</tr>
+</tbody>
+</table>
+
+**Appendix: Interviewer Quick Reference**
+
+**Golden Rules During the Interview**
+
+- Listen for decisions, not data requests — always prompt with ‘what actions would be taken if this were available?’
+- Never commit to building anything during the interview — each request should be captured as a requirement and feasibility assessed separately
+- If a stakeholder asks for ‘all the data’, further inquiry should be made to uncover the underlying question
+- If a particular chart or report format is requested, clarify what question it is intended to answer before committing to replicate it
+- Verbatim quotes should be recorded for clear statements of need — these can serve as strong justifications in the requirements log
+- If two stakeholders disagree on a definition or priority, both perspectives should be documented and an escalation for resolution pursued before proceeding with development
+
+**KPI Category Quick Guide**
+
+|  |  |  |
+|----|----|----|
+| **Category** | **What it measures** | **OALTC example** |
+| Outcome | End results of care or program activity | 30-day readmission rate, pressure ulcer rate, resident satisfaction |
+| Process | Whether activities are executed correctly | Complaint investigated within 10 days, care plan updated on schedule |
+| Capacity | Resources and infrastructure | RN hours per resident day, staff turnover, licensed bed occupancy |
+| Equity | Disparity across demographic or geographic groups | Outcome gap by race/ethnicity, rural vs. urban access score |
+
+**Common Pitfalls to Avoid**
+
+|  |  |
+|----|----|
+| **Pitfall** | **Recommended mitigation** |
+| ❌ Stakeholder requests a metric | Always inquire: what decision does this metric inform? If no clear answer is provided, the metric may not be essential. |
+| ❌ Scope expands unexpectedly during interview | Record new ideas in a ‘Parking Lot’ section; do not agree to include them in the current engagement. |
+| ❌ Data confusion | Differentiate between data that exists, data that is reliable, and data that is accessible — these are not equivalent. |
+| ❌ Vague acceptance criteria | Each requirement should have a testable definition of completion. For example, “a better dashboard” does not constitute a requirement. |
+| ❌ Development commences before sign-off | Written agreement must be obtained from both parties prior to any development, in order to maintain agreed scope. |
+
+***End of Template***
+</div>
+
+</div>

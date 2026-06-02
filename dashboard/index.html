@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OALTC KPI Dashboard (demo)</title>
+  <style>
+    :root {
+      --nav: #2f6f73;
+      --nav-hover: #256064;
+      --bg: #f8fafb;
+      --card: #fff;
+      --border: #e5e7eb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --ok: #059669;
+      --warn: #d97706;
+      --bad: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+    aside {
+      width: 260px;
+      flex-shrink: 0;
+      background: var(--nav);
+      color: #fff;
+      padding: 1rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    aside h1 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem 0.5rem;
+      line-height: 1.3;
+      opacity: 0.95;
+    }
+    .nav-group {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      margin: 0.6rem 0.5rem 0.25rem;
+    }
+    aside button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      color: #fff;
+      padding: 0.45rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+    aside button:hover { background: rgba(255,255,255,0.12); }
+    aside button.active { background: rgba(255,255,255,0.22); font-weight: 600; }
+
+    main {
+      flex: 1;
+      padding: 1.25rem 1.5rem 2rem;
+      overflow: auto;
+      max-height: 100vh;
+    }
+    .panel { display: none; animation: fade 0.2s ease; }
+    .panel.active { display: block; }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+    h2 { font-size: 1.35rem; margin: 0 0 0.5rem; font-weight: 700; color: var(--nav); }
+    .lede { color: var(--muted); margin: 0 0 1rem; max-width: 65ch; line-height: 1.55; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.85rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.95rem;
+    }
+    .card h3 { margin: 0 0 0.35rem; font-size: 0.98rem; }
+    .card p { margin: 0; font-size: 0.85rem; color: var(--muted); line-height: 1.45; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    th, td { padding: 0.55rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #eef6f7; color: var(--nav); font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+
+    .kpi-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .kpi-block header { margin-bottom: 0.6rem; }
+    .kpi-block h3 { margin: 0; font-size: 1rem; color: var(--nav); }
+    .view-tag {
+      font-size: 0.75rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+    pre.sql {
+      margin: 0;
+      padding: 0.75rem;
+      background: #111827;
+      color: #e5e7eb;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.74rem;
+      line-height: 1.45;
+    }
+
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.85rem;
+    }
+    .tile {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      border-left: 4px solid var(--nav);
+    }
+    .tile.on_target { border-left-color: var(--ok); }
+    .tile.warning { border-left-color: var(--warn); }
+    .tile.alert_t { border-left-color: var(--bad); }
+
+    .tile .label { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.25rem; }
+    .tile .value { font-size: 1.5rem; font-weight: 700; }
+    .tile .meta { font-size: 0.78rem; color: var(--muted); margin-top: 0.35rem; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-alarm { background: #fee2e2; color: var(--bad); }
+    .badge-warn { background: #fef3c7; color: #92400e; }
+    .badge-ok { background: #d1fae5; color: #065f46; }
+
+    .err {
+      padding: 0.75rem;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #991b1b;
+      font-size: 0.9rem;
+    }
+
+    /* —— Data Architecture & Pipeline (3.1) —— */
+    .pipe-section-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 600;
+      margin: 0 0 0.35rem;
+    }
+    .pipe-main-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--nav);
+      margin: 0 0 0.4rem;
+      line-height: 1.25;
+    }
+    .pipe-subtitle {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.55;
+      margin: 0 0 0.35rem;
+      max-width: 72ch;
+    }
+    .pipe-last-run {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0 0 1.15rem;
+    }
+    .pipe-last-run strong { color: var(--text); }
+
+    .pipe-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .pipe-kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1rem 0.9rem;
+    }
+    .pipe-kpi-card .lbl {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+    }
+    .pipe-kpi-card .big {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .pipe-kpi-card .sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+    .pipe-kpi-card.tone-ok .big { color: var(--ok); }
+    .pipe-kpi-card.tone-ok .sub { color: var(--ok); opacity: 0.85; }
+
+    .pipe-layers-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.85rem;
+    }
+
+    .pipe-layer {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1rem 1rem 1rem;
+      margin-bottom: 0.85rem;
+      border-left: 5px solid var(--border);
+    }
+    .pipe-layer.layer-ok { border-left-color: var(--ok); }
+    .pipe-layer.layer-warn { border-left-color: var(--warn); background: linear-gradient(90deg, rgba(217,119,6,0.06) 0%, var(--card) 12%); }
+
+    .pipe-layer-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .pipe-layer-head h3 {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--nav);
+      font-weight: 700;
+    }
+    .layer-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+    }
+    .layer-pill.ok { background: #d1fae5; color: #065f46; }
+    .layer-pill.warn { background: #fef3c7; color: #92400e; }
+
+    .pipe-layer-sum {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .pipe-layer-callout {
+      margin: 0.65rem 0 0;
+      padding: 0.55rem 0.65rem;
+      border-radius: 8px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      font-size: 0.84rem;
+      color: #78350f;
+    }
+    .pipe-layer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+    }
+    .pipe-layer-meta dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.25rem 1rem;
+    }
+    .pipe-layer-meta dt { color: var(--muted); font-weight: 500; }
+    .pipe-layer-meta dd { margin: 0; font-family: ui-monospace, monospace; font-size: 0.8rem; }
+
+    .pipe-breakdown-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin: 0.75rem 0 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .compliance-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .compliance-card > h4 {
+      margin: 0 0 0.85rem;
+      font-size: 1rem;
+      color: var(--nav);
+    }
+    .compliance-y {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+    }
+    .compliance-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.78rem;
+    }
+    .compliance-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .compliance-legend i {
+      width: 11px;
+      height: 11px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .stack-row {
+      display: grid;
+      grid-template-columns: minmax(140px, 200px) 1fr;
+      gap: 0.65rem;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+    .stack-row:last-child { margin-bottom: 0; }
+    .stack-label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .stack-count {
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .stack-track-wrap {
+      position: relative;
+    }
+    .stack-track {
+      display: flex;
+      height: 26px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .stack-track .seg {
+      height: 100%;
+      min-width: 0;
+      transition: width 0.25s ease;
+    }
+    .stack-axis {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* —— Data Quality Control (3.2) —— */
+    .dq-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    .dq-kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .dq-kpi-card .lbl {
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+    .dq-kpi-card .big {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+    .dq-kpi-card .sub { font-size: 0.82rem; margin-top: 0.35rem; color: var(--muted); }
+    .dq-kpi-card.tone-ok .big { color: var(--ok); }
+    .dq-kpi-card.tone-ok .sub { color: var(--ok); font-weight: 600; }
+    .dq-kpi-card.tone-warn .big { color: var(--warn); }
+    .dq-kpi-card.tone-warn .sub { color: var(--muted); }
+    .dq-kpi-card.tone-bad .big { color: var(--bad); }
+    .dq-kpi-card.tone-bad .sub { color: var(--muted); }
+    .dq-kpi-card.tone-neutral .big { color: var(--text); }
+
+    .dq-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem 1.15rem;
+      margin-bottom: 1rem;
+    }
+    .dq-panel > h3 {
+      margin: 0 0 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--nav);
+    }
+
+    .dq-dim-row { margin-bottom: 0.72rem; }
+    .dq-dim-row:last-child { margin-bottom: 0; }
+    .dq-dim-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.84rem;
+      margin-bottom: 0.25rem;
+      gap: 0.5rem;
+    }
+    .dq-dim-name { font-weight: 600; color: var(--text); }
+    .dq-dim-pct { font-weight: 700; color: var(--nav); font-variant-numeric: tabular-nums; }
+    .dq-dim-row.highlight .dq-dim-pct { color: var(--warn); }
+    .dq-dim-track {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+    .dq-dim-fill {
+      height: 100%;
+      border-radius: 999px;
+      min-width: 0;
+      transition: width 0.35s ease;
+    }
+
+    .dq-fail-row {
+      display: grid;
+      grid-template-columns: minmax(118px, 130px) 1fr;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 0.55rem;
+    }
+    .dq-fail-row:last-child { margin-bottom: 0; }
+    .dq-fail-field {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78rem;
+      color: var(--text);
+    }
+    .dq-fail-track {
+      height: 18px;
+      border-radius: 4px;
+      background: #eef2f7;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .dq-fail-fill { height: 100%; border-radius: 3px; min-width: 0; }
+    .dq-fail-axis {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+
+    .dq-table-wrap { overflow-x: auto; margin: 0 -0.15rem; }
+    table.dq-table { font-size: 0.8125rem; }
+    table.dq-table th { white-space: nowrap; }
+    table.dq-table td { vertical-align: middle; }
+    .dq-num { font-variant-numeric: tabular-nums; }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .pill-rate-bad { background: #fee2e2; color: #991b1b; }
+    .pill-rate-warn { background: #ffedd5; color: #9a3412; }
+    .pill-rate-ok { background: #d1fae5; color: #065f46; }
+    .pill-status-review { background: #fef9c3; color: #854d0e; }
+
+    .kpi-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.15rem;
+    }
+    .kpi-toolbar label { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+    #kpi-select {
+      flex: 1;
+      min-width: 240px;
+      max-width: 520px;
+      padding: 0.45rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    #kpi-select:focus-visible {
+      outline: 2px solid rgba(47, 111, 115, 0.35);
+      outline-offset: 1px;
+    }
+    .kpi-mini-title {
+      margin: 0 0 0.25rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--nav);
+    }
+    .kpi-demo-foot {
+      margin: 0.45rem 0 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 72ch;
+      line-height: 1.45;
+    }
+
+    /* —— Executive scorecard (4.1) —— */
+    .exec-metric-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    .exec-metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.95rem 1rem 0.85rem;
+      border-top: 4px solid var(--border);
+    }
+    .exec-metric-card.tier-alert { border-top-color: var(--bad); }
+    .exec-metric-card.tier-warning { border-top-color: var(--warn); }
+    .exec-metric-card.tier-on_target { border-top-color: var(--ok); }
+
+    .exec-metric-card .lbl {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.45rem;
+    }
+    .exec-metric-card .big {
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    .exec-val-ok { color: var(--ok); }
+    .exec-val-warn { color: var(--warn); }
+    .exec-val-bad { color: var(--bad); }
+
+    .exec-metric-rows { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .exec-metric-rows div { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 0.2rem; }
+    .exec-metric-rows span:first-child { color: var(--muted); }
+    .exec-metric-rows span:last-child { font-weight: 600; color: var(--text); }
+    .exec-metric-status { margin-top: 0.65rem; }
+
+    .exec-chart-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .exec-chart-panel h3 {
+      margin: 0 0 0.25rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--nav);
+    }
+    .exec-chart-panel .sub {
+      margin: 0 0 0.75rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .exec-chart-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 320px;
+    }
+    .exec-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .exec-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .exec-legend i {
+      width: 22px;
+      height: 3px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* —— Program Performance Monitor (4.2) —— */
+    .pm-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem 1.25rem;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+    }
+    .pm-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+    }
+    .pm-field label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .pm-field select {
+      min-width: 180px;
+      padding: 0.42rem 0.55rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .pm-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .pm-sum-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+    }
+    .pm-sum-card .lb {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pm-sum-card .num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-top: 0.25rem;
+    }
+    .pm-sum-card.sum-ok .num { color: var(--ok); }
+    .pm-sum-card.sum-warn .num { color: var(--warn); }
+    .pm-sum-card.sum-alert .num { color: var(--bad); }
+    .pm-sum-card.sum-neutral .num { color: var(--text); }
+
+    .pm-table-shell {
+      padding: 0;
+      overflow: hidden;
+    }
+    .pm-table-shell > .pm-table-head {
+      padding: 0.95rem 1rem 0.35rem;
+    }
+    .pm-table-shell h3 {
+      margin: 0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--nav);
+    }
+    .pm-table-scroll {
+      max-height: 420px;
+      overflow: auto;
+      border-top: 1px solid var(--border);
+    }
+    table.pm-table {
+      font-size: 0.8rem;
+    }
+    table.pm-table th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #eef6f7;
+      color: var(--nav);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    table.pm-table td,
+    table.pm-table th {
+      padding: 0.45rem 0.65rem;
+    }
+    .pm-num {
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+    .pm-txt-alert {
+      font-weight: 700;
+      color: var(--bad);
+    }
+    .pm-txt-warn {
+      font-weight: 700;
+      color: #c2410c;
+    }
+    .pm-txt-ok {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .pm-scroll-hint {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.35rem 0 0.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    /* —— Alert & Escalation System (4.3) —— */
+    .as-chart-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      margin-top: 1rem;
+    }
+    .as-chart-panel h3 { margin: 0 0 0.35rem; font-size: 0.98rem; color: var(--nav); }
+    .as-chart-panel .sub { margin: 0 0 0.65rem; font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+    .as-timeline-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 300px;
+    }
+    .as-timeline-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .as-timeline-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .as-timeline-legend i {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    table.as-alert-table td.as-level { white-space: nowrap; }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      aside { width: 100%; flex-direction: row; flex-wrap: wrap; }
+      aside h1 { width: 100%; }
+      aside button { width: auto; flex: 1 1 40%; }
+      main { max-height: none; }
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <h1>OALTC KPI Tracking (demo)</h1>
+    <div class="nav-group">Section 3 — Pipeline</div>
+    <button type="button" data-tab="p31">3.1 Data Pipeline</button>
+    <button type="button" data-tab="p32">3.2 Data Quality Control</button>
+    <button type="button" data-tab="p33">3.3 KPI Calculation (SQL)</button>
+    <div class="nav-group">Section 4 — Reporting</div>
+    <button type="button" data-tab="p41">4.1 Executive Scorecard</button>
+    <button type="button" data-tab="p42">4.2 Program Monitor</button>
+    <button type="button" data-tab="p43">4.3 Alert System</button>
+  </aside>
+
+  <main>
+    <section id="p31" class="panel active" aria-labelledby="t31">
+      <span class="pipe-section-tag" id="t31">3.1 Data pipeline</span>
+      <div id="pipeline-mount" class="pipeline-root"></div>
+    </section>
+
+    <section id="p32" class="panel" aria-labelledby="t32">
+      <span class="pipe-section-tag" id="t32">3.2 Data quality control</span>
+      <div id="dq-mount"></div>
+    </section>
+
+    <section id="p33" class="panel" aria-labelledby="t33">
+      <span class="pipe-section-tag" id="t33">3.3 KPI calculation (SQL)</span>
+      <div id="kpi-mount"></div>
+    </section>
+
+    <section id="p41" class="panel" aria-labelledby="t41">
+      <span class="pipe-section-tag" id="t41">4.1 Executive scorecard</span>
+      <div id="exec-mount"></div>
+    </section>
+
+    <section id="p42" class="panel" aria-labelledby="t42">
+      <span class="pipe-section-tag" id="t42">4.2 Program Performance Monitor</span>
+      <div id="program-monitor-mount"></div>
+    </section>
+
+    <section id="p43" class="panel" aria-labelledby="t43">
+      <span class="pipe-section-tag" id="t43">4.3 Alert &amp; Escalation System</span>
+      <div id="alert-system-mount"></div>
+    </section>
+  </main>
+
+  <!-- Bundled defaults when fetch() fails (e.g. file://). KPI fallback is base64 so editors don’t corrupt multi-line sql inside JSON. Regenerate via build step from kpi-config.json. -->
+  <script type="application/json" id="fallback-pipeline-config">{"title":"Data Architecture & Pipeline Status","subtitle":"Four-layer pipeline from raw submission → BigQuery curated marts → KPI transformation → executive dashboards.","lastRun":"Last scheduled run · today 06:00 AM","lastRefreshNote":"Timestamps reflect demo data; replace with orchestration metadata in production.","summary":[{"id":"facilities","label":"Facilities reporting","value":"50","detail":"of 50 expected","tone":"neutral"},{"id":"ingested","label":"Records ingested","value":"124,830","detail":"this cycle","tone":"neutral"},{"id":"status","label":"Pipeline status","value":"All systems OK","detail":"3 minor warnings","tone":"ok"},{"id":"bq","label":"Last BigQuery refresh","value":"06:14 AM","detail":"4 hrs 12 min ago","tone":"neutral"}],"layers":[{"id":"L1","title":"Layer 1 — Ingestion","status":"ok","summary":"50/50 facilities submitted. 124,830 records received via OALTC submission portal and ITS-managed feeds. Schema validation passed. Batch closed at 05:47 AM.","breakdownTitle":"Records by source","breakdown":[{"label":"NH submissions","value":"89,240"},{"label":"Home care feeds","value":"22,180"},{"label":"ITS umbrella apps","value":"13,410"}]},{"id":"L2","title":"Layer 2 — Raw storage (data lake)","status":"ok","summary":"All records written to BigQuery partition `oaltc_raw.nh_discharge_events` (date=2026-05-04). Retention policy: 7 years. Audit log updated.","stats":[{"label":"Storage this cycle","value":"2.3 GB"},{"label":"Cumulative raw storage","value":"18.7 GB"}]},{"id":"L3","title":"Layer 3 — Transformation (data mart)","status":"warn","summary":"SQL / dbt pipelines executed. KPI views refreshed for 17 active metrics.","warning":"3 facilities have null values in `staff_fte` — excluded from turnover KPI this cycle.","stats":[{"label":"Views refreshed","value":"17"},{"label":"Rows written to `kpi_mart`","value":"850"},{"label":"Warnings","value":"3"}]},{"id":"L4","title":"Layer 4 — Presentation","status":"ok","summary":"Dashboard data connections refreshed. Looker Studio report updated. Automated weekly summary email queued for 9:00 AM to program managers.","stats":[{"label":"Dashboards refreshed","value":"3"},{"label":"Email recipients","value":"12"},{"label":"Next refresh","value":"tomorrow 06:00 AM"}]}],"complianceChart":{"title":"Submission compliance by program type","yAxisLabel":"% facilities","legend":[{"key":"onTime","label":"Submitted on time","color":"#2f6f73"},{"key":"late","label":"Late submission","color":"#fbbf24"},{"key":"missing","label":"Missing","color":"#fca5a5"}],"rows":[{"program":"Nursing Homes","n":50,"onTime":100,"late":0,"missing":0},{"program":"Home Care","n":28,"onTime":90,"late":5,"missing":5},{"program":"Adult Day","n":14,"onTime":80,"late":15,"missing":5},{"program":"Assisted Living","n":22,"onTime":95,"late":2,"missing":3}]}}</script>
+  <script type="text/plain" id="fallback-kpi-b64" hidden>
+eyJwYWdlSGVhZGluZyI6IktQSSBDYWxjdWxhdGlvbiBQaXBlbGluZSAoQmlnUXVlcnkgU1FMKSIsImxlZGUiOiJTZWxlY3Qg
+YSBLUEkgdG8gaW5zcGVjdCB0aGUgY2Fub25pY2FsIEJpZ1F1ZXJ5IHZpZXcgZGVmaW5pdGlvbiBhbmQgYSBzaW11bGF0ZWQg
+dG9wLWZhY2lsaXR5IGV4dHJhY3QuIFJlcGxhY2UgYG9hbHRjX3Jhdy4qYCAvIG1hcnQgcmVmZXJlbmNlcyB3aXRoIHlvdXIg
+ZW52aXJvbm1lbnQuIiwia3BpcyI6W3siaWQiOiJyZWFkbWlzc2lvbiIsInNlbGVjdExhYmVsIjoiMzAtRGF5IEhvc3BpdGFs
+IFJlYWRtaXNzaW9uIFJhdGUiLCJ0aXRsZSI6IktQSSAxOiAzMC1EYXkgSG9zcGl0YWwgUmVhZG1pc3Npb24gUmF0ZSIsInZp
+ZXdOYW1lIjoib2FsdGNfa3BpLnJlYWRtaXNzaW9uX3JhdGVfbW9udGhseSIsImRlc2NyaXB0aW9uIjoiR3JhbnVsYXJpdHk6
+IGZhY2lsaXR5IMOXIG1vbnRoLiBUaHJlc2hvbGRzOiBBTEVSVCA+MjIlLCBXQVJOSU5HID4xOCUgYW5kIOKJpDIyJSwgT04g
+VEFSR0VUIOKJpDE4JS4iLCJzcWwiOiItLSBLUEk6IDMwLURheSBIb3NwaXRhbCBSZWFkbWlzc2lvbiBSYXRlXG4tLSBHcmFu
+dWxhcml0eTogRmFjaWxpdHkgw5cgTW9udGhcbi0tIE93bmVyOiBOdXJzaW5nIEhvbWUgUHJvZ3JhbSBPZmZpY2VcblxuQ1JF
+QVRFIE9SIFJFUExBQ0UgVklFVyBvYWx0Y19rcGkucmVhZG1pc3Npb25fcmF0ZV9tb250aGx5IEFTXG5TRUxFQ1RcbiAgICBm
+YWNpbGl0eV9pZCxcbiAgICBmYWNpbGl0eV9uYW1lLFxuICAgIHJlZ2lvbixcbiAgICByZXBvcnRfeWVhcixcbiAgICByZXBv
+cnRfbW9udGgsXG4gICAgQ09VTlRJRihyZWFkbWl0dGVkXzMwZCkgQVMgbnVtZXJhdG9yLFxuICAgIENPVU5UKCopIEFTIGRl
+bm9taW5hdG9yLFxuICAgIFJPVU5EKFNBRkVfRElWSURFKFxuICAgICAgICBDT1VOVElGKHJlYWRtaXR0ZWRfMzBkKSxcbiAg
+ICAgICAgQ09VTlQoKikpICogMTAwLCAyKSBBUyByZWFkbWlzc2lvbl9yYXRlX3BjdCxcbiAgICBDQVNFXG4gICAgICAgIFdI
+RU4gUk9VTkQoU0FGRV9ESVZJREUoQ09VTlRJRihyZWFkbWl0dGVkXzMwZCksIENPVU5UKCopKSAqIDEwMCwgMikgPiAyMiBU
+SEVOICdBTEVSVCdcbiAgICAgICAgV0hFTiBST1VORChTQUZFX0RJVklERShDT1VOVElGKHJlYWRtaXR0ZWRfMzBkKSwgQ09V
+TlQoKikpICogMTAwLCAyKSA+IDE4IFRIRU4gJ1dBUk5JTkcnXG4gICAgICAgIEVMU0UgJ09OIFRBUkdFVCdcbiAgICBFTkQg
+QVMgcGVyZm9ybWFuY2Vfc3RhdHVzXG5GUk9NIG9hbHRjX3Jhdy5uaF9kaXNjaGFyZ2VfZXZlbnRzXG5XSEVSRSBkYXRhX3F1
+YWxpdHlfZmxhZyA9ICdQQVNTJ1xuICBBTkQgZGlzY2hhcmdlX2RhdGUgPj0gREFURV9TVUIoQ1VSUkVOVF9EQVRFKCksIElO
+VEVSVkFMIDEzIE1PTlRIKVxuR1JPVVAgQlkgMSwgMiwgMywgNCwgNTsiLCJyZXN1bHRzVGl0bGUiOiJMaXZlIHF1ZXJ5IG91
+dHB1dCDigJQgVG9wIDEwIGZhY2lsaXRpZXMgKHNpbXVsYXRlZCkiLCJkZW1vTm90ZSI6IlBlcmNlbnRhZ2VzIGFuZCBzdGF0
+dXNlcyBmb2xsb3cgdGhlIENBU0UgbG9naWMgaW4gdGhlIHZpZXcgKG5vdGlvbmFsIGRlbW8gcm93cykuIiwidGFibGUiOnsi
+Y29sdW1ucyI6W3sia2V5IjoiZmFjaWxpdHlfaWQiLCJsYWJlbCI6ImZhY2lsaXR5X2lkIn0seyJrZXkiOiJmYWNpbGl0eV9u
+YW1lIiwibGFiZWwiOiJmYWNpbGl0eV9uYW1lIn0seyJrZXkiOiJyZWdpb24iLCJsYWJlbCI6InJlZ2lvbiJ9LHsia2V5Ijoi
+cmVhZG1pc3Npb25fcmF0ZV9wY3QiLCJsYWJlbCI6InJlYWRtaXNzaW9uX3JhdGVfcGN0In0seyJrZXkiOiJkZW5vbWluYXRv
+ciIsImxhYmVsIjoiZGVub21pbmF0b3IifSx7ImtleSI6InBlcmZvcm1hbmNlX3N0YXR1cyIsImxhYmVsIjoicGVyZm9ybWFu
+Y2Vfc3RhdHVzIiwiYmFkZ2UiOnRydWV9XSwicm93cyI6W3siZmFjaWxpdHlfaWQiOiJOSC0wMDEiLCJmYWNpbGl0eV9uYW1l
+IjoiQWxiYW55IENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJXZXN0ZXJuIE5ZIiwicmVhZG1pc3Npb25fcmF0ZV9wY3QiOiIx
+Mi4wMCIsImRlbm9taW5hdG9yIjo5MSwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiT04gVEFSR0VUIn0seyJmYWNpbGl0eV9pZCI6
+Ik5ILTAwMiIsImZhY2lsaXR5X25hbWUiOiJCdWZmYWxvIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJDZW50cmFsIE5ZIiwi
+cmVhZG1pc3Npb25fcmF0ZV9wY3QiOiIxOS40MCIsImRlbm9taW5hdG9yIjoxMjksInBlcmZvcm1hbmNlX3N0YXR1cyI6IldB
+Uk5JTkcifSx7ImZhY2lsaXR5X2lkIjoiTkgtMDAzIiwiZmFjaWxpdHlfbmFtZSI6IlJvY2hlc3RlciBDYXJlIENlbnRlciAx
+IiwicmVnaW9uIjoiQ2FwaXRhbCBSZWdpb24iLCJyZWFkbWlzc2lvbl9yYXRlX3BjdCI6IjE0LjMwIiwiZGVub21pbmF0b3Ii
+OjE5MSwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiT04gVEFSR0VUIn0seyJmYWNpbGl0eV9pZCI6Ik5ILTAwNCIsImZhY2lsaXR5
+X25hbWUiOiJTeXJhY3VzZSBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoiTllDIE1ldHJvIiwicmVhZG1pc3Npb25fcmF0ZV9w
+Y3QiOiIyMS41MCIsImRlbm9taW5hdG9yIjoxMzgsInBlcmZvcm1hbmNlX3N0YXR1cyI6IldBUk5JTkcifSx7ImZhY2lsaXR5
+X2lkIjoiTkgtMDA1IiwiZmFjaWxpdHlfbmFtZSI6IllvbmtlcnMgQ2FyZSBDZW50ZXIgMSIsInJlZ2lvbiI6IkxvbmcgSXNs
+YW5kIiwicmVhZG1pc3Npb25fcmF0ZV9wY3QiOiIyMy4xMCIsImRlbm9taW5hdG9yIjoxNzksInBlcmZvcm1hbmNlX3N0YXR1
+cyI6IkFMRVJUIn0seyJmYWNpbGl0eV9pZCI6Ik5ILTAwNiIsImZhY2lsaXR5X25hbWUiOiJVdGljYSBDYXJlIENlbnRlciAx
+IiwicmVnaW9uIjoiTm9ydGggQ291bnRyeSIsInJlYWRtaXNzaW9uX3JhdGVfcGN0IjoiMTUuNTAiLCJkZW5vbWluYXRvciI6
+ODIsInBlcmZvcm1hbmNlX3N0YXR1cyI6Ik9OIFRBUkdFVCJ9LHsiZmFjaWxpdHlfaWQiOiJOSC0wMDciLCJmYWNpbGl0eV9u
+YW1lIjoiSXRoYWNhIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJTb3V0aGVybiBUaWVyIiwicmVhZG1pc3Npb25fcmF0ZV9w
+Y3QiOiIxOC4xMCIsImRlbm9taW5hdG9yIjoxNTQsInBlcmZvcm1hbmNlX3N0YXR1cyI6IldBUk5JTkcifSx7ImZhY2lsaXR5
+X2lkIjoiTkgtMDA4IiwiZmFjaWxpdHlfbmFtZSI6IkJpbmdoYW10b24gQ2FyZSBDZW50ZXIgMSIsInJlZ2lvbiI6IlNvdXRo
+ZXJuIFRpZXIiLCJyZWFkbWlzc2lvbl9yYXRlX3BjdCI6IjExLjIwIiwiZGVub21pbmF0b3IiOjI2NywicGVyZm9ybWFuY2Vf
+c3RhdHVzIjoiT04gVEFSR0VUIn0seyJmYWNpbGl0eV9pZCI6Ik5ILTAwOSIsImZhY2lsaXR5X25hbWUiOiJTY2hlbmVjdGFk
+eSBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoiQ2FwaXRhbCBSZWdpb24iLCJyZWFkbWlzc2lvbl9yYXRlX3BjdCI6IjI2Ljgw
+IiwiZGVub21pbmF0b3IiOjExMiwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiQUxFUlQifSx7ImZhY2lsaXR5X2lkIjoiTkgtMDEw
+IiwiZmFjaWxpdHlfbmFtZSI6IlBsYXR0c2J1cmdoIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJOb3J0aCBDb3VudHJ5Iiwi
+cmVhZG1pc3Npb25fcmF0ZV9wY3QiOiIxNy45NSIsImRlbm9taW5hdG9yIjoxNDMsInBlcmZvcm1hbmNlX3N0YXR1cyI6Ik9O
+IFRBUkdFVCJ9XX19LHsiaWQiOiJ0dXJub3ZlciIsInNlbGVjdExhYmVsIjoiU3RhZmYgVHVybm92ZXIgUmF0ZSAoUXVhcnRl
+cmx5KSIsInRpdGxlIjoiS1BJIDI6IFN0YWZmIFR1cm5vdmVyIFJhdGUgKHF1YXJ0ZXJseSkiLCJ2aWV3TmFtZSI6Im9hbHRj
+X2twaS5zdGFmZl90dXJub3Zlcl9xdWFydGVybHkiLCJkZXNjcmlwdGlvbiI6IkdyYW51bGFyaXR5OiBmYWNpbGl0eSDDlyBx
+dWFydGVyLiBJbGx1c3RyYXRpdmUgdGhyZXNob2xkczogQUxFUlQgPjM1JSwgV0FSTklORyA+MjUlIGFuZCDiiaQzNSUsIE9O
+IFRBUkdFVCDiiaQyNSUuIiwic3FsIjoiLS0gS1BJOiBTdGFmZiBUdXJub3ZlciBSYXRlIChxdWFydGVybHkpXG4tLSBHcmFu
+dWxhcml0eTogRmFjaWxpdHkgw5cgUXVhcnRlclxuLS0gT3duZXI6IFdvcmtmb3JjZSBBbmFseXRpY3NcblxuQ1JFQVRFIE9S
+IFJFUExBQ0UgVklFVyBvYWx0Y19rcGkuc3RhZmZfdHVybm92ZXJfcXVhcnRlcmx5IEFTXG5XSVRIIGhlYWRjb3VudCBBUyAo
+XG4gIFNFTEVDVFxuICAgICAgZmFjaWxpdHlfaWQsXG4gICAgICBmYWNpbGl0eV9uYW1lLFxuICAgICAgcmVnaW9uLFxuICAg
+ICAgZmlzY2FsX3llYXIsXG4gICAgICBmaXNjYWxfcXVhcnRlcixcbiAgICAgIENPVU5UKERJU1RJTkNUIHN0YWZmX2lkKSBB
+UyBhY3RpdmVfc3RhZmZcbiAgRlJPTSBvYWx0Y19jdXJhdGVkLmRpbV9zdGFmZl9kYWlseVxuICBXSEVSRSBzbmFwc2hvdF9k
+YXRlIEJFVFdFRU4gcXVhcnRlcl9zdGFydF9kYXRlIEFORCBxdWFydGVyX2VuZF9kYXRlXG4gICAgQU5EIGRhdGFfcXVhbGl0
+eV9mbGFnID0gJ1BBU1MnXG4gIEdST1VQIEJZIDEsIDIsIDMsIDQsIDVcbiksXG5leGl0cyBBUyAoXG4gIFNFTEVDVFxuICAg
+ICAgZmFjaWxpdHlfaWQsXG4gICAgICBmaXNjYWxfeWVhcixcbiAgICAgIGZpc2NhbF9xdWFydGVyLFxuICAgICAgQ09VTlQo
+KikgQVMgZXhpdHNcbiAgRlJPTSBvYWx0Y19jdXJhdGVkLmZhY3Rfc3RhZmZfdGVybWluYXRpb25zXG4gIFdIRVJFIHRlcm1p
+bmF0aW9uX2tpbmQgSU4gKCdWT0xVTlRBUlknLCAnSU5WT0xVTlRBUlknKVxuICBHUk9VUCBCWSAxLCAyLCAzXG4pXG5TRUxF
+Q1RcbiAgICBoLmZhY2lsaXR5X2lkLFxuICAgIGguZmFjaWxpdHlfbmFtZSxcbiAgICBoLnJlZ2lvbixcbiAgICBoLmZpc2Nh
+bF95ZWFyLFxuICAgIGguZmlzY2FsX3F1YXJ0ZXIsXG4gICAgZS5leGl0cyBBUyBudW1lcmF0b3IsXG4gICAgaC5hY3RpdmVf
+c3RhZmYgQVMgZGVub21pbmF0b3IsXG4gICAgUk9VTkQoU0FGRV9ESVZJREUoZS5leGl0cywgaC5hY3RpdmVfc3RhZmYpICog
+MTAwLCAyKSBBUyB0dXJub3Zlcl9wY3QsXG4gICAgQ0FTRVxuICAgICAgICBXSEVOIFJPVU5EKFNBRkVfRElWSURFKGUuZXhp
+dHMsIGguYWN0aXZlX3N0YWZmKSAqIDEwMCwgMikgPiAzNSBUSEVOICdBTEVSVCdcbiAgICAgICAgV0hFTiBST1VORChTQUZF
+X0RJVklERShlLmV4aXRzLCBoLmFjdGl2ZV9zdGFmZikgKiAxMDAsIDIpID4gMjUgVEhFTiAnV0FSTklORydcbiAgICAgICAg
+RUxTRSAnT04gVEFSR0VUJ1xuICAgIEVORCBBUyBwZXJmb3JtYW5jZV9zdGF0dXNcbkZST00gaGVhZGNvdW50IGhcbkxFRlQg
+Sk9JTiBleGl0cyBlXG4gIE9OIGguZmFjaWxpdHlfaWQgPSBlLmZhY2lsaXR5X2lkXG4gQU5EIGguZmlzY2FsX3llYXIgPSBl
+LmZpc2NhbF95ZWFyXG4gQU5EIGguZmlzY2FsX3F1YXJ0ZXIgPSBlLmZpc2NhbF9xdWFydGVyOyIsInJlc3VsdHNUaXRsZSI6
+IkxpdmUgcXVlcnkgb3V0cHV0IOKAlCBUb3AgMTAgZmFjaWxpdGllcyAoc2ltdWxhdGVkKSIsImRlbW9Ob3RlIjoiVHVybm92
+ZXIgdXNlcyBleGl0cyDDtyBhY3RpdmUgc3RhZmYgZm9yIHRoZSBxdWFydGVyIChkZW1vIG51bWVyYXRvcnMvZGVub21pbmF0
+b3JzKS4iLCJ0YWJsZSI6eyJjb2x1bW5zIjpbeyJrZXkiOiJmYWNpbGl0eV9pZCIsImxhYmVsIjoiZmFjaWxpdHlfaWQifSx7
+ImtleSI6ImZhY2lsaXR5X25hbWUiLCJsYWJlbCI6ImZhY2lsaXR5X25hbWUifSx7ImtleSI6InJlZ2lvbiIsImxhYmVsIjoi
+cmVnaW9uIn0seyJrZXkiOiJ0dXJub3Zlcl9wY3QiLCJsYWJlbCI6InR1cm5vdmVyX3BjdCJ9LHsia2V5IjoiZGVub21pbmF0
+b3IiLCJsYWJlbCI6ImRlbm9taW5hdG9yIn0seyJrZXkiOiJwZXJmb3JtYW5jZV9zdGF0dXMiLCJsYWJlbCI6InBlcmZvcm1h
+bmNlX3N0YXR1cyIsImJhZGdlIjp0cnVlfV0sInJvd3MiOlt7ImZhY2lsaXR5X2lkIjoiTkgtMDAyIiwiZmFjaWxpdHlfbmFt
+ZSI6IkJ1ZmZhbG8gQ2FyZSBDZW50ZXIgMSIsInJlZ2lvbiI6IkNlbnRyYWwgTlkiLCJ0dXJub3Zlcl9wY3QiOiIyMi4xMCIs
+ImRlbm9taW5hdG9yIjo0MjAsInBlcmZvcm1hbmNlX3N0YXR1cyI6Ik9OIFRBUkdFVCJ9LHsiZmFjaWxpdHlfaWQiOiJOSC0w
+MDUiLCJmYWNpbGl0eV9uYW1lIjoiWW9ua2VycyBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoiTG9uZyBJc2xhbmQiLCJ0dXJu
+b3Zlcl9wY3QiOiIzOC41MCIsImRlbm9taW5hdG9yIjo2MTAsInBlcmZvcm1hbmNlX3N0YXR1cyI6IkFMRVJUIn0seyJmYWNp
+bGl0eV9pZCI6Ik5ILTAxMSIsImZhY2lsaXR5X25hbWUiOiJUcm95IENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJDYXBpdGFs
+IFJlZ2lvbiIsInR1cm5vdmVyX3BjdCI6IjE4LjQwIiwiZGVub21pbmF0b3IiOjM1NSwicGVyZm9ybWFuY2Vfc3RhdHVzIjoi
+T04gVEFSR0VUIn0seyJmYWNpbGl0eV9pZCI6Ik5ILTAwNCIsImZhY2lsaXR5X25hbWUiOiJTeXJhY3VzZSBDYXJlIENlbnRl
+ciAxIiwicmVnaW9uIjoiTllDIE1ldHJvIiwidHVybm92ZXJfcGN0IjoiMjkuODAiLCJkZW5vbWluYXRvciI6NTAyLCJwZXJm
+b3JtYW5jZV9zdGF0dXMiOiJXQVJOSU5HIn0seyJmYWNpbGl0eV9pZCI6Ik5ILTAxMiIsImZhY2lsaXR5X25hbWUiOiJOZXcg
+Um9jaGVsbGUgQ2FyZSBDZW50ZXIgMSIsInJlZ2lvbiI6IkxvbmcgSXNsYW5kIiwidHVybm92ZXJfcGN0IjoiNDEuMjAiLCJk
+ZW5vbWluYXRvciI6Mzg4LCJwZXJmb3JtYW5jZV9zdGF0dXMiOiJBTEVSVCJ9LHsiZmFjaWxpdHlfaWQiOiJOSC0wMDMiLCJm
+YWNpbGl0eV9uYW1lIjoiUm9jaGVzdGVyIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJDYXBpdGFsIFJlZ2lvbiIsInR1cm5v
+dmVyX3BjdCI6IjI0LjYwIiwiZGVub21pbmF0b3IiOjQ0MSwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiT04gVEFSR0VUIn0seyJm
+YWNpbGl0eV9pZCI6Ik5ILTAxMyIsImZhY2lsaXR5X25hbWUiOiJLaW5nc3RvbiBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoi
+SHVkc29uIFZhbGxleSIsInR1cm5vdmVyX3BjdCI6IjMzLjEwIiwiZGVub21pbmF0b3IiOjI5OCwicGVyZm9ybWFuY2Vfc3Rh
+dHVzIjoiV0FSTklORyJ9LHsiZmFjaWxpdHlfaWQiOiJOSC0wMDEiLCJmYWNpbGl0eV9uYW1lIjoiQWxiYW55IENhcmUgQ2Vu
+dGVyIDEiLCJyZWdpb24iOiJXZXN0ZXJuIE5ZIiwidHVybm92ZXJfcGN0IjoiMTkuOTAiLCJkZW5vbWluYXRvciI6MzcxLCJw
+ZXJmb3JtYW5jZV9zdGF0dXMiOiJPTiBUQVJHRVQifSx7ImZhY2lsaXR5X2lkIjoiTkgtMDE0IiwiZmFjaWxpdHlfbmFtZSI6
+IldhdGVydG93biBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoiTm9ydGggQ291bnRyeSIsInR1cm5vdmVyX3BjdCI6IjM2Ljcw
+IiwiZGVub21pbmF0b3IiOjI2NSwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiQUxFUlQifSx7ImZhY2lsaXR5X2lkIjoiTkgtMDA3
+IiwiZmFjaWxpdHlfbmFtZSI6Ikl0aGFjYSBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoiU291dGhlcm4gVGllciIsInR1cm5v
+dmVyX3BjdCI6IjE1LjIwIiwiZGVub21pbmF0b3IiOjIyNCwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiT04gVEFSR0VUIn1dfX0s
+eyJpZCI6ImZhbGxzIiwic2VsZWN0TGFiZWwiOiJGYWxscyB3aXRoIEluanVyeSAocGVyIDEsMDAwIGJlZC1kYXlzKSIsInRp
+dGxlIjoiS1BJIDM6IEZhbGxzIHdpdGggSW5qdXJ5IChwZXIgMSwwMDAgYmVkLWRheXMpIiwidmlld05hbWUiOiJvYWx0Y19r
+cGkuZmFsbHNfaW5qdXJ5X21vbnRobHkiLCJkZXNjcmlwdGlvbiI6IkdyYW51bGFyaXR5OiBmYWNpbGl0eSDDlyBtb250aC4g
+SWxsdXN0cmF0aXZlIHRocmVzaG9sZHMgKHBlciAxLDAwMCBiZWQtZGF5cyk6IEFMRVJUID4yLjIsIFdBUk5JTkcgPjEuNCBh
+bmQg4omkMi4yLCBPTiBUQVJHRVQg4omkMS40LiIsInNxbCI6Ii0tIEtQSTogRmFsbHMgd2l0aCBJbmp1cnkgKHBlciAxLDAw
+MCBiZWQtZGF5cylcbi0tIEdyYW51bGFyaXR5OiBGYWNpbGl0eSDDlyBNb250aFxuLS0gT3duZXI6IFF1YWxpdHkgJiBTYWZl
+dHlcblxuQ1JFQVRFIE9SIFJFUExBQ0UgVklFVyBvYWx0Y19rcGkuZmFsbHNfaW5qdXJ5X21vbnRobHkgQVNcblNFTEVDVFxu
+ICAgIGYuZmFjaWxpdHlfaWQsXG4gICAgZi5mYWNpbGl0eV9uYW1lLFxuICAgIGYucmVnaW9uLFxuICAgIGYucmVwb3J0X3ll
+YXIsXG4gICAgZi5yZXBvcnRfbW9udGgsXG4gICAgQ09VTlRJRihmLmluanVyeV9pbmQpIEFTIGZhbGxzX3dpdGhfaW5qdXJ5
+LFxuICAgIFNVTShjLmJlZF9kYXlzKSBBUyBiZWRfZGF5cyxcbiAgICBST1VORChTQUZFX0RJVklERShcbiAgICAgICAgQ09V
+TlRJRihmLmluanVyeV9pbmQpLFxuICAgICAgICBOVUxMSUYoU1VNKGMuYmVkX2RheXMpLCAwKSkgKiAxMDAwLCAyKSBBUyBy
+YXRlX3Blcl8xMDAwX2JkLFxuICAgIENBU0VcbiAgICAgICAgV0hFTiBST1VORChTQUZFX0RJVklERShDT1VOVElGKGYuaW5q
+dXJ5X2luZCksIE5VTExJRihTVU0oYy5iZWRfZGF5cyksIDApKSAqIDEwMDAsIDIpID4gMi4yIFRIRU4gJ0FMRVJUJ1xuICAg
+ICAgICBXSEVOIFJPVU5EKFNBRkVfRElWSURFKENPVU5USUYoZi5pbmp1cnlfaW5kKSwgTlVMTElGKFNVTShjLmJlZF9kYXlz
+KSwgMCkpICogMTAwMCwgMikgPiAxLjQgVEhFTiAnV0FSTklORydcbiAgICAgICAgRUxTRSAnT04gVEFSR0VUJ1xuICAgIEVO
+RCBBUyBwZXJmb3JtYW5jZV9zdGF0dXNcbkZST00gb2FsdGNfY3VyYXRlZC5mYWN0X2ZhbGxzIGZcbkpPSU4gb2FsdGNfY3Vy
+YXRlZC5mYWN0X2NlbnN1c19tb250aGx5IGNcbiAgT04gZi5mYWNpbGl0eV9pZCA9IGMuZmFjaWxpdHlfaWRcbiBBTkQgZi5y
+ZXBvcnRfeWVhciA9IGMucmVwb3J0X3llYXJcbiBBTkQgZi5yZXBvcnRfbW9udGggPSBjLnJlcG9ydF9tb250aFxuV0hFUkUg
+Zi5kYXRhX3F1YWxpdHlfZmxhZyA9ICdQQVNTJ1xuR1JPVVAgQlkgMSwgMiwgMywgNCwgNTsiLCJyZXN1bHRzVGl0bGUiOiJM
+aXZlIHF1ZXJ5IG91dHB1dCDigJQgVG9wIDEwIGZhY2lsaXRpZXMgKHNpbXVsYXRlZCkiLCJkZW1vTm90ZSI6IlJhdGUgPSBp
+bmp1cnkgZmFsbHMgw5cgMSwwMDAgw7cgYmVkLWRheXMgKGFsaWduZWQgdG8gU2VjdGlvbiAzLjMgcGFuZGFzIG5hcnJhdGl2
+ZSkuIiwidGFibGUiOnsiY29sdW1ucyI6W3sia2V5IjoiZmFjaWxpdHlfaWQiLCJsYWJlbCI6ImZhY2lsaXR5X2lkIn0seyJr
+ZXkiOiJmYWNpbGl0eV9uYW1lIiwibGFiZWwiOiJmYWNpbGl0eV9uYW1lIn0seyJrZXkiOiJyZWdpb24iLCJsYWJlbCI6InJl
+Z2lvbiJ9LHsia2V5IjoicmF0ZV9wZXJfMTAwMF9iZCIsImxhYmVsIjoicmF0ZV9wZXJfMTAwMF9iZCJ9LHsia2V5IjoiYmVk
+X2RheXMiLCJsYWJlbCI6ImJlZF9kYXlzIn0seyJrZXkiOiJwZXJmb3JtYW5jZV9zdGF0dXMiLCJsYWJlbCI6InBlcmZvcm1h
+bmNlX3N0YXR1cyIsImJhZGdlIjp0cnVlfV0sInJvd3MiOlt7ImZhY2lsaXR5X2lkIjoiTkgtMDA0IiwiZmFjaWxpdHlfbmFt
+ZSI6IlN5cmFjdXNlIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJOWUMgTWV0cm8iLCJyYXRlX3Blcl8xMDAwX2JkIjoiMS4y
+NSIsImJlZF9kYXlzIjoxODQyMCwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiT04gVEFSR0VUIn0seyJmYWNpbGl0eV9pZCI6Ik5I
+LTAwMiIsImZhY2lsaXR5X25hbWUiOiJCdWZmYWxvIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJDZW50cmFsIE5ZIiwicmF0
+ZV9wZXJfMTAwMF9iZCI6IjIuNTUiLCJiZWRfZGF5cyI6MTYyMDAsInBlcmZvcm1hbmNlX3N0YXR1cyI6IkFMRVJUIn0seyJm
+YWNpbGl0eV9pZCI6Ik5ILTAwOCIsImZhY2lsaXR5X25hbWUiOiJCaW5naGFtdG9uIENhcmUgQ2VudGVyIDEiLCJyZWdpb24i
+OiJTb3V0aGVybiBUaWVyIiwicmF0ZV9wZXJfMTAwMF9iZCI6IjAuOTgiLCJiZWRfZGF5cyI6MjIxMDAsInBlcmZvcm1hbmNl
+X3N0YXR1cyI6Ik9OIFRBUkdFVCJ9LHsiZmFjaWxpdHlfaWQiOiJOSC0wMTUiLCJmYWNpbGl0eV9uYW1lIjoiUG91Z2hrZWVw
+c2llIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJIdWRzb24gVmFsbGV5IiwicmF0ZV9wZXJfMTAwMF9iZCI6IjEuOTUiLCJi
+ZWRfZGF5cyI6MTQ4ODAsInBlcmZvcm1hbmNlX3N0YXR1cyI6IldBUk5JTkcifSx7ImZhY2lsaXR5X2lkIjoiTkgtMDA2Iiwi
+ZmFjaWxpdHlfbmFtZSI6IlV0aWNhIENhcmUgQ2VudGVyIDEiLCJyZWdpb24iOiJOb3J0aCBDb3VudHJ5IiwicmF0ZV9wZXJf
+MTAwMF9iZCI6IjEuMTAiLCJiZWRfZGF5cyI6OTA1MCwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiT04gVEFSR0VUIn0seyJmYWNp
+bGl0eV9pZCI6Ik5ILTAwOSIsImZhY2lsaXR5X25hbWUiOiJTY2hlbmVjdGFkeSBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoi
+Q2FwaXRhbCBSZWdpb24iLCJyYXRlX3Blcl8xMDAwX2JkIjoiMi44MCIsImJlZF9kYXlzIjoxMzM0MCwicGVyZm9ybWFuY2Vf
+c3RhdHVzIjoiQUxFUlQifSx7ImZhY2lsaXR5X2lkIjoiTkgtMDAzIiwiZmFjaWxpdHlfbmFtZSI6IlJvY2hlc3RlciBDYXJl
+IENlbnRlciAxIiwicmVnaW9uIjoiQ2FwaXRhbCBSZWdpb24iLCJyYXRlX3Blcl8xMDAwX2JkIjoiMS41MiIsImJlZF9kYXlz
+IjoyNTQwMCwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiV0FSTklORyJ9LHsiZmFjaWxpdHlfaWQiOiJOSC0wMDUiLCJmYWNpbGl0
+eV9uYW1lIjoiWW9ua2VycyBDYXJlIENlbnRlciAxIiwicmVnaW9uIjoiTG9uZyBJc2xhbmQiLCJyYXRlX3Blcl8xMDAwX2Jk
+IjoiMC44OCIsImJlZF9kYXlzIjozMDEwMCwicGVyZm9ybWFuY2Vfc3RhdHVzIjoiT04gVEFSR0VUIn0seyJmYWNpbGl0eV9p
+ZCI6Ik5ILTAxNiIsImZhY2lsaXR5X25hbWUiOiJFbG1pcmEgQ2FyZSBDZW50ZXIgMSIsInJlZ2lvbiI6IlNvdXRoZXJuIFRp
+ZXIiLCJyYXRlX3Blcl8xMDAwX2JkIjoiMi4zMCIsImJlZF9kYXlzIjo4NzAwLCJwZXJmb3JtYW5jZV9zdGF0dXMiOiJBTEVS
+VCJ9LHsiZmFjaWxpdHlfaWQiOiJOSC0wMDEiLCJmYWNpbGl0eV9uYW1lIjoiQWxiYW55IENhcmUgQ2VudGVyIDEiLCJyZWdp
+b24iOiJXZXN0ZXJuIE5ZIiwicmF0ZV9wZXJfMTAwMF9iZCI6IjEuMzgiLCJiZWRfZGF5cyI6MTkyNTAsInBlcmZvcm1hbmNl
+X3N0YXR1cyI6Ik9OIFRBUkdFVCJ9XX19XX0=
+</script>
+  <script type="application/json" id="fallback-exec-scorecard">{"title":"Executive Strategic Scorecard","subtitle":"Tier 1 KPIs · Statewide · Q1 2026","footnote":"Demo figures aligned to framework Tier-1 narratives; swap for live aggregates from KPI marts.","metrics":[{"id":"quality_of_care","label":"Quality of Care","value":"16.1%","valueTone":"warn","target":"≤15%","trendLabel":"-2.4% vs last Q","status":"warning"},{"id":"regulatory_compliance","label":"Regulatory Compliance","value":"2.3","valueTone":"warn","target":"≤2.0","trendLabel":"-0.4 vs last Q","status":"warning"},{"id":"operational_efficiency","label":"Operational Efficiency","value":"97.0%","valueTone":"warn","target":"≥98%","trendLabel":"+1.2% vs last Q","status":"warning"},{"id":"workforce_stability","label":"Workforce Stability","value":"32.4%","valueTone":"ok","target":"≤35%","trendLabel":"-3.1% vs last Q","status":"on_target"},{"id":"health_equity","label":"Health Equity","value":"0.17","valueTone":"bad","target":"≤0.12","trendLabel":"-0.02 vs last Q","status":"alert"}],"readmissionTrend":{"heading":"Statewide KPI trend — 12-month rolling","subheading":"Quality of Care · Readmission rate (%) — statewide","yAxisLabel":"Readmission rate (%)","targetPct":15,"yMin":13,"yMax":21,"months":["Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May"],"values":[18.5,18.25,18.0,17.65,17.35,17.05,16.85,16.72,16.55,16.42,16.28,16.1],"lineColor":"#2f6f73","targetLineColor":"#9ca3af"},"equityByRegion":{"heading":"Health equity — Outcome disparity index by region","yMax":0.35,"yTicks":[0,0.05,0.1,0.15,0.2,0.25,0.3,0.35],"bars":[{"region":"Western NY","value":0.18,"tier":"warn"},{"region":"Central NY","value":0.12,"tier":"ok"},{"region":"Capital Region","value":0.09,"tier":"ok"},{"region":"NYC Metro","value":0.22,"tier":"alert"},{"region":"Long Island","value":0.15,"tier":"warn"},{"region":"North Country","value":0.24,"tier":"alert"}]}}</script>
+  <script type="application/json" id="fallback-dq-config">{"title":"Data Quality Control","subtitle":"Current reporting cycle — validation after ingestion, before promotion to KPI marts. Demo figures align with pipeline volume (124,830 records).","summary":[{"label":"Overall quality score","value":"94.2%","detail":"▲ 1.3% vs last month","tone":"ok"},{"label":"Records passing all checks","value":"117,372","detail":"of 124,830","tone":"neutral"},{"label":"Records flagged","value":"5,891","detail":"under review","tone":"warn"},{"label":"Records rejected","value":"1,567","detail":"notified to submitter","tone":"bad"}],"dimensionScores":{"title":"Quality dimension scores","barOkColor":"#2f6f73","barWarnColor":"#d97706","items":[{"dimension":"Completeness","score":97.4},{"dimension":"Validity","score":95.1},{"dimension":"Timeliness","score":92,"highlight":true},{"dimension":"Consistency","score":96.8},{"dimension":"Accuracy","score":94.3},{"dimension":"Uniqueness","score":98.9}]},"fieldFailures":{"title":"Validation failure breakdown by field","axisMax":600,"tickStep":200,"barColor":"#1e3a5f","items":[{"field":"resident_id","count":520},{"field":"report_date","count":410},{"field":"outcome_code","count":300},{"field":"admission_date","count":240},{"field":"facility_id","count":90},{"field":"discharge_reason","count":70},{"field":"staff_fte","count":40}]},"facilities":{"title":"Facilities with quality flags this cycle","rows":[{"facility":"Buffalo Care Center 1","region":"Central NY","records":1388,"flagged":29,"flagRate":6.5,"issue":"Format error in admit_date","status":"Under review"},{"facility":"Rochester East ALP","region":"Finger Lakes","records":2104,"flagged":84,"flagRate":4,"issue":"Duplicate resident_id","status":"Under review"},{"facility":"Elmira Home Care Hub","region":"Southern Tier","records":956,"flagged":62,"flagRate":6.5,"issue":"Null outcome_code","status":"Under review"},{"facility":"Syracuse SNF North","region":"Central NY","records":1820,"flagged":73,"flagRate":4,"issue":"Format error in admit_date","status":"Under review"}]}}</script>
+
+    <script type="text/plain" id="fallback-program-monitor-b64" hidden>
+eyJ0aXRsZSI6IlByb2dyYW0gUGVyZm9ybWFuY2UgTW9uaXRvciIsInN1YnRpdGxlIjoiVGllciAyIEtQSXMgwrcgRmFjaWxp
+dHktbGV2ZWwgwrcgV2Vla2x5IHJlZnJlc2ggwrcgNTAgbnVyc2luZyBob21lcyIsImZvb3Rub3RlIjoiRGVtbyB0aWVyLTIg
+ZXh0cmFjdDsgd2lyZSB0byBga3BpX21hcnRgIGFuZCBmYWNpbGl0eSBkaW1lbnNpb24gZm9yIHByb2R1Y3Rpb24uIiwiZmls
+dGVycyI6eyJyZWdpb24iOiJSZWdpb24iLCJzdGF0dXMiOiJTdGF0dXMiLCJzb3J0IjoiU29ydCBieSIsInJlZ2lvbkFsbCI6
+IkFsbCByZWdpb25zIiwic3RhdHVzQWxsIjoiQWxsIiwic29ydE9wdGlvbnMiOlt7InZhbHVlIjoicmVhZG1pdCIsImxhYmVs
+IjoiUmVhZG1pc3Npb24gcmF0ZSJ9LHsidmFsdWUiOiJ0dXJub3ZlciIsImxhYmVsIjoiVHVybm92ZXIgJSJ9LHsidmFsdWUi
+OiJjb21wb3NpdGUiLCJsYWJlbCI6IkNvbXBvc2l0ZSByaXNrIn0seyJ2YWx1ZSI6ImZhY2lsaXR5IiwibGFiZWwiOiJGYWNp
+bGl0eSBuYW1lIn1dLCJzdGF0dXNPcHRpb25zIjpbeyJ2YWx1ZSI6ImFsbCIsImxhYmVsIjoiQWxsIn0seyJ2YWx1ZSI6Im9u
+X3RhcmdldCIsImxhYmVsIjoiT24gdGFyZ2V0In0seyJ2YWx1ZSI6Indhcm5pbmciLCJsYWJlbCI6Ildhcm5pbmcifSx7InZh
+bHVlIjoiYWxlcnQiLCJsYWJlbCI6IkFsZXJ0In1dfSwic3VtbWFyeUxhYmVscyI6eyJzaG93biI6IkZhY2lsaXRpZXMgc2hv
+d24iLCJvblRhcmdldCI6Ik9uIHRhcmdldCIsIndhcm5pbmciOiJXYXJuaW5nIiwiYWxlcnQiOiJBbGVydCJ9LCJ0YWJsZVRp
+dGxlIjoiRmFjaWxpdHkgS1BJIHJhbmtpbmdzIiwicm93cyI6W3siZmFjaWxpdHkiOiJQb3VnaGtlZXBzaWUgQ2FyZSBDZW50
+ZXIgMiIsInJlZ2lvbiI6Ik5vcnRoIENvdW50cnkiLCJiZWRzIjoxNDIsInJlYWRtaXQiOjIzLjksInR1cm5vdmVyIjo0MS43
+LCJjb21wbGFpbnRSZXNwIjo4OC41LCJjb21wb3NpdGUiOjYxLjcsInN0YXR1cyI6ImFsZXJ0IiwicmVhZG1pdFRpZXIiOiJh
+bGVydCIsInR1cm5vdmVyVGllciI6ImFsZXJ0IiwiY29tcGxhaW50VGllciI6Indhcm4iLCJjb21wb3NpdGVUaWVyIjoid2Fy
+biJ9LHsiZmFjaWxpdHkiOiJCdWZmYWxvIENhcmUgQ2VudGVyIDIiLCJyZWdpb24iOiJDZW50cmFsIE5ZIiwiYmVkcyI6MTI4
+LCJyZWFkbWl0IjoyMy41LCJ0dXJub3ZlciI6NTEuOCwiY29tcGxhaW50UmVzcCI6NzEuMiwiY29tcG9zaXRlIjo4OS42LCJz
+dGF0dXMiOiJhbGVydCIsInJlYWRtaXRUaWVyIjoiYWxlcnQiLCJ0dXJub3ZlclRpZXIiOiJhbGVydCIsImNvbXBsYWludFRp
+ZXIiOiJhbGVydCIsImNvbXBvc2l0ZVRpZXIiOiJhbGVydCJ9LHsiZmFjaWxpdHkiOiJUcm95IE5IIFNpdGUgNDkiLCJyZWdp
+b24iOiJXZXN0ZXJuIE5ZIiwiYmVkcyI6MTUwLCJyZWFkbWl0IjoyMy40LCJ0dXJub3ZlciI6NDguNSwiY29tcGxhaW50UmVz
+cCI6NzQuNywiY29tcG9zaXRlIjo4My4wLCJzdGF0dXMiOiJhbGVydCIsInJlYWRtaXRUaWVyIjoiYWxlcnQiLCJ0dXJub3Zl
+clRpZXIiOiJhbGVydCIsImNvbXBsYWludFRpZXIiOiJhbGVydCIsImNvbXBvc2l0ZVRpZXIiOiJhbGVydCJ9LHsiZmFjaWxp
+dHkiOiJJdGhhY2EgTkggU2l0ZSA0MyIsInJlZ2lvbiI6IkNhcGl0YWwgUmVnaW9uIiwiYmVkcyI6MTM1LCJyZWFkbWl0Ijoy
+Mi43LCJ0dXJub3ZlciI6NTIuNCwiY29tcGxhaW50UmVzcCI6ODQuMCwiY29tcG9zaXRlIjo4MS42LCJzdGF0dXMiOiJhbGVy
+dCIsInJlYWRtaXRUaWVyIjoiYWxlcnQiLCJ0dXJub3ZlclRpZXIiOiJhbGVydCIsImNvbXBsYWludFRpZXIiOiJ3YXJuIiwi
+Y29tcG9zaXRlVGllciI6ImFsZXJ0In0seyJmYWNpbGl0eSI6IkFsYmFueSBOSCBTaXRlIDQ3IiwicmVnaW9uIjoiU291dGhl
+cm4gVGllciIsImJlZHMiOjEyNSwicmVhZG1pdCI6MjIuNiwidHVybm92ZXIiOjM5LjQsImNvbXBsYWludFJlc3AiOjcxLjAs
+ImNvbXBvc2l0ZSI6OTEuOSwic3RhdHVzIjoiYWxlcnQiLCJyZWFkbWl0VGllciI6ImFsZXJ0IiwidHVybm92ZXJUaWVyIjoi
+YWxlcnQiLCJjb21wbGFpbnRUaWVyIjoiYWxlcnQiLCJjb21wb3NpdGVUaWVyIjoiYWxlcnQifSx7ImZhY2lsaXR5IjoiQmlu
+Z2hhbXRvbiBOSCBTaXRlIDQ0IiwicmVnaW9uIjoiTllDIE1ldHJvIiwiYmVkcyI6MTU3LCJyZWFkbWl0IjoyMi4wLCJ0dXJu
+b3ZlciI6NDguMywiY29tcGxhaW50UmVzcCI6ODMuOSwiY29tcG9zaXRlIjo3NC40LCJzdGF0dXMiOiJhbGVydCIsInJlYWRt
+aXRUaWVyIjoid2FybiIsInR1cm5vdmVyVGllciI6ImFsZXJ0IiwiY29tcGxhaW50VGllciI6Indhcm4iLCJjb21wb3NpdGVU
+aWVyIjoiYWxlcnQifSx7ImZhY2lsaXR5IjoiS2luZ3N0b24gTkggU2l0ZSAzMiIsInJlZ2lvbiI6Ikh1ZHNvbiBWYWxsZXki
+LCJiZWRzIjoxMzYsInJlYWRtaXQiOjIxLjksInR1cm5vdmVyIjozMi4zLCJjb21wbGFpbnRSZXNwIjo4OS40LCJjb21wb3Np
+dGUiOjUzLjcsInN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGllciI6Indhcm4iLCJ0dXJub3ZlclRpZXIiOiJ3YXJuIiwi
+Y29tcGxhaW50VGllciI6Indhcm4iLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiUGxhdHRzYnVyZ2ggTkgg
+U2l0ZSA0NiIsInJlZ2lvbiI6Ik5vcnRoIENvdW50cnkiLCJiZWRzIjoxNTUsInJlYWRtaXQiOjIxLjksInR1cm5vdmVyIjo1
+MC44LCJjb21wbGFpbnRSZXNwIjo4Ni41LCJjb21wb3NpdGUiOjc5LjksInN0YXR1cyI6ImFsZXJ0IiwicmVhZG1pdFRpZXIi
+OiJ3YXJuIiwidHVybm92ZXJUaWVyIjoiYWxlcnQiLCJjb21wbGFpbnRUaWVyIjoid2FybiIsImNvbXBvc2l0ZVRpZXIiOiJh
+bGVydCJ9LHsiZmFjaWxpdHkiOiJTeXJhY3VzZSBOSCBTaXRlIDQwIiwicmVnaW9uIjoiSHVkc29uIFZhbGxleSIsImJlZHMi
+Ojc3LCJyZWFkbWl0IjoyMS45LCJ0dXJub3ZlciI6MzYuNywiY29tcGxhaW50UmVzcCI6ODkuMywiY29tcG9zaXRlIjo1NS45
+LCJzdGF0dXMiOiJ3YXJuaW5nIiwicmVhZG1pdFRpZXIiOiJ3YXJuIiwidHVybm92ZXJUaWVyIjoiYWxlcnQiLCJjb21wbGFp
+bnRUaWVyIjoid2FybiIsImNvbXBvc2l0ZVRpZXIiOiJ3YXJuIn0seyJmYWNpbGl0eSI6IlRyb3kgTkggU2l0ZSAzMSIsInJl
+Z2lvbiI6IlNvdXRoZXJuIFRpZXIiLCJiZWRzIjoxMDYsInJlYWRtaXQiOjIxLjcsInR1cm5vdmVyIjozNC4xLCJjb21wbGFp
+bnRSZXNwIjo4OS4zLCJjb21wb3NpdGUiOjU0LjMsInN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGllciI6Indhcm4iLCJ0
+dXJub3ZlclRpZXIiOiJ3YXJuIiwiY29tcGxhaW50VGllciI6Indhcm4iLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2ls
+aXR5IjoiWW9ua2VycyBOSCBTaXRlIDQxIiwicmVnaW9uIjoiV2VzdGVybiBOWSIsImJlZHMiOjE1MSwicmVhZG1pdCI6MjEu
+NywidHVybm92ZXIiOjMyLjAsImNvbXBsYWludFJlc3AiOjkzLjQsImNvbXBvc2l0ZSI6NzEuOCwic3RhdHVzIjoid2Fybmlu
+ZyIsInJlYWRtaXRUaWVyIjoid2FybiIsInR1cm5vdmVyVGllciI6Indhcm4iLCJjb21wbGFpbnRUaWVyIjoib2siLCJjb21w
+b3NpdGVUaWVyIjoiYWxlcnQifSx7ImZhY2lsaXR5IjoiTmlhZ2FyYSBGYWxscyBOSCBTaXRlIDM1IiwicmVnaW9uIjoiQ2Fw
+aXRhbCBSZWdpb24iLCJiZWRzIjoxNDMsInJlYWRtaXQiOjIxLjUsInR1cm5vdmVyIjozNi4yLCJjb21wbGFpbnRSZXNwIjo4
+Ny43LCJjb21wb3NpdGUiOjY0LjksInN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGllciI6Indhcm4iLCJ0dXJub3ZlclRp
+ZXIiOiJhbGVydCIsImNvbXBsYWludFRpZXIiOiJ3YXJuIiwiY29tcG9zaXRlVGllciI6Indhcm4ifSx7ImZhY2lsaXR5Ijoi
+QmluZ2hhbXRvbiBOSCBTaXRlIDI2IiwicmVnaW9uIjoiQ2VudHJhbCBOWSIsImJlZHMiOjEzMiwicmVhZG1pdCI6MjEuNCwi
+dHVybm92ZXIiOjM2LjUsImNvbXBsYWludFJlc3AiOjkyLjksImNvbXBvc2l0ZSI6NjguMCwic3RhdHVzIjoid2FybmluZyIs
+InJlYWRtaXRUaWVyIjoid2FybiIsInR1cm5vdmVyVGllciI6ImFsZXJ0IiwiY29tcGxhaW50VGllciI6Im9rIiwiY29tcG9z
+aXRlVGllciI6Indhcm4ifSx7ImZhY2lsaXR5IjoiTmV3IFJvY2hlbGxlIE5IIFNpdGUgNDgiLCJyZWdpb24iOiJIdWRzb24g
+VmFsbGV5IiwiYmVkcyI6NzcsInJlYWRtaXQiOjIxLjQsInR1cm5vdmVyIjo1Mi41LCJjb21wbGFpbnRSZXNwIjo4My4zLCJj
+b21wb3NpdGUiOjc0LjksInN0YXR1cyI6ImFsZXJ0IiwicmVhZG1pdFRpZXIiOiJ3YXJuIiwidHVybm92ZXJUaWVyIjoiYWxl
+cnQiLCJjb21wbGFpbnRUaWVyIjoid2FybiIsImNvbXBvc2l0ZVRpZXIiOiJhbGVydCJ9LHsiZmFjaWxpdHkiOiJJdGhhY2Eg
+TkggU2l0ZSAyNSIsInJlZ2lvbiI6Ildlc3Rlcm4gTlkiLCJiZWRzIjoxNjIsInJlYWRtaXQiOjIxLjIsInR1cm5vdmVyIjoz
+OC44LCJjb21wbGFpbnRSZXNwIjo5MC45LCJjb21wb3NpdGUiOjY2LjgsInN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGll
+ciI6Indhcm4iLCJ0dXJub3ZlclRpZXIiOiJhbGVydCIsImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJ3
+YXJuIn0seyJmYWNpbGl0eSI6IkJ1ZmZhbG8gTkggU2l0ZSAzOCIsInJlZ2lvbiI6Ik5vcnRoIENvdW50cnkiLCJiZWRzIjox
+NTIsInJlYWRtaXQiOjIxLjAsInR1cm5vdmVyIjozOS4zLCJjb21wbGFpbnRSZXNwIjo5Mi43LCJjb21wb3NpdGUiOjY4LjEs
+InN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGllciI6Indhcm4iLCJ0dXJub3ZlclRpZXIiOiJhbGVydCIsImNvbXBsYWlu
+dFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJ3YXJuIn0seyJmYWNpbGl0eSI6IlJvY2hlc3RlciBOSCBTaXRlIDM5Iiwi
+cmVnaW9uIjoiU291dGhlcm4gVGllciIsImJlZHMiOjEyNSwicmVhZG1pdCI6MjAuNywidHVybm92ZXIiOjI5LjEsImNvbXBs
+YWludFJlc3AiOjg5LjcsImNvbXBvc2l0ZSI6NTkuMSwic3RhdHVzIjoid2FybmluZyIsInJlYWRtaXRUaWVyIjoid2FybiIs
+InR1cm5vdmVyVGllciI6Indhcm4iLCJjb21wbGFpbnRUaWVyIjoid2FybiIsImNvbXBvc2l0ZVRpZXIiOiJ3YXJuIn0seyJm
+YWNpbGl0eSI6IldhdGVydG93biBOSCBTaXRlIDMzIiwicmVnaW9uIjoiV2VzdGVybiBOWSIsImJlZHMiOjg3LCJyZWFkbWl0
+IjoyMC43LCJ0dXJub3ZlciI6MzYuMCwiY29tcGxhaW50UmVzcCI6ODkuMywiY29tcG9zaXRlIjo2NS44LCJzdGF0dXMiOiJ3
+YXJuaW5nIiwicmVhZG1pdFRpZXIiOiJ3YXJuIiwidHVybm92ZXJUaWVyIjoiYWxlcnQiLCJjb21wbGFpbnRUaWVyIjoid2Fy
+biIsImNvbXBvc2l0ZVRpZXIiOiJ3YXJuIn0seyJmYWNpbGl0eSI6IldoaXRlIFBsYWlucyBOSCBTaXRlIDM2IiwicmVnaW9u
+IjoiTllDIE1ldHJvIiwiYmVkcyI6ODUsInJlYWRtaXQiOjIwLjUsInR1cm5vdmVyIjoyOS41LCJjb21wbGFpbnRSZXNwIjo4
+OC4zLCJjb21wb3NpdGUiOjU1LjMsInN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGllciI6Indhcm4iLCJ0dXJub3ZlclRp
+ZXIiOiJ3YXJuIiwiY29tcGxhaW50VGllciI6Indhcm4iLCJjb21wb3NpdGVUaWVyIjoid2FybiJ9LHsiZmFjaWxpdHkiOiJV
+dGljYSBOSCBTaXRlIDI0IiwicmVnaW9uIjoiSHVkc29uIFZhbGxleSIsImJlZHMiOjkyLCJyZWFkbWl0IjoxOS4yLCJ0dXJu
+b3ZlciI6MzEuMCwiY29tcGxhaW50UmVzcCI6OTAuMSwiY29tcG9zaXRlIjo3MS4xLCJzdGF0dXMiOiJ3YXJuaW5nIiwicmVh
+ZG1pdFRpZXIiOiJ3YXJuIiwidHVybm92ZXJUaWVyIjoid2FybiIsImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRp
+ZXIiOiJhbGVydCJ9LHsiZmFjaWxpdHkiOiJTY2hlbmVjdGFkeSBOSCBTaXRlIDI3IiwicmVnaW9uIjoiQ2FwaXRhbCBSZWdp
+b24iLCJiZWRzIjoxMjQsInJlYWRtaXQiOjE5LjEsInR1cm5vdmVyIjozMS4zLCJjb21wbGFpbnRSZXNwIjo4OS4zLCJjb21w
+b3NpdGUiOjYwLjAsInN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGllciI6Indhcm4iLCJ0dXJub3ZlclRpZXIiOiJ3YXJu
+IiwiY29tcGxhaW50VGllciI6Indhcm4iLCJjb21wb3NpdGVUaWVyIjoid2FybiJ9LHsiZmFjaWxpdHkiOiJQb3VnaGtlZXBz
+aWUgTkggU2l0ZSAzNyIsInJlZ2lvbiI6IkxvbmcgSXNsYW5kIiwiYmVkcyI6MTcyLCJyZWFkbWl0IjoxOC4yLCJ0dXJub3Zl
+ciI6MzMuMywiY29tcGxhaW50UmVzcCI6ODkuNSwiY29tcG9zaXRlIjo2NC43LCJzdGF0dXMiOiJ3YXJuaW5nIiwicmVhZG1p
+dFRpZXIiOiJ3YXJuIiwidHVybm92ZXJUaWVyIjoid2FybiIsImNvbXBsYWludFRpZXIiOiJ3YXJuIiwiY29tcG9zaXRlVGll
+ciI6Indhcm4ifSx7ImZhY2lsaXR5IjoiQWxiYW55IE5IIFNpdGUgMjkiLCJyZWdpb24iOiJMb25nIElzbGFuZCIsImJlZHMi
+OjgwLCJyZWFkbWl0IjoxNy43LCJ0dXJub3ZlciI6MzMuNywiY29tcGxhaW50UmVzcCI6ODkuOCwiY29tcG9zaXRlIjo3MS4w
+LCJzdGF0dXMiOiJ3YXJuaW5nIiwicmVhZG1pdFRpZXIiOiJvayIsInR1cm5vdmVyVGllciI6Indhcm4iLCJjb21wbGFpbnRU
+aWVyIjoid2FybiIsImNvbXBvc2l0ZVRpZXIiOiJhbGVydCJ9LHsiZmFjaWxpdHkiOiJVdGljYSBOSCBTaXRlIDQyIiwicmVn
+aW9uIjoiQ2VudHJhbCBOWSIsImJlZHMiOjEyMCwicmVhZG1pdCI6MTcuNiwidHVybm92ZXIiOjI3LjQsImNvbXBsYWludFJl
+c3AiOjg5LjIsImNvbXBvc2l0ZSI6NTguOCwic3RhdHVzIjoid2FybmluZyIsInJlYWRtaXRUaWVyIjoib2siLCJ0dXJub3Zl
+clRpZXIiOiJ3YXJuIiwiY29tcGxhaW50VGllciI6Indhcm4iLCJjb21wb3NpdGVUaWVyIjoid2FybiJ9LHsiZmFjaWxpdHki
+OiJQbGF0dHNidXJnaCBOSCBTaXRlIDI4IiwicmVnaW9uIjoiTllDIE1ldHJvIiwiYmVkcyI6OTgsInJlYWRtaXQiOjE3LjUs
+InR1cm5vdmVyIjoyOC44LCJjb21wbGFpbnRSZXNwIjo4Ni41LCJjb21wb3NpdGUiOjU4LjgsInN0YXR1cyI6Indhcm5pbmci
+LCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJUaWVyIjoid2FybiIsImNvbXBsYWludFRpZXIiOiJ3YXJuIiwiY29tcG9z
+aXRlVGllciI6Indhcm4ifSx7ImZhY2lsaXR5IjoiU3lyYWN1c2UgTkggU2l0ZSAyMiIsInJlZ2lvbiI6Ik5vcnRoIENvdW50
+cnkiLCJiZWRzIjoxMjIsInJlYWRtaXQiOjE3LjUsInR1cm5vdmVyIjoxNS45LCJjb21wbGFpbnRSZXNwIjo5NC4xLCJjb21w
+b3NpdGUiOjI5LjAsInN0YXR1cyI6Im9uX3RhcmdldCIsInJlYWRtaXRUaWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIs
+ImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJvayJ9LHsiZmFjaWxpdHkiOiJQb3VnaGtlZXBzaWUgTkgg
+U2l0ZSAwMSIsInJlZ2lvbiI6Ildlc3Rlcm4gTlkiLCJiZWRzIjoxMTUsInJlYWRtaXQiOjE3LjQsInR1cm5vdmVyIjoxOC45
+LCJjb21wbGFpbnRSZXNwIjo5My4zLCJjb21wb3NpdGUiOjQ2LjYsInN0YXR1cyI6Im9uX3RhcmdldCIsInJlYWRtaXRUaWVy
+Ijoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIsImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJvayJ9LHsi
+ZmFjaWxpdHkiOiJFbG1pcmEgTkggU2l0ZSAzNCIsInJlZ2lvbiI6IkNlbnRyYWwgTlkiLCJiZWRzIjoxNDAsInJlYWRtaXQi
+OjE3LjMsInR1cm5vdmVyIjozOC44LCJjb21wbGFpbnRSZXNwIjo4OS44LCJjb21wb3NpdGUiOjU0LjksInN0YXR1cyI6Indh
+cm5pbmciLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJUaWVyIjoiYWxlcnQiLCJjb21wbGFpbnRUaWVyIjoid2FybiIs
+ImNvbXBvc2l0ZVRpZXIiOiJvayJ9LHsiZmFjaWxpdHkiOiJOZXcgUm9jaGVsbGUgTkggU2l0ZSAzMCIsInJlZ2lvbiI6Ik5v
+cnRoIENvdW50cnkiLCJiZWRzIjoxNTIsInJlYWRtaXQiOjE3LjMsInR1cm5vdmVyIjozNy44LCJjb21wbGFpbnRSZXNwIjo5
+MC41LCJjb21wb3NpdGUiOjU1LjAsInN0YXR1cyI6Indhcm5pbmciLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJUaWVy
+IjoiYWxlcnQiLCJjb21wbGFpbnRUaWVyIjoib2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiWW9ua2Vy
+cyBOSCBTaXRlIDIzIiwicmVnaW9uIjoiU291dGhlcm4gVGllciIsImJlZHMiOjEwMywicmVhZG1pdCI6MTcuMywidHVybm92
+ZXIiOjM3LjIsImNvbXBsYWludFJlc3AiOjg2LjYsImNvbXBvc2l0ZSI6NTcuNiwic3RhdHVzIjoid2FybmluZyIsInJlYWRt
+aXRUaWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJhbGVydCIsImNvbXBsYWludFRpZXIiOiJ3YXJuIiwiY29tcG9zaXRlVGll
+ciI6Indhcm4ifSx7ImZhY2lsaXR5IjoiUm9jaGVzdGVyIE5IIFNpdGUgMjEiLCJyZWdpb24iOiJMb25nIElzbGFuZCIsImJl
+ZHMiOjEyOSwicmVhZG1pdCI6MTYuOCwidHVybm92ZXIiOjE3LjUsImNvbXBsYWludFJlc3AiOjk1LjYsImNvbXBvc2l0ZSI6
+MzIuOCwic3RhdHVzIjoib25fdGFyZ2V0IiwicmVhZG1pdFRpZXIiOiJvayIsInR1cm5vdmVyVGllciI6Im9rIiwiY29tcGxh
+aW50VGllciI6Im9rIiwiY29tcG9zaXRlVGllciI6Im9rIn0seyJmYWNpbGl0eSI6IldhdGVydG93biBOSCBTaXRlIDE1Iiwi
+cmVnaW9uIjoiU291dGhlcm4gVGllciIsImJlZHMiOjgyLCJyZWFkbWl0IjoxNi42LCJ0dXJub3ZlciI6MjUuOCwiY29tcGxh
+aW50UmVzcCI6OTUuOSwiY29tcG9zaXRlIjo0MS45LCJzdGF0dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGllciI6Im9rIiwi
+dHVybm92ZXJUaWVyIjoid2FybiIsImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJvayJ9LHsiZmFjaWxp
+dHkiOiJFbG1pcmEgTkggU2l0ZSAxNiIsInJlZ2lvbiI6Ikh1ZHNvbiBWYWxsZXkiLCJiZWRzIjo4MSwicmVhZG1pdCI6MTUu
+OCwidHVybm92ZXIiOjE3LjksImNvbXBsYWludFJlc3AiOjk2LjYsImNvbXBvc2l0ZSI6NDIuNCwic3RhdHVzIjoib25fdGFy
+Z2V0IiwicmVhZG1pdFRpZXIiOiJvayIsInR1cm5vdmVyVGllciI6Im9rIiwiY29tcGxhaW50VGllciI6Im9rIiwiY29tcG9z
+aXRlVGllciI6Im9rIn0seyJmYWNpbGl0eSI6IkJpbmdoYW10b24gTkggU2l0ZSAwOCIsInJlZ2lvbiI6Ikh1ZHNvbiBWYWxs
+ZXkiLCJiZWRzIjoxNDQsInJlYWRtaXQiOjE1LjcsInR1cm5vdmVyIjoyMS4xLCJjb21wbGFpbnRSZXNwIjo5Ni44LCJjb21w
+b3NpdGUiOjM2LjksInN0YXR1cyI6Im9uX3RhcmdldCIsInJlYWRtaXRUaWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIs
+ImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJvayJ9LHsiZmFjaWxpdHkiOiJZb25rZXJzIE5IIFNpdGUg
+MDUiLCJyZWdpb24iOiJMb25nIElzbGFuZCIsImJlZHMiOjE0NywicmVhZG1pdCI6MTQuOCwidHVybm92ZXIiOjE0LjYsImNv
+bXBsYWludFJlc3AiOjk0LjQsImNvbXBvc2l0ZSI6MzguNywic3RhdHVzIjoib25fdGFyZ2V0IiwicmVhZG1pdFRpZXIiOiJv
+ayIsInR1cm5vdmVyVGllciI6Im9rIiwiY29tcGxhaW50VGllciI6Im9rIiwiY29tcG9zaXRlVGllciI6Im9rIn0seyJmYWNp
+bGl0eSI6IkFsYmFueSBOSCBTaXRlIDExIiwicmVnaW9uIjoiQ2FwaXRhbCBSZWdpb24iLCJiZWRzIjoxMTIsInJlYWRtaXQi
+OjE0LjMsInR1cm5vdmVyIjoyNC45LCJjb21wbGFpbnRSZXNwIjo5Ny41LCJjb21wb3NpdGUiOjMwLjYsInN0YXR1cyI6Im9u
+X3RhcmdldCIsInJlYWRtaXRUaWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIsImNvbXBsYWludFRpZXIiOiJvayIsImNv
+bXBvc2l0ZVRpZXIiOiJvayJ9LHsiZmFjaWxpdHkiOiJSb2NoZXN0ZXIgTkggU2l0ZSAwMyIsInJlZ2lvbiI6IkNhcGl0YWwg
+UmVnaW9uIiwiYmVkcyI6MTI5LCJyZWFkbWl0IjoxMy42LCJ0dXJub3ZlciI6MTcuMCwiY29tcGxhaW50UmVzcCI6OTYuNCwi
+Y29tcG9zaXRlIjoyMy44LCJzdGF0dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJUaWVyIjoi
+b2siLCJjb21wbGFpbnRUaWVyIjoib2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiU2NoZW5lY3RhZHkg
+TkggU2l0ZSAwOSIsInJlZ2lvbiI6Ildlc3Rlcm4gTlkiLCJiZWRzIjoxNDIsInJlYWRtaXQiOjEzLjYsInR1cm5vdmVyIjox
+Ny45LCJjb21wbGFpbnRSZXNwIjo5Ni42LCJjb21wb3NpdGUiOjM1LjYsInN0YXR1cyI6Im9uX3RhcmdldCIsInJlYWRtaXRU
+aWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIsImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJvayJ9
+LHsiZmFjaWxpdHkiOiJUcm95IE5IIFNpdGUgMTMiLCJyZWdpb24iOiJMb25nIElzbGFuZCIsImJlZHMiOjEzNiwicmVhZG1p
+dCI6MTMuNiwidHVybm92ZXIiOjI2LjAsImNvbXBsYWludFJlc3AiOjkzLjUsImNvbXBvc2l0ZSI6MzguNywic3RhdHVzIjoi
+b25fdGFyZ2V0IiwicmVhZG1pdFRpZXIiOiJvayIsInR1cm5vdmVyVGllciI6Indhcm4iLCJjb21wbGFpbnRUaWVyIjoib2si
+LCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiQnVmZmFsbyBOSCBTaXRlIDAyIiwicmVnaW9uIjoiQ2VudHJh
+bCBOWSIsImJlZHMiOjg2LCJyZWFkbWl0IjoxMy4yLCJ0dXJub3ZlciI6MTQuNywiY29tcGxhaW50UmVzcCI6OTYuMSwiY29t
+cG9zaXRlIjoyMy4xLCJzdGF0dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJUaWVyIjoib2si
+LCJjb21wbGFpbnRUaWVyIjoib2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiV2hpdGUgUGxhaW5zIE5I
+IFNpdGUgMTgiLCJyZWdpb24iOiJDZW50cmFsIE5ZIiwiYmVkcyI6MTMzLCJyZWFkbWl0IjoxMy4xLCJ0dXJub3ZlciI6MjEu
+NiwiY29tcGxhaW50UmVzcCI6OTYuMSwiY29tcG9zaXRlIjoyOC41LCJzdGF0dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGll
+ciI6Im9rIiwidHVybm92ZXJUaWVyIjoib2siLCJjb21wbGFpbnRUaWVyIjoib2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7
+ImZhY2lsaXR5IjoiS2luZ3N0b24gTkggU2l0ZSAxNCIsInJlZ2lvbiI6Ik5vcnRoIENvdW50cnkiLCJiZWRzIjoxMTQsInJl
+YWRtaXQiOjEzLjAsInR1cm5vdmVyIjoxOC40LCJjb21wbGFpbnRSZXNwIjo5Ni4xLCJjb21wb3NpdGUiOjQ1LjksInN0YXR1
+cyI6Im9uX3RhcmdldCIsInJlYWRtaXRUaWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIsImNvbXBsYWludFRpZXIiOiJv
+ayIsImNvbXBvc2l0ZVRpZXIiOiJvayJ9LHsiZmFjaWxpdHkiOiJOaWFnYXJhIEZhbGxzIE5IIFNpdGUgMTciLCJyZWdpb24i
+OiJXZXN0ZXJuIE5ZIiwiYmVkcyI6MTMxLCJyZWFkbWl0IjoxMi42LCJ0dXJub3ZlciI6MTguOCwiY29tcGxhaW50UmVzcCI6
+OTcuMSwiY29tcG9zaXRlIjoyMi43LCJzdGF0dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJU
+aWVyIjoib2siLCJjb21wbGFpbnRUaWVyIjoib2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiVXRpY2Eg
+TkggU2l0ZSAwNiIsInJlZ2lvbiI6Ik5vcnRoIENvdW50cnkiLCJiZWRzIjo5MSwicmVhZG1pdCI6MTIuNiwidHVybm92ZXIi
+OjE1LjgsImNvbXBsYWludFJlc3AiOjkzLjcsImNvbXBvc2l0ZSI6MzEuMywic3RhdHVzIjoib25fdGFyZ2V0IiwicmVhZG1p
+dFRpZXIiOiJvayIsInR1cm5vdmVyVGllciI6Im9rIiwiY29tcGxhaW50VGllciI6Im9rIiwiY29tcG9zaXRlVGllciI6Im9r
+In0seyJmYWNpbGl0eSI6IlBsYXR0c2J1cmdoIE5IIFNpdGUgMTAiLCJyZWdpb24iOiJDZW50cmFsIE5ZIiwiYmVkcyI6MTEy
+LCJyZWFkbWl0IjoxMi4zLCJ0dXJub3ZlciI6MTYuMiwiY29tcGxhaW50UmVzcCI6OTcuOCwiY29tcG9zaXRlIjoyNC41LCJz
+dGF0dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJUaWVyIjoib2siLCJjb21wbGFpbnRUaWVy
+Ijoib2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiSXRoYWNhIE5IIFNpdGUgMDciLCJyZWdpb24iOiJT
+b3V0aGVybiBUaWVyIiwiYmVkcyI6MTYxLCJyZWFkbWl0IjoxMS44LCJ0dXJub3ZlciI6MjEuMywiY29tcGxhaW50UmVzcCI6
+OTcuMCwiY29tcG9zaXRlIjozMy4yLCJzdGF0dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJU
+aWVyIjoib2siLCJjb21wbGFpbnRUaWVyIjoib2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiQnVmZmFs
+byBOSCBTaXRlIDIwIiwicmVnaW9uIjoiTllDIE1ldHJvIiwiYmVkcyI6ODQsInJlYWRtaXQiOjExLjcsInR1cm5vdmVyIjox
+OS4wLCJjb21wbGFpbnRSZXNwIjo5NC43LCJjb21wb3NpdGUiOjI2LjEsInN0YXR1cyI6Im9uX3RhcmdldCIsInJlYWRtaXRU
+aWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIsImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIiOiJvayJ9
+LHsiZmFjaWxpdHkiOiJOZXcgUm9jaGVsbGUgTkggU2l0ZSAxMiIsInJlZ2lvbiI6Ik5ZQyBNZXRybyIsImJlZHMiOjgzLCJy
+ZWFkbWl0IjoxMS40LCJ0dXJub3ZlciI6MTkuMiwiY29tcGxhaW50UmVzcCI6OTcuNywiY29tcG9zaXRlIjoyNi42LCJzdGF0
+dXMiOiJvbl90YXJnZXQiLCJyZWFkbWl0VGllciI6Im9rIiwidHVybm92ZXJUaWVyIjoib2siLCJjb21wbGFpbnRUaWVyIjoi
+b2siLCJjb21wb3NpdGVUaWVyIjoib2sifSx7ImZhY2lsaXR5IjoiUG91Z2hrZWVwc2llIE5IIFNpdGUgMTkiLCJyZWdpb24i
+OiJDYXBpdGFsIFJlZ2lvbiIsImJlZHMiOjExMCwicmVhZG1pdCI6MTEuNCwidHVybm92ZXIiOjE3LjEsImNvbXBsYWludFJl
+c3AiOjk1LjQsImNvbXBvc2l0ZSI6NDguMSwic3RhdHVzIjoib25fdGFyZ2V0IiwicmVhZG1pdFRpZXIiOiJvayIsInR1cm5v
+dmVyVGllciI6Im9rIiwiY29tcGxhaW50VGllciI6Im9rIiwiY29tcG9zaXRlVGllciI6Im9rIn0seyJmYWNpbGl0eSI6IlN5
+cmFjdXNlIE5IIFNpdGUgMDQiLCJyZWdpb24iOiJOWUMgTWV0cm8iLCJiZWRzIjoxNDYsInJlYWRtaXQiOjExLjQsInR1cm5v
+dmVyIjoxNi44LCJjb21wbGFpbnRSZXNwIjo5Ni45LCJjb21wb3NpdGUiOjUwLjQsInN0YXR1cyI6Im9uX3RhcmdldCIsInJl
+YWRtaXRUaWVyIjoib2siLCJ0dXJub3ZlclRpZXIiOiJvayIsImNvbXBsYWludFRpZXIiOiJvayIsImNvbXBvc2l0ZVRpZXIi
+OiJvayJ9XX0=
+  </script>
+
+  <script type="text/plain" id="fallback-alert-system-b64" hidden>
+eyJ0aXRsZSI6IkFsZXJ0ICYgRXNjYWxhdGlvbiBTeXN0ZW0iLCJzdWJ0aXRsZSI6IkFjdGl2ZSBhbGVydHMgYWNyb3NzIGFs
+bCBPQUxUQyBwcm9ncmFtcyDigKIgQXV0by1nZW5lcmF0ZWQg4oCiIFVwZGF0ZWQgMDY6MTQgQU0gdG9kYXkiLCJmb290bm90
+ZSI6IkRlbW8gcm91dGluZyBsb2c7IHRpZSB0byBhbGVydGluZyBydWxlcyBhbmQgU0xBIHRhYmxlcyBmcm9tIFNlY3Rpb24g
+NyBpbiBwcm9kdWN0aW9uLiIsInN1bW1hcnkiOlt7ImxhYmVsIjoiQWN0aXZlIGFsZXJ0cyIsInZhbHVlIjoiMyIsImRldGFp
+bCI6InJlcXVpcmUgYWN0aW9uIOKJpCAyIGRheXMiLCJ0b25lIjoiYWxlcnQifSx7ImxhYmVsIjoiQWN0aXZlIHdhcm5pbmdz
+IiwidmFsdWUiOiI5IiwiZGV0YWlsIjoicmVxdWlyZSBhY3Rpb24g4omkIDUgZGF5cyIsInRvbmUiOiJ3YXJuIn0seyJsYWJl
+bCI6Ik9uIHRhcmdldCIsInZhbHVlIjoiMjIiLCJkZXRhaWwiOiJubyBhY3Rpb24gbmVlZGVkIiwidG9uZSI6Im9rIn0seyJs
+YWJlbCI6IlJlc29sdmVkIHRoaXMgbW9udGgiLCJ2YWx1ZSI6IjgiLCJkZXRhaWwiOiJhdmcgMy40IGRheXMgdG8gcmVzb2x2
+ZSIsInRvbmUiOiJuZXV0cmFsIn1dLCJsb2dUaXRsZSI6IkFjdGl2ZSBBbGVydCBMb2ciLCJjb2x1bW5zIjpbeyJrZXkiOiJs
+ZXZlbCIsImxhYmVsIjoiTGV2ZWwifSx7ImtleSI6ImZhY2lsaXR5IiwibGFiZWwiOiJGYWNpbGl0eSJ9LHsia2V5Ijoia3Bp
+IiwibGFiZWwiOiJLUEkifSx7ImtleSI6ImN1cnJlbnRWYWx1ZSIsImxhYmVsIjoiQ3VycmVudCB2YWx1ZSJ9LHsia2V5Ijoi
+dGhyZXNob2xkIiwibGFiZWwiOiJUaHJlc2hvbGQifSx7ImtleSI6InBlcmlvZHMiLCJsYWJlbCI6IkNvbnNlY3V0aXZlIHBl
+cmlvZHMifSx7ImtleSI6ImFzc2lnbmVlIiwibGFiZWwiOiJBc3NpZ25lZCB0byJ9LHsia2V5IjoiZHVlIiwibGFiZWwiOiJE
+dWUifV0sInJvd3MiOlt7ImxldmVsIjoiYWxlcnQiLCJmYWNpbGl0eSI6IkJ1ZmZhbG8gQ2FyZSBDZW50ZXIgMiIsImtwaSI6
+IjMwLURheSBSZWFkbWlzc2lvbiBSYXRlIiwiY3VycmVudFZhbHVlIjoiMjMuNyUiLCJ0aHJlc2hvbGQiOiI+MTglIiwicGVy
+aW9kcyI6IjMgY29uc2VjdXRpdmUiLCJhc3NpZ25lZSI6IkouIFJpdmVyYSAoQnVyZWF1IENoaWVmKSIsImR1ZSI6Ik1heSA2
+LCAyMDI2In0seyJsZXZlbCI6ImFsZXJ0IiwiZmFjaWxpdHkiOiJZb25rZXJzIENhcmUgQ2VudGVyIDEiLCJrcGkiOiJQcmVz
+c3VyZSBVbGNlciBSYXRlIiwiY3VycmVudFZhbHVlIjoiMy40LzEwMDAgYmVkLWRheXMiLCJ0aHJlc2hvbGQiOiI+My8xMDAw
+IiwicGVyaW9kcyI6IjMgY29uc2VjdXRpdmUiLCJhc3NpZ25lZSI6IlMuIFBhdGVsIChQcm9ncmFtIE1nci4pIiwiZHVlIjoi
+TWF5IDYsIDIwMjYifSx7ImxldmVsIjoiYWxlcnQiLCJmYWNpbGl0eSI6IlNjaGVuZWN0YWR5IENhcmUgQ2VudGVyIDEiLCJr
+cGkiOiJTdGFmZiBUdXJub3ZlciBSYXRlIiwiY3VycmVudFZhbHVlIjoiNDEuMiUiLCJ0aHJlc2hvbGQiOiI+MzUlIiwicGVy
+aW9kcyI6IjIgY29uc2VjdXRpdmUiLCJhc3NpZ25lZSI6Ik0uIENoZW4gKFdvcmtmb3JjZSBMZWFkKSIsImR1ZSI6Ik1heSA2
+LCAyMDI2In0seyJsZXZlbCI6Indhcm5pbmciLCJmYWNpbGl0eSI6IkFsYmFueSBDYXJlIENlbnRlciAxIiwia3BpIjoiMzAt
+RGF5IFJlYWRtaXNzaW9uIFJhdGUiLCJjdXJyZW50VmFsdWUiOiIxOS4yJSIsInRocmVzaG9sZCI6Ij4xOCUiLCJwZXJpb2Rz
+IjoiMSBwZXJpb2QiLCJhc3NpZ25lZSI6IkouIFJpdmVyYSAoQnVyZWF1IENoaWVmKSIsImR1ZSI6Ik1heSA5LCAyMDI2In0s
+eyJsZXZlbCI6Indhcm5pbmciLCJmYWNpbGl0eSI6IlN5cmFjdXNlIENhcmUgQ2VudGVyIDEiLCJrcGkiOiJDb21wbGFpbnQg
+SW52ZXN0aWdhdGlvbiBSYXRlIiwiY3VycmVudFZhbHVlIjoiODIuMSUiLCJ0aHJlc2hvbGQiOiI8ODUlIiwicGVyaW9kcyI6
+IjEgcGVyaW9kIiwiYXNzaWduZWUiOiJLLiBPa29ua3dvIChBbmFseXN0KSIsImR1ZSI6Ik1heSA5LCAyMDI2In0seyJsZXZl
+bCI6Indhcm5pbmciLCJmYWNpbGl0eSI6IlJvY2hlc3RlciBDYXJlIENlbnRlciAxIiwia3BpIjoiRmFsbHMgd2l0aCBJbmp1
+cnkiLCJjdXJyZW50VmFsdWUiOiIyLjEvMTAwMCBiZC1kYXlzIiwidGhyZXNob2xkIjoiPjEuNC8xMDAwIiwicGVyaW9kcyI6
+IjEgcGVyaW9kIiwiYXNzaWduZWUiOiJELiBXaWxsaWFtcyAoUXVhbGl0eSkiLCJkdWUiOiJNYXkgOSwgMjAyNiJ9LHsibGV2
+ZWwiOiJ3YXJuaW5nIiwiZmFjaWxpdHkiOiJVdGljYSBDYXJlIENlbnRlciAxIiwia3BpIjoiMzAtRGF5IFJlYWRtaXNzaW9u
+IFJhdGUiLCJjdXJyZW50VmFsdWUiOiIxOC40JSIsInRocmVzaG9sZCI6Ij4xOCUiLCJwZXJpb2RzIjoiMSBwZXJpb2QiLCJh
+c3NpZ25lZSI6IkouIFJpdmVyYSAoQnVyZWF1IENoaWVmKSIsImR1ZSI6Ik1heSA5LCAyMDI2In0seyJsZXZlbCI6Indhcm5p
+bmciLCJmYWNpbGl0eSI6Ikl0aGFjYSBDYXJlIENlbnRlciAxIiwia3BpIjoiU3RhZmYgVHVybm92ZXIgUmF0ZSIsImN1cnJl
+bnRWYWx1ZSI6IjM3LjglIiwidGhyZXNob2xkIjoiPjM1JSIsInBlcmlvZHMiOiIxIHBlcmlvZCIsImFzc2lnbmVlIjoiTS4g
+Q2hlbiAoV29ya2ZvcmNlIExlYWQpIiwiZHVlIjoiTWF5IDksIDIwMjYifSx7ImxldmVsIjoid2FybmluZyIsImZhY2lsaXR5
+IjoiTmlhZ2FyYSBGYWxscyBDYXJlIENlbnRlciAxIiwia3BpIjoiQ29tcGxhaW50IEludmVzdGlnYXRpb24gUmF0ZSIsImN1
+cnJlbnRWYWx1ZSI6IjgxLjUlIiwidGhyZXNob2xkIjoiPDg1JSIsInBlcmlvZHMiOiIxIHBlcmlvZCIsImFzc2lnbmVlIjoi
+Sy4gT2tvbmt3byAoQW5hbHlzdCkiLCJkdWUiOiJNYXkgOSwgMjAyNiJ9LHsibGV2ZWwiOiJ3YXJuaW5nIiwiZmFjaWxpdHki
+OiJFbG1pcmEgQ2FyZSBDZW50ZXIgMSIsImtwaSI6IlRpbWVsaW5lc3Mgb2YgQXNzZXNzbWVudHMiLCJjdXJyZW50VmFsdWUi
+OiI4OCUiLCJ0aHJlc2hvbGQiOiI8OTAlIiwicGVyaW9kcyI6IjEgcGVyaW9kIiwiYXNzaWduZWUiOiJULiBOZ3V5ZW4gKFJl
+Z2lvbmFsIENvYWNoKSIsImR1ZSI6Ik1heSA5LCAyMDI2In0seyJsZXZlbCI6Indhcm5pbmciLCJmYWNpbGl0eSI6IkJpbmdo
+YW10b24gQ2FyZSBDZW50ZXIgMSIsImtwaSI6IlByZXNzdXJlIFVsY2VyIFJhdGUiLCJjdXJyZW50VmFsdWUiOiIzLjEvMTAw
+MCBiZWQtZGF5cyIsInRocmVzaG9sZCI6Ij4zLzEwMDAiLCJwZXJpb2RzIjoiMSBwZXJpb2QiLCJhc3NpZ25lZSI6IlMuIFBh
+dGVsIChQcm9ncmFtIE1nci4pIiwiZHVlIjoiTWF5IDksIDIwMjYifSx7ImxldmVsIjoid2FybmluZyIsImZhY2lsaXR5Ijoi
+TmV3IFJvY2hlbGxlIENhcmUgQ2VudGVyIDEiLCJrcGkiOiJEUSBDb21wbGV0ZW5lc3MgU2NvcmUiLCJjdXJyZW50VmFsdWUi
+OiI5MS44JSIsInRocmVzaG9sZCI6Ijw5MiUiLCJwZXJpb2RzIjoiMSBwZXJpb2QiLCJhc3NpZ25lZSI6IkwuIEdvbWV6IChE
+YXRhIEVuZy4pIiwiZHVlIjoiTWF5IDksIDIwMjYifV0sInRpbWVsaW5lIjp7InRpdGxlIjoiQWxlcnQgUmVzb2x1dGlvbiBU
+aW1lbGluZSAoUGFzdCA2MCBEYXlzKSIsInN1YmhlYWRpbmciOiJXZWVrbHkgdm9sdW1lIGJ5IHJlc29sdXRpb24gc3RhdGUg
+YXQgcGVyaW9kIGNsb3NlIiwieUF4aXNMYWJlbCI6IkNvdW50IiwieU1heCI6MTYsInlUaWNrc1N0ZXAiOjQsImxlZ2VuZCI6
+W3sia2V5IjoicmVzb2x2ZWQiLCJsYWJlbCI6IlJlc29sdmVkIiwiY29sb3IiOiIjMDU5NjY5In0seyJrZXkiOiJ3YXJuaW5n
+IiwibGFiZWwiOiJPcGVuIOKAlCB3YXJuaW5nIiwiY29sb3IiOiIjZWE1ODBjIn0seyJrZXkiOiJhbGVydCIsImxhYmVsIjoi
+T3BlbiDigJQgYWxlcnQiLCJjb2xvciI6IiNkYzI2MjYifV0sIndlZWtzIjpbeyJsYWJlbCI6IkFwciA3IiwicmVzb2x2ZWQi
+OjUsIndhcm5pbmciOjYsImFsZXJ0IjoyfSx7ImxhYmVsIjoiQXByIDE0IiwicmVzb2x2ZWQiOjUsIndhcm5pbmciOjYsImFs
+ZXJ0IjoyfSx7ImxhYmVsIjoiQXByIDIxIiwicmVzb2x2ZWQiOjUsIndhcm5pbmciOjUsImFsZXJ0IjoyfSx7ImxhYmVsIjoi
+QXByIDI4IiwicmVzb2x2ZWQiOjQsIndhcm5pbmciOjYsImFsZXJ0IjoyfSx7ImxhYmVsIjoiTWF5IDUiLCJyZXNvbHZlZCI6
+NCwid2FybmluZyI6OSwiYWxlcnQiOjJ9XX19
+  </script>
+
+  <script>
+(function () {
+  var buttons = document.querySelectorAll('aside button[data-tab]');
+  var panels = document.querySelectorAll('main section.panel');
+
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function showTab(id) {
+    panels.forEach(function (p) { p.classList.toggle('active', p.id === id); });
+    buttons.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-tab') === id); });
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () { showTab(btn.getAttribute('data-tab')); });
+  });
+
+  function b64Utf8Decode(b64) {
+    var s = String(b64).replace(/\s+/g, '');
+    var bin = atob(s);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+
+  /**
+   * Try fetch JSON; on failure parse embedded fallback.
+   * @param {*} opts.b64 Use base64-encoded UTF-8 payload (formatter-safe vs raw JSON with long sql strings).
+   */
+  function loadJson(path, fallbackId, opts) {
+    opts = opts || {};
+    return fetch(path, { cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error(path + ': HTTP ' + r.status);
+        return r.json();
+      })
+      .catch(function (fetchErr) {
+        var el = document.getElementById(fallbackId);
+        if (!el || !el.textContent.trim()) throw fetchErr;
+        try {
+          var text = opts.b64 ? b64Utf8Decode(el.textContent) : el.textContent;
+          return JSON.parse(text);
+        } catch (parseErr) {
+          throw fetchErr;
+        }
+      });
+  }
+
+  var pipeMount = document.getElementById('pipeline-mount');
+
+  function renderPipeline(cfg) {
+    var html = '';
+    html += '<h2 class="pipe-main-title">' + esc(cfg.title || 'Pipeline') + '</h2>';
+    html += '<p class="pipe-subtitle">' + esc(cfg.subtitle || '') + '</p>';
+    if (cfg.lastRun) html += '<p class="pipe-last-run">' + esc(cfg.lastRun) + '</p>';
+
+    html += '<div class="pipe-summary-grid">';
+    (cfg.summary || []).forEach(function (s) {
+      var tone = s.tone === 'ok' ? ' tone-ok' : '';
+      html +=
+        '<div class="pipe-kpi-card' + tone + '">' +
+        '<div class="lbl">' + esc(s.label) + '</div>' +
+        '<div class="big">' + esc(s.value) + '</div>' +
+        (s.detail ? '<div class="sub">' + esc(s.detail) + '</div>' : '') +
+        '</div>';
+    });
+    html += '</div>';
+
+    html += '<h3 class="pipe-layers-heading">Pipeline layer status</h3>';
+
+    (cfg.layers || []).forEach(function (L) {
+      var cls = L.status === 'warn' ? 'layer-warn' : 'layer-ok';
+      var pill = L.status === 'warn'
+        ? '<span class="layer-pill warn">Warning</span>'
+        : '<span class="layer-pill ok">OK</span>';
+      html += '<article class="pipe-layer ' + cls + '">';
+      html += '<div class="pipe-layer-head"><h3>' + esc(L.title || '') + '</h3>' + pill + '</div>';
+      html += '<p class="pipe-layer-sum">' + esc(L.summary || '') + '</p>';
+      if (L.warning) html += '<p class="pipe-layer-callout"><strong>WARNING:</strong> ' + esc(L.warning) + '</p>';
+
+      if (L.breakdown && L.breakdown.length) {
+        html += '<div class="pipe-breakdown-title">' + esc(L.breakdownTitle || 'Breakdown') + '</div>';
+        html += '<div class="pipe-layer-meta"><dl>';
+        L.breakdown.forEach(function (b) {
+          html += '<dt>' + esc(b.label) + '</dt><dd>' + esc(String(b.value)) + '</dd>';
+        });
+        html += '</dl></div>';
+      }
+
+      if (L.stats && L.stats.length) {
+        html += '<div class="pipe-layer-meta"><dl>';
+        L.stats.forEach(function (st) {
+          html += '<dt>' + esc(st.label) + '</dt><dd>' + esc(String(st.value)) + '</dd>';
+        });
+        html += '</dl></div>';
+      }
+      html += '</article>';
+    });
+
+    var ch = cfg.complianceChart;
+    if (ch && ch.rows && ch.legend) {
+      html += '<div class="compliance-card">';
+      html += '<h4>' + esc(ch.title || '') + '</h4>';
+      html += '<div class="compliance-y">' + esc(ch.yAxisLabel || '') + '</div>';
+      html += '<div class="compliance-legend">';
+      ch.legend.forEach(function (lg) {
+        html += '<span><i style="background:' + lg.color + '"></i>' + esc(lg.label) + '</span>';
+      });
+      html += '</div>';
+
+      ch.rows.forEach(function (row) {
+        html += '<div class="stack-row">';
+        html += '<div class="stack-label">' + esc(row.program) +
+          ' <span class="stack-count">(' + esc(String(row.n)) + ')</span></div>';
+        html += '<div class="stack-track-wrap">';
+        html += '<div class="stack-track">';
+        var map = {};
+        ch.legend.forEach(function (lg) { map[lg.key] = lg.color; });
+        html += '<div class="seg" role="presentation" style="width:' + row.onTime + '%;background:' + (map.onTime || '#2f6f73') + '"></div>';
+        html += '<div class="seg" role="presentation" style="width:' + row.late + '%;background:' + (map.late || '#fbbf24') + '"></div>';
+        html += '<div class="seg" role="presentation" style="width:' + row.missing + '%;background:' + (map.missing || '#fca5a5') + '"></div>';
+        html += '</div>';
+        html += '<div class="stack-axis"><span>0%</span><span>50%</span><span>100%</span></div>';
+        html += '</div></div>';
+      });
+      html += '</div>';
+    }
+
+    if (cfg.lastRefreshNote) {
+      html += '<p class="lede" style="margin-top:1rem;font-size:0.82rem">' + esc(cfg.lastRefreshNote) + '</p>';
+    }
+    pipeMount.innerHTML = html;
+  }
+
+  loadJson('pipeline-config.json', 'fallback-pipeline-config').then(renderPipeline).catch(function (e) {
+    pipeMount.innerHTML =
+      '<div class="err">Could not load pipeline config: ' + esc(e.message) + '</div>' +
+      '<p class="lede">Serve this folder over HTTP or keep embedded fallback in <code>index.html</code>.</p>';
+  });
+
+  var dqMount = document.getElementById('dq-mount');
+
+  function fmtInt(n) {
+    return typeof n === 'number' ? n.toLocaleString('en-US') : String(n);
+  }
+
+  function flagRatePillClass(rate) {
+    if (rate >= 6) return 'pill-rate-bad';
+    if (rate >= 4) return 'pill-rate-warn';
+    return 'pill-rate-ok';
+  }
+
+  function renderDq(cfg) {
+    var html = '';
+    html += '<h2 class="pipe-main-title" style="margin-top:0">' + esc(cfg.title || 'Data Quality') + '</h2>';
+    if (cfg.subtitle) html += '<p class="lede">' + esc(cfg.subtitle) + '</p>';
+
+    html += '<div class="dq-summary-grid">';
+    (cfg.summary || []).forEach(function (s) {
+      var toneCls = '';
+      if (s.tone === 'ok') toneCls = ' tone-ok';
+      else if (s.tone === 'warn') toneCls = ' tone-warn';
+      else if (s.tone === 'bad') toneCls = ' tone-bad';
+      else if (s.tone === 'neutral') toneCls = ' tone-neutral';
+      html +=
+        '<div class="dq-kpi-card' + toneCls + '">' +
+        '<div class="lbl">' + esc(s.label) + '</div>' +
+        '<div class="big">' + esc(s.value) + '</div>' +
+        (s.detail ? '<div class="sub">' + esc(s.detail) + '</div>' : '') +
+        '</div>';
+    });
+    html += '</div>';
+
+    var ds = cfg.dimensionScores;
+    if (ds && ds.items && ds.items.length) {
+      html += '<div class="dq-panel">';
+      html += '<h3>' + esc(ds.title) + '</h3>';
+      ds.items.forEach(function (it) {
+        var col = it.highlight ? (ds.barWarnColor || '#d97706') : (ds.barOkColor || '#2f6f73');
+        var rowCls = 'dq-dim-row' + (it.highlight ? ' highlight' : '');
+        html += '<div class="' + rowCls + '">';
+        html += '<div class="dq-dim-top"><span class="dq-dim-name">' + esc(it.dimension) + '</span>';
+        html += '<span class="dq-dim-pct">' + esc(String(it.score)) + '%</span></div>';
+        html += '<div class="dq-dim-track"><div class="dq-dim-fill" style="width:' + it.score + '%;background:' + col + '"></div></div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    var ff = cfg.fieldFailures;
+    if (ff && ff.items && ff.items.length) {
+      var max = ff.axisMax || 600;
+      var step = ff.tickStep || 200;
+      var barC = ff.barColor || '#1e3a5f';
+      html += '<div class="dq-panel">';
+      html += '<h3>' + esc(ff.title) + '</h3>';
+      ff.items.forEach(function (it) {
+        var pct = max > 0 ? (100 * it.count / max) : 0;
+        html += '<div class="dq-fail-row">';
+        html += '<span class="dq-fail-field">' + esc(it.field) + '</span>';
+        html += '<div><div class="dq-fail-track"><div class="dq-fail-fill" style="width:' + pct + '%;background:' + barC + '"></div></div></div></div>';
+      });
+      html += '<div class="dq-fail-axis">';
+      for (var t = 0; t <= max; t += step) {
+        html += '<span>' + t + '</span>';
+      }
+      html += '</div></div>';
+    }
+
+    var fc = cfg.facilities;
+    if (fc && fc.rows && fc.rows.length) {
+      html += '<div class="dq-panel">';
+      html += '<h3>' + esc(fc.title) + '</h3>';
+      html += '<div class="dq-table-wrap"><table class="dq-table">';
+      html += '<thead><tr><th>Facility</th><th>Region</th><th class="dq-num">Records</th><th class="dq-num">Flagged</th><th>Flag rate</th><th>Primary issue</th><th>Status</th></tr></thead><tbody>';
+      fc.rows.forEach(function (row) {
+        html += '<tr>';
+        html += '<td>' + esc(row.facility) + '</td>';
+        html += '<td>' + esc(row.region) + '</td>';
+        html += '<td class="dq-num">' + fmtInt(row.records) + '</td>';
+        html += '<td class="dq-num">' + fmtInt(row.flagged) + '</td>';
+        html += '<td><span class="pill ' + flagRatePillClass(row.flagRate) + '">' + esc(String(row.flagRate)) + '%</span></td>';
+        html += '<td>' + esc(row.issue) + '</td>';
+        html += '<td><span class="pill pill-status-review">' + esc(row.status) + '</span></td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div></div>';
+    }
+
+    dqMount.innerHTML = html;
+  }
+
+  loadJson('dq-config.json', 'fallback-dq-config').then(renderDq).catch(function (e) {
+    dqMount.innerHTML =
+      '<div class="err">Could not load dq-config.json: ' + esc(e.message) + '</div>' +
+      '<p class="lede">Serve over HTTP or sync <code>#fallback-dq-config</code> in <code>index.html</code>.</p>';
+  });
+
+  function kpiBadgeClass(status) {
+    var u = String(status || '').trim().toUpperCase();
+    if (u === 'ALERT') return 'badge badge-alarm';
+    if (u === 'WARNING') return 'badge badge-warn';
+    return 'badge badge-ok';
+  }
+
+  function renderKpiTables(kpi) {
+    var tbl = document.getElementById('kpi-results-table');
+    var rHeading = document.getElementById('kpi-results-heading');
+    var note = document.getElementById('kpi-demo-foot');
+    if (!tbl || !kpi.table) return;
+    if (rHeading) rHeading.textContent = kpi.resultsTitle || 'Results';
+    if (note) note.textContent = kpi.demoNote || '';
+
+    var cols = kpi.table.columns || [];
+    var theadHtml = '<tr>';
+    cols.forEach(function (c) {
+      theadHtml += '<th>' + esc(c.label) + '</th>';
+    });
+    theadHtml += '</tr>';
+    tbl.querySelector('thead').innerHTML = theadHtml;
+
+    var bodyHtml = '';
+    (kpi.table.rows || []).forEach(function (row) {
+      bodyHtml += '<tr>';
+      cols.forEach(function (col) {
+        var v = row[col.key];
+        if (col.badge) {
+          bodyHtml += '<td><span class="' + kpiBadgeClass(v) + '">' + esc(String(v)) + '</span></td>';
+        } else if (typeof v === 'number') {
+          bodyHtml += '<td class="dq-num">' + fmtInt(v) + '</td>';
+        } else {
+          bodyHtml += '<td>' + esc(v == null ? '' : String(v)) + '</td>';
+        }
+      });
+      bodyHtml += '</tr>';
+    });
+    tbl.querySelector('tbody').innerHTML = bodyHtml;
+  }
+
+  function initKpiPanel(data) {
+    var kpis = data.kpis || [];
+    var kpiMount = document.getElementById('kpi-mount');
+    if (!kpis.length) {
+      kpiMount.innerHTML = '<div class="err">No KPIs in kpi-config.json.</div>';
+      return;
+    }
+
+    var shell = '';
+    shell += '<h2 class="pipe-main-title" style="margin-top:0">' + esc(data.pageHeading || 'KPI Calculation (SQL)') + '</h2>';
+    shell += '<p class="lede">' + esc(data.lede || '') + '</p>';
+    shell += '<div class="kpi-toolbar"><label for="kpi-select">Select KPI:</label><select id="kpi-select" aria-label="Select KPI"></select></div>';
+    shell += '<div class="dq-panel"><h3>BigQuery SQL view</h3>';
+    shell += '<p class="kpi-mini-title" id="kpi-info-title"></p>';
+    shell += '<p class="view-tag" id="kpi-view-line"></p>';
+    shell += '<p class="lede" id="kpi-info-desc" style="margin-bottom:0.65rem;font-size:0.86rem;"></p>';
+    shell += '<pre class="sql" id="kpi-sql"></pre></div>';
+    shell += '<div class="dq-panel"><h3 id="kpi-results-heading">Results</h3>';
+    shell += '<p class="kpi-demo-foot" id="kpi-demo-foot"></p>';
+    shell += '<div class="dq-table-wrap"><table class="dq-table" id="kpi-results-table"><thead></thead><tbody></tbody></table></div></div>';
+
+    kpiMount.innerHTML = shell;
+
+    var sel = document.getElementById('kpi-select');
+    kpis.forEach(function (k, i) {
+      var opt = document.createElement('option');
+      opt.value = String(i);
+      opt.textContent = k.selectLabel || k.title || k.id;
+      sel.appendChild(opt);
+    });
+
+    function showIdx(i) {
+      var kpi = kpis[parseInt(i, 10)];
+      if (!kpi) return;
+      document.getElementById('kpi-info-title').textContent = kpi.title || '';
+      document.getElementById('kpi-view-line').textContent = kpi.viewName ? 'VIEW `' + kpi.viewName + '`' : '';
+      document.getElementById('kpi-info-desc').textContent = kpi.description || '';
+      document.getElementById('kpi-sql').textContent = kpi.sql || '';
+      renderKpiTables(kpi);
+    }
+
+    sel.addEventListener('change', function () { showIdx(sel.value); });
+    showIdx(0);
+  }
+
+  var kpiMount = document.getElementById('kpi-mount');
+  loadJson('kpi-config.json', 'fallback-kpi-b64', { b64: true }).then(initKpiPanel).catch(function (e) {
+    kpiMount.innerHTML =
+      '<div class="err">Could not load kpi-config.json: ' + esc(e.message) + '</div>' +
+      '<p class="lede">Use HTTP(s) hosting or regenerate <code>#fallback-kpi-b64</code> from <code>kpi-config.json</code>.</p>';
+  });
+
+  function execBadgeFromStatus(status) {
+    var s = String(status || '').replace(/-/g, '_').toLowerCase();
+    if (s === 'alert' || s === 'alert_t') return { cls: 'badge badge-alarm', text: 'ALERT' };
+    if (s === 'warning') return { cls: 'badge badge-warn', text: 'WARNING' };
+    return { cls: 'badge badge-ok', text: 'ON TARGET' };
+  }
+
+  function execTierClass(status) {
+    var s = String(status || '').replace(/-/g, '_').toLowerCase();
+    if (s === 'alert' || s === 'alert_t') return 'tier-alert';
+    if (s === 'warning') return 'tier-warning';
+    return 'tier-on_target';
+  }
+
+  function execValueToneClass(tone) {
+    var t = String(tone || 'warn').toLowerCase();
+    if (t === 'ok') return 'exec-val-ok';
+    if (t === 'bad') return 'exec-val-bad';
+    return 'exec-val-warn';
+  }
+
+  function barTierFill(tier) {
+    var t = String(tier || 'warn').toLowerCase();
+    if (t === 'alert') return '#dc2626';
+    if (t === 'ok') return '#059669';
+    return '#ea580c';
+  }
+
+  function renderExecTrendSvg(rt) {
+    var yMin = rt.yMin;
+    var yMax = rt.yMax;
+    var target = rt.targetPct;
+    var vals = rt.values || [];
+    var months = rt.months || [];
+    var n = months.length;
+    if (!n) return '';
+    var w = 680;
+    var h = 260;
+    var padL = 46;
+    var padR = 28;
+    var padT = 28;
+    var padB = 52;
+    var iw = w - padL - padR;
+    var ih = h - padT - padB;
+    var xm = Math.max(n - 1, 1);
+
+    function yScale(v) {
+      return padT + ih * (1 - (v - yMin) / (yMax - yMin));
+    }
+
+    function xScale(i) {
+      return padL + (iw * i) / xm;
+    }
+
+    var lc = rt.lineColor || '#2f6f73';
+    var tc = rt.targetLineColor || '#9ca3af';
+    var parts = [];
+
+    parts.push(
+      '<svg class="exec-chart-svg" viewBox="0 0 ' + w + ' ' + h +
+        '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' +
+        esc((rt.subheading || 'Trend chart').replace(/"/g, '')) +
+        '">'
+    );
+
+    for (var g = yMin; g <= yMax; g++) {
+      var gy = yScale(g);
+      parts.push(
+        '<line x1="' +
+          padL +
+          '" y1="' +
+          gy +
+          '" x2="' +
+          (w - padR) +
+          '" y2="' +
+          gy +
+          '" stroke="#eef2f7" stroke-width="1"/>'
+      );
+      parts.push(
+        '<text x="' +
+          (padL - 8) +
+          '" y="' +
+          (gy + 4) +
+          '" font-size="10" fill="#9ca3af" text-anchor="end">' +
+          g +
+          '%</text>'
+      );
+    }
+
+    var yt = yScale(target);
+    parts.push(
+      '<line x1="' +
+        padL +
+        '" y1="' +
+        yt +
+        '" x2="' +
+        (w - padR) +
+        '" y2="' +
+        yt +
+        '" stroke="' +
+        tc +
+        '" stroke-width="1.6" stroke-dasharray="7 6"/>'
+    );
+
+    var pathD = '';
+    for (var i = 0; i < n; i++) {
+      var xv = xScale(i);
+      var yv = yScale(vals[i]);
+      pathD += (i ? ' L ' : 'M ') + xv + ' ' + yv;
+    }
+    parts.push(
+      '<path d="' +
+        pathD +
+        '" fill="none" stroke="' +
+        lc +
+        '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
+    );
+
+    for (var ci = 0; ci < n; ci++) {
+      var cxx = xScale(ci);
+      var cyy = yScale(vals[ci]);
+      parts.push(
+        '<circle cx="' +
+          cxx +
+          '" cy="' +
+          cyy +
+          '" r="5" fill="#fff" stroke="' +
+          lc +
+          '" stroke-width="2"/>'
+      );
+    }
+
+    for (var mi = 0; mi < n; mi++) {
+      parts.push(
+        '<text x="' +
+          xScale(mi) +
+          '" y="' +
+          (h - 18) +
+          '" font-size="10" fill="#64748b" text-anchor="middle">' +
+          esc(months[mi]) +
+          '</text>'
+      );
+    }
+
+    parts.push('</svg>');
+    return parts.join('');
+  }
+
+  function renderExecBarsSvg(eq) {
+    var bars = eq.bars || [];
+    var yMax = eq.yMax || 0.35;
+    if (!bars.length) return '';
+
+    var w = 680;
+    var h = 284;
+    var padL = 44;
+    var padR = 16;
+    var padT = 16;
+    var padB = 88;
+    var iw = w - padL - padR;
+    var ih = h - padT - padB;
+    var nb = bars.length;
+    var gap = 12;
+    var bw = (iw - gap * (nb - 1)) / nb;
+    var baseY = padT + ih;
+
+    var parts = [];
+    parts.push(
+      '<svg class="exec-chart-svg" viewBox="0 0 ' + w + ' ' + h +
+        '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' +
+        esc((eq.heading || 'Regional chart').replace(/"/g, '')) +
+        '">'
+    );
+
+    var ticks = eq.yTicks || [0, 0.07, 0.14, 0.21, 0.28, 0.35];
+    for (var ti = 0; ti < ticks.length; ti++) {
+      var tv = ticks[ti];
+      var gyl = padT + ih * (1 - tv / yMax);
+      parts.push(
+        '<line x1="' +
+          padL +
+          '" y1="' +
+          gyl +
+          '" x2="' +
+          (w - padR) +
+          '" y2="' +
+          gyl +
+          '" stroke="#eef2f7" stroke-width="1"/>'
+      );
+      parts.push(
+        '<text x="' +
+          (padL - 6) +
+          '" y="' +
+          (gyl + 3) +
+          '" font-size="9" fill="#9ca3af" text-anchor="end">' +
+          tv.toFixed(2) +
+          '</text>'
+      );
+    }
+
+    for (var bi = 0; bi < nb; bi++) {
+      var val = bars[bi].value;
+      var barH = ih * (val / yMax);
+      var bx = padL + bi * (bw + gap);
+      var by = baseY - barH;
+      var fill = barTierFill(bars[bi].tier);
+      parts.push(
+        '<rect x="' +
+          bx +
+          '" y="' +
+          by +
+          '" width="' +
+          bw +
+          '" height="' +
+          Math.max(barH, 2) +
+          '" rx="4" fill="' +
+          fill +
+          '" opacity="0.92"/>'
+      );
+      parts.push(
+        '<text x="' +
+          (bx + bw / 2) +
+          '" y="' +
+          (by - 6) +
+          '" font-size="9.5" font-weight="600" fill="#374151" text-anchor="middle">' +
+          val.toFixed(2) +
+          '</text>'
+      );
+      var rn = bars[bi].region;
+      parts.push(
+        '<text x="' +
+          (bx + bw / 2) +
+          '" y="' +
+          (h - 54) +
+          '" font-size="9" fill="#475569" text-anchor="middle">' +
+          esc(rn) +
+          '</text>'
+      );
+    }
+
+    parts.push('</svg>');
+    return parts.join('');
+  }
+
+  function renderExecDashboard(cfg) {
+    var execMount = document.getElementById('exec-mount');
+    var html = '';
+    html += '<h2 class="pipe-main-title" style="margin-top:0">' + esc(cfg.title || 'Executive scorecard') + '</h2>';
+    html += '<p class="pipe-subtitle">' + esc(cfg.subtitle || '') + '</p>';
+    if (cfg.footnote) {
+      html += '<p class="lede" style="margin-top:-0.25rem;margin-bottom:1rem;font-size:0.82rem">' + esc(cfg.footnote) + '</p>';
+    }
+
+    html += '<div class="exec-metric-strip">';
+    (cfg.metrics || []).forEach(function (m) {
+      var st = execBadgeFromStatus(m.status);
+      html += '<div class="exec-metric-card ' + execTierClass(m.status) + '">';
+      html += '<div class="lbl">' + esc(m.label) + '</div>';
+      html += '<div class="big ' + execValueToneClass(m.valueTone) + '">' + esc(String(m.value == null ? '—' : m.value)) + '</div>';
+      html += '<div class="exec-metric-rows">';
+      html += '<div><span>Target</span><span>' + esc(String(m.target != null ? m.target : '')) + '</span></div>';
+      html += '<div><span>Trend</span><span>' + esc(String(m.trendLabel != null ? m.trendLabel : '')) + '</span></div>';
+      html += '</div>';
+      html += '<div class="exec-metric-status"><span class="' + st.cls + '">' + st.text + '</span></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    if (cfg.readmissionTrend && cfg.readmissionTrend.months) {
+      var rt = cfg.readmissionTrend;
+      html += '<div class="exec-chart-panel">';
+      html += '<h3>' + esc(rt.heading || '') + '</h3>';
+      html += '<p class="sub">' + esc(rt.subheading || '') + '</p>';
+      html += renderExecTrendSvg(rt);
+      html += '<div class="exec-legend">';
+      html += '<span><i style="height:4px;border-radius:2px;background:' + (rt.lineColor || '#2f6f73') + '"></i> Readmission rate (%)</span>';
+      html +=
+        '<span style="gap:0.45rem;"><svg width="26" height="8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="0" y1="4" x2="26" y2="4" stroke="' +
+        (rt.targetLineColor || '#9ca3af') +
+        '" stroke-width="2" stroke-dasharray="5 4"/></svg> Target (' +
+        esc(String(rt.targetPct)) +
+        '%)</span>';
+      html += '</div></div>';
+    }
+
+    if (cfg.equityByRegion && cfg.equityByRegion.bars) {
+      var eq = cfg.equityByRegion;
+      html += '<div class="exec-chart-panel">';
+      html += '<h3>' + esc(eq.heading || '') + '</h3>';
+      html += renderExecBarsSvg(eq);
+      html += '</div>';
+    }
+
+    execMount.innerHTML = html;
+  }
+
+  var execMount = document.getElementById('exec-mount');
+  loadJson('exec-scorecard-config.json', 'fallback-exec-scorecard').then(renderExecDashboard).catch(function (e) {
+    execMount.innerHTML =
+      '<div class="err">Could not load exec-scorecard-config.json: ' + esc(e.message) + '</div>';
+  });
+
+  var pmMount = document.getElementById('program-monitor-mount');
+
+  function pmTierCellClass(tier) {
+    var t = String(tier || '').toLowerCase();
+    if (t === 'alert') return 'pm-txt-alert';
+    if (t === 'warn') return 'pm-txt-warn';
+    return 'pm-txt-ok';
+  }
+
+  function pmStatusBadge(status) {
+    var s = String(status || '').toLowerCase();
+    if (s === 'alert') return { cls: 'badge badge-alarm', text: 'ALERT' };
+    if (s === 'warning') return { cls: 'badge badge-warn', text: 'WARNING' };
+    return { cls: 'badge badge-ok', text: 'ON TARGET' };
+  }
+
+  function initProgramMonitor(cfg) {
+    if (!pmMount) return;
+    var rawRows = cfg.rows || [];
+    var fl = cfg.filters || {};
+    var sumLab = cfg.summaryLabels || {};
+    var regions = [];
+    var seen = {};
+    rawRows.forEach(function (r) {
+      var reg = r.region;
+      if (reg && !seen[reg]) {
+        seen[reg] = true;
+        regions.push(reg);
+      }
+    });
+    regions.sort();
+
+    var shell = '';
+    shell += '<h2 class="pipe-main-title" style="margin-top:0">' + esc(cfg.title || 'Program Performance Monitor') + '</h2>';
+    shell += '<p class="pipe-subtitle">' + esc(cfg.subtitle || '') + '</p>';
+    if (cfg.footnote) {
+      shell += '<p class="lede" style="margin-top:-0.2rem;margin-bottom:0.9rem;font-size:0.82rem">' + esc(cfg.footnote) + '</p>';
+    }
+
+    shell += '<div class="pm-toolbar">';
+    shell += '<div class="pm-field"><label for="pm-region">' + esc(fl.region || 'Region') + '</label>';
+    shell += '<select id="pm-region" aria-label="Filter by region">';
+    shell += '<option value="__all">' + esc(fl.regionAll || 'All regions') + '</option>';
+    regions.forEach(function (rg) {
+      shell += '<option value="' + esc(rg) + '">' + esc(rg) + '</option>';
+    });
+    shell += '</select></div>';
+
+    shell += '<div class="pm-field"><label for="pm-status">' + esc(fl.status || 'Status') + '</label>';
+    shell += '<select id="pm-status" aria-label="Filter by status">';
+    (fl.statusOptions || []).forEach(function (o) {
+      shell +=
+        '<option value="' +
+        esc(String(o.value)) +
+        '"' +
+        (o.value === 'all' ? ' selected' : '') +
+        '>' +
+        esc(o.label) +
+        '</option>';
+    });
+    shell += '</select></div>';
+
+    shell += '<div class="pm-field"><label for="pm-sort">' + esc(fl.sort || 'Sort by') + '</label>';
+    shell += '<select id="pm-sort" aria-label="Sort table">';
+    (fl.sortOptions || []).forEach(function (o, idx) {
+      shell +=
+        '<option value="' +
+        esc(String(o.value)) +
+        '"' +
+        (idx === 0 ? ' selected' : '') +
+        '>' +
+        esc(o.label) +
+        '</option>';
+    });
+    shell += '</select></div>';
+    shell += '</div>';
+
+    shell += '<div class="pm-summary">';
+    shell +=
+      '<div class="pm-sum-card sum-neutral"><div class="lb">' +
+      esc(sumLab.shown || 'Facilities shown') +
+      '</div><div class="num" id="pm-n-shown">0</div></div>';
+    shell +=
+      '<div class="pm-sum-card sum-ok"><div class="lb">' +
+      esc(sumLab.onTarget || 'On target') +
+      '</div><div class="num" id="pm-n-on">0</div></div>';
+    shell +=
+      '<div class="pm-sum-card sum-warn"><div class="lb">' +
+      esc(sumLab.warning || 'Warning') +
+      '</div><div class="num" id="pm-n-warn">0</div></div>';
+    shell +=
+      '<div class="pm-sum-card sum-alert"><div class="lb">' +
+      esc(sumLab.alert || 'Alert') +
+      '</div><div class="num" id="pm-n-alert">0</div></div>';
+    shell += '</div>';
+
+    shell += '<div class="dq-panel pm-table-shell">';
+    shell += '<div class="pm-table-head"><h3>' + esc((cfg.tableTitle || 'Facility KPI rankings').toUpperCase()) + '</h3></div>';
+    shell += '<div class="pm-table-scroll"><table class="dq-table pm-table"><thead><tr>';
+    shell += '<th>Facility</th><th>Region</th><th class="pm-num">Beds</th>';
+    shell += '<th class="pm-num">Readmit rate</th><th class="pm-num">Turnover %</th>';
+    shell += '<th class="pm-num">Complaint resp.</th><th class="pm-num">Composite risk</th><th>Status</th>';
+    shell += '</tr></thead><tbody id="pm-tbody"></tbody></table></div>';
+    shell += '<div class="pm-scroll-hint" id="pm-scroll-hint" hidden>↓ Scroll for more facilities</div>';
+    shell += '</div>';
+
+    pmMount.innerHTML = shell;
+
+    var regionSel = document.getElementById('pm-region');
+    var statusSel = document.getElementById('pm-status');
+    var sortSel = document.getElementById('pm-sort');
+    var tbody = document.getElementById('pm-tbody');
+    var hint = document.getElementById('pm-scroll-hint');
+
+    function filteredSorted() {
+      var reg = regionSel.value;
+      var st = statusSel.value;
+      var sort = sortSel.value;
+      var list = rawRows.slice();
+      if (reg && reg !== '__all') {
+        list = list.filter(function (r) {
+          return r.region === reg;
+        });
+      }
+      if (st && st !== 'all') {
+        list = list.filter(function (r) {
+          return r.status === st;
+        });
+      }
+      list.sort(function (a, b) {
+        if (sort === 'facility') {
+          return String(a.facility || '').localeCompare(String(b.facility || ''), undefined, { sensitivity: 'base' });
+        }
+        var ka;
+        var kb;
+        if (sort === 'readmit') {
+          ka = a.readmit;
+          kb = b.readmit;
+        } else if (sort === 'turnover') {
+          ka = a.turnover;
+          kb = b.turnover;
+        } else {
+          ka = a.composite;
+          kb = b.composite;
+        }
+        if (kb !== ka) return kb - ka;
+        return String(a.facility || '').localeCompare(String(b.facility || ''));
+      });
+      return list;
+    }
+
+    function renderPm() {
+      var list = filteredSorted();
+      var nOn = 0;
+      var nWarn = 0;
+      var nAlert = 0;
+      for (var i = 0; i < list.length; i++) {
+        var s = String(list[i].status || '').toLowerCase();
+        if (s === 'on_target') nOn++;
+        else if (s === 'warning') nWarn++;
+        else if (s === 'alert') nAlert++;
+      }
+      document.getElementById('pm-n-shown').textContent = String(list.length);
+      document.getElementById('pm-n-on').textContent = String(nOn);
+      document.getElementById('pm-n-warn').textContent = String(nWarn);
+      document.getElementById('pm-n-alert').textContent = String(nAlert);
+
+      var rowsHtml = '';
+      list.forEach(function (r) {
+        var sb = pmStatusBadge(r.status);
+        rowsHtml += '<tr>';
+        rowsHtml += '<td>' + esc(r.facility) + '</td>';
+        rowsHtml += '<td>' + esc(r.region) + '</td>';
+        rowsHtml += '<td class="pm-num">' + esc(String(r.beds != null ? r.beds : '')) + '</td>';
+        rowsHtml +=
+          '<td class="pm-num ' +
+          pmTierCellClass(r.readmitTier) +
+          '">' +
+          esc(r.readmit != null ? r.readmit.toFixed(1) + '%' : '') +
+          '</td>';
+        rowsHtml +=
+          '<td class="pm-num ' +
+          pmTierCellClass(r.turnoverTier) +
+          '">' +
+          esc(r.turnover != null ? r.turnover.toFixed(1) + '%' : '') +
+          '</td>';
+        rowsHtml +=
+          '<td class="pm-num ' +
+          pmTierCellClass(r.complaintTier) +
+          '">' +
+          esc(r.complaintResp != null ? r.complaintResp.toFixed(1) + '%' : '') +
+          '</td>';
+        rowsHtml +=
+          '<td class="pm-num ' +
+          pmTierCellClass(r.compositeTier) +
+          '">' +
+          esc(r.composite != null ? r.composite.toFixed(1) : '') +
+          '</td>';
+        rowsHtml += '<td><span class="' + sb.cls + '">' + esc(sb.text) + '</span></td>';
+        rowsHtml += '</tr>';
+      });
+      tbody.innerHTML = rowsHtml;
+      if (hint) hint.hidden = list.length <= 12;
+    }
+
+    regionSel.addEventListener('change', renderPm);
+    statusSel.addEventListener('change', renderPm);
+    sortSel.addEventListener('change', renderPm);
+    renderPm();
+  }
+
+  loadJson('program-monitor-config.json', 'fallback-program-monitor-b64', { b64: true })
+    .then(initProgramMonitor)
+    .catch(function (e) {
+      if (pmMount) {
+        pmMount.innerHTML =
+          '<div class="err">Could not load program-monitor-config.json: ' + esc(e.message) + '</div>' +
+          '<p class="lede">Serve over HTTP or regenerate <code>#fallback-program-monitor-b64</code> from <code>program-monitor-config.json</code>.</p>';
+      }
+    });
+
+  var alertMount = document.getElementById('alert-system-mount');
+
+  function renderAlertTimelineSvg(tl) {
+    var weeks = tl.weeks || [];
+    if (!weeks.length) return '';
+    var yMax = tl.yMax || 16;
+    var step = tl.yTicksStep || 4;
+    var lg = tl.legend || [];
+    var legendMap = {};
+    lg.forEach(function (L) {
+      legendMap[L.key] = L.color;
+    });
+
+    var w = 680;
+    var h = 296;
+    var padL = 44;
+    var padR = 20;
+    var padT = 28;
+    var padB = 88;
+    var iw = w - padL - padR;
+    var ih = h - padT - padB;
+    var nw = weeks.length;
+    var gap = 14;
+    var bw = nw > 0 ? (iw - gap * (nw - 1)) / nw : 24;
+    var baseY = padT + ih;
+    var hs = ih / yMax;
+
+    var parts = [];
+    parts.push(
+      '<svg class="as-timeline-svg" viewBox="0 0 ' +
+        w +
+        ' ' +
+        h +
+        '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' +
+        esc(String(tl.title || 'Timeline').replace(/"/g, '')) +
+        '">'
+    );
+
+    for (var gv = 0; gv <= yMax; gv += step) {
+      var gy = baseY - hs * gv;
+      parts.push(
+        '<line x1="' +
+          padL +
+          '" y1="' +
+          gy +
+          '" x2="' +
+          (w - padR) +
+          '" y2="' +
+          gy +
+          '" stroke="#eef2f7" stroke-width="1"/>'
+      );
+      parts.push(
+        '<text x="' +
+          (padL - 8) +
+          '" y="' +
+          (gy + 4) +
+          '" font-size="10" fill="#9ca3af" text-anchor="end">' +
+          gv +
+          '</text>'
+      );
+    }
+
+    for (var i = 0; i < nw; i++) {
+      var week = weeks[i];
+      var r = week.resolved || 0;
+      var wa = week.warning || 0;
+      var al = week.alert || 0;
+      var x = padL + i * (bw + gap);
+      var hR = hs * r;
+      var hW = hs * wa;
+      var hA = hs * al;
+      var y = baseY;
+      y -= hR;
+      if (hR > 0.5) {
+        parts.push(
+          '<rect x="' +
+            x +
+            '" y="' +
+            y +
+            '" width="' +
+            bw +
+            '" height="' +
+            Math.max(hR, 2) +
+            '" rx="3" fill="' +
+            (legendMap.resolved || '#059669') +
+            '" opacity="0.95"/>'
+        );
+      }
+      y -= hW;
+      if (hW > 0.5) {
+        parts.push(
+          '<rect x="' +
+            x +
+            '" y="' +
+            y +
+            '" width="' +
+            bw +
+            '" height="' +
+            Math.max(hW, 2) +
+            '" rx="3" fill="' +
+            (legendMap.warning || '#ea580c') +
+            '" opacity="0.95"/>'
+        );
+      }
+      y -= hA;
+      if (hA > 0.5) {
+        parts.push(
+          '<rect x="' +
+            x +
+            '" y="' +
+            y +
+            '" width="' +
+            bw +
+            '" height="' +
+            Math.max(hA, 2) +
+            '" rx="3" fill="' +
+            (legendMap.alert || '#dc2626') +
+            '" opacity="0.95"/>'
+        );
+      }
+      parts.push(
+        '<text x="' +
+          (x + bw / 2) +
+          '" y="' +
+          (h - 22) +
+          '" font-size="10" fill="#64748b" text-anchor="middle">' +
+          esc(week.label) +
+          '</text>'
+      );
+    }
+
+    if (tl.yAxisLabel) {
+      parts.push(
+        '<text transform="rotate(-90 ' +
+          (padL - 24) +
+          ',' +
+          (padT + ih / 2) +
+          ')" x="' +
+          (padL - 24) +
+          '" y="' +
+          (padT + ih / 2) +
+          '" font-size="10" fill="#6b7280" text-anchor="middle">' +
+          esc(tl.yAxisLabel) +
+          '</text>'
+      );
+    }
+
+    parts.push('</svg>');
+    return parts.join('');
+  }
+
+  function renderAlertSystem(cfg) {
+    if (!alertMount) return;
+    function sumToneCls(tone) {
+      var t = String(tone || 'neutral').toLowerCase();
+      if (t === 'alert' || t === 'bad') return ' sum-alert';
+      if (t === 'warn') return ' sum-warn';
+      if (t === 'ok') return ' sum-ok';
+      return ' sum-neutral';
+    }
+    function levelBadge(lvl) {
+      var s = String(lvl || '').toLowerCase();
+      if (s === 'alert') return { cls: 'badge badge-alarm', text: 'ALERT' };
+      return { cls: 'badge badge-warn', text: 'WARNING' };
+    }
+
+    var html = '';
+    html += '<h2 class="pipe-main-title" style="margin-top:0">' + esc(cfg.title || '') + '</h2>';
+    html += '<p class="pipe-subtitle">' + esc(cfg.subtitle || '') + '</p>';
+    if (cfg.footnote) {
+      html +=
+        '<p class="lede" style="margin-top:-0.2rem;margin-bottom:0.9rem;font-size:0.82rem">' +
+        esc(cfg.footnote) +
+        '</p>';
+    }
+
+    html += '<div class="pm-summary">';
+    (cfg.summary || []).forEach(function (s) {
+      html +=
+        '<div class="pm-sum-card' +
+        sumToneCls(s.tone) +
+        '">' +
+        '<div class="lb">' +
+        esc(s.label || '') +
+        '</div>' +
+        '<div class="num">' +
+        esc(String(s.value == null ? '' : s.value)) +
+        '</div>' +
+        (s.detail
+          ? '<div class="sub" style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;line-height:1.35">' +
+            esc(s.detail) +
+            '</div>'
+          : '') +
+        '</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="dq-panel" style="margin-top:1rem">';
+    html += '<h3>' + esc(cfg.logTitle || 'Active Alert Log') + '</h3>';
+    html += '<div class="dq-table-wrap"><table class="dq-table as-alert-table"><thead><tr>';
+    var cols = cfg.columns || [];
+    cols.forEach(function (c) {
+      html += '<th>' + esc(c.label || c.key) + '</th>';
+    });
+    html += '</tr></thead><tbody>';
+    (cfg.rows || []).forEach(function (row) {
+      html += '<tr>';
+      cols.forEach(function (c) {
+        var key = c.key;
+        var cell = row[key];
+        if (key === 'level') {
+          var b = levelBadge(cell);
+          html += '<td class="as-level"><span class="' + b.cls + '">' + esc(b.text) + '</span></td>';
+        } else {
+          html += '<td>' + esc(cell == null ? '' : String(cell)) + '</td>';
+        }
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table></div></div>';
+
+    var tl = cfg.timeline;
+    if (tl && tl.weeks && tl.weeks.length) {
+      html += '<div class="as-chart-panel">';
+      html += '<h3>' + esc(tl.title || '') + '</h3>';
+      if (tl.subheading) html += '<p class="sub">' + esc(tl.subheading) + '</p>';
+      html += renderAlertTimelineSvg(tl);
+      html += '<div class="as-timeline-legend">';
+      (tl.legend || []).forEach(function (leg) {
+        html +=
+          '<span><i style="background:' +
+          esc(leg.color || '#ccc') +
+          '"></i>' +
+          esc(leg.label) +
+          '</span>';
+      });
+      html += '</div></div>';
+    }
+
+    alertMount.innerHTML = html;
+  }
+
+  loadJson('alert-system-config.json', 'fallback-alert-system-b64', { b64: true })
+    .then(renderAlertSystem)
+    .catch(function (e) {
+      if (alertMount) {
+        alertMount.innerHTML =
+          '<div class="err">Could not load alert-system-config.json: ' +
+          esc(e.message) +
+          '</div>' +
+          '<p class="lede">Serve over HTTP or regenerate <code>#fallback-alert-system-b64</code> from <code>alert-system-config.json</code>.</p>';
+      }
+    });
+
+  showTab('p31');
+})();
+  </script>
+</body>
+</html>
